@@ -8,11 +8,11 @@ import (
 	"io/ioutil"
 	"log"
 
+	"github.com/betorvs/playbypost-dnd/appcontext"
+	"github.com/betorvs/playbypost-dnd/config"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
-	"github.com/betorvs/playbypost-dnd-api/appcontext"
-	"github.com/betorvs/playbypost-dnd-api/config"
 )
 
 //DatabaseName in MongoDB

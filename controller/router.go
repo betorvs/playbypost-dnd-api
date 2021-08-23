@@ -1,7 +1,7 @@
 package controller
 
 import (
-	"github.com/betorvs/playbypost-dnd-api/config"
+	"github.com/betorvs/playbypost-dnd/config"
 	"github.com/labstack/echo-contrib/prometheus"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
@@ -9,7 +9,7 @@ import (
 
 //MapRoutes for the endpoints which the API listens for
 func MapRoutes(e *echo.Echo) {
-	g := e.Group("/playbypost-dnd-api/v1")
+	g := e.Group("/playbypost-dnd/v1")
 	if config.Values.UsePrometheus {
 		p := prometheus.NewPrometheus("echo", nil)
 		p.Use(e)

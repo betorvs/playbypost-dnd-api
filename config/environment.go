@@ -1,7 +1,7 @@
 package config
 
 import (
-	"github.com/spf13/viper"
+	"os"
 )
 
 //Values stores the current configuration values
@@ -25,18 +25,20 @@ type Config struct {
 	UsePrometheus bool
 }
 
+// GetEnv gets an environment variable content or a default value
+func GetEnv(key, defaultValue string) string {
+	if value, ok := os.LookupEnv(key); ok {
+		return value
+	}
+	return defaultValue
+}
+
 func init() {
-	_ = viper.BindEnv("DBConnectionString", "DB_CONNECTION_STRING")
-	_ = viper.BindEnv("DBConnectionCertificateFileName", "DB_CONNECTION_CERTIFICATE_FILE_NAME")
-	_ = viper.BindEnv("TestRun", "TESTRUN")
-	viper.SetDefault("TestRun", false)
-	_ = viper.BindEnv("UsePrometheus", "USEPROMETHEUS")
-	viper.SetDefault("UsePrometheus", false)
-	_ = viper.BindEnv("Port", "PORT")
-	viper.SetDefault("Port", "8080")
-	_ = viper.BindEnv("AppName", "APP_NAME")
-	viper.SetDefault("AppName", "playbypost-dnd-api")
-	_ = viper.BindEnv("LogLevel", "LOG_LEVEL")
-	viper.SetDefault("LogLevel", "INFO")
-	_ = viper.Unmarshal(&Values)
+	Values.TestRun = GetEnv("TESTRUN", "false") == "true"
+	Values.UsePrometheus = GetEnv("USEPROMETHEUS", "false") == "true"
+	Values.Port = GetEnv("PORT", "8080")
+	Values.AppName = GetEnv("APP_NAME", "playbypost-dnd")
+	Values.LogLevel = GetEnv("LOG_LEVEL", "INFO")
+	Values.DBConnectionCertificateFileName = GetEnv("DB_CONNECTION_CERTIFICATE_FILE_NAME", "")
+	Values.DBConnectionString = GetEnv("DB_CONNECTION_STRING", "")
 }

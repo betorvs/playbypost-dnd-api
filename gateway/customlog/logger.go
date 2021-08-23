@@ -1,8 +1,8 @@
 package customlog
 
 import (
-	"github.com/betorvs/playbypost-dnd-api/appcontext"
-	"github.com/betorvs/playbypost-dnd-api/config"
+	"github.com/betorvs/playbypost-dnd/appcontext"
+	"github.com/betorvs/playbypost-dnd/config"
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
 )

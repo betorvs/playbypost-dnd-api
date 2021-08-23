@@ -5,7 +5,7 @@ import (
 	"net/http/httptest"
 	"testing"
 
-	"github.com/betorvs/playbypost-dnd-api/config"
+	"github.com/betorvs/playbypost-dnd/config"
 	"github.com/labstack/echo/v4"
 	"github.com/stretchr/testify/assert"
 )
@@ -17,7 +17,7 @@ func TestMapRoutesDefault(t *testing.T) {
 	req := httptest.NewRequest(http.MethodGet, "/", nil)
 	rec := httptest.NewRecorder()
 	c := e.NewContext(req, rec)
-	c.SetPath("/playbypost-dnd-api/v1")
+	c.SetPath("/playbypost-dnd/v1")
 	f := func(c echo.Context) error {
 		return c.JSON(http.StatusNotFound, nil)
 	}

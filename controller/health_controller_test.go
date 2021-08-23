@@ -15,7 +15,7 @@ func TestGetHealth(t *testing.T) {
 	req := httptest.NewRequest(http.MethodGet, "/", nil)
 	rec := httptest.NewRecorder()
 	c := e.NewContext(req, rec)
-	c.SetPath("/playbypost-dnd-api/v1/health")
+	c.SetPath("/playbypost-dnd/v1/health")
 
 	// Assertions
 	if assert.NoError(t, CheckHealth(c)) {

@@ -3,7 +3,7 @@ package controller
 import (
 	"net/http"
 
-	"github.com/betorvs/playbypost-dnd-api/domain"
+	"github.com/betorvs/playbypost-dnd/domain"
 	"github.com/labstack/echo/v4"
 )
 
