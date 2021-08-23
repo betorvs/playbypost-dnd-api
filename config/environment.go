@@ -2,6 +2,7 @@ package config
 
 import (
 	"os"
+	"sync/atomic"
 )
 
 //Values stores the current configuration values
@@ -23,6 +24,10 @@ type Config struct {
 	TestRun bool
 	//UsePrometheus to enable prometheus metrics endpoint
 	UsePrometheus bool
+	// IsReady atomic.Value
+	IsReady atomic.Value
+	// WaitTime int
+	WaitTime int
 }
 
 // GetEnv gets an environment variable content or a default value
@@ -41,4 +46,5 @@ func init() {
 	Values.LogLevel = GetEnv("LOG_LEVEL", "INFO")
 	Values.DBConnectionCertificateFileName = GetEnv("DB_CONNECTION_CERTIFICATE_FILE_NAME", "")
 	Values.DBConnectionString = GetEnv("DB_CONNECTION_STRING", "")
+	Values.WaitTime = 10
 }
