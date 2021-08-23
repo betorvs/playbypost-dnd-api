@@ -21,5 +21,6 @@ func MapRoutes(e *echo.Echo) {
 	}))
 
 	g.GET("/health", CheckHealth)
+	g.GET("/ready", CheckReady)
 	g.GET("/info", GetInfo)
 }

@@ -22,3 +22,17 @@ func TestGetHealth(t *testing.T) {
 		assert.Equal(t, http.StatusOK, rec.Code)
 	}
 }
+
+func TestGetReady(t *testing.T) {
+	// Setup
+	e := echo.New()
+	req := httptest.NewRequest(http.MethodGet, "/", nil)
+	rec := httptest.NewRecorder()
+	c := e.NewContext(req, rec)
+	c.SetPath("/playbypost-dnd/v1/ready")
+
+	// Assertions
+	if assert.NoError(t, CheckReady(c)) {
+		assert.Equal(t, http.StatusOK, rec.Code)
+	}
+}
