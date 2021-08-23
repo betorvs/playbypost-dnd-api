@@ -15,7 +15,7 @@ func TestGetInfo(t *testing.T) {
 	req := httptest.NewRequest(http.MethodGet, "/", nil)
 	rec := httptest.NewRecorder()
 	c := e.NewContext(req, rec)
-	c.SetPath("/playbypost-dnd-api/v1/info")
+	c.SetPath("/playbypost-dnd/v1/info")
 
 	// Assertions
 	if assert.NoError(t, GetInfo(c)) {

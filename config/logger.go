@@ -1,6 +1,6 @@
 package config
 
-import "github.com/betorvs/playbypost-dnd-api/appcontext"
+import "github.com/betorvs/playbypost-dnd/appcontext"
 
 // Logger interface defining expected methods for logging
 type Logger interface {

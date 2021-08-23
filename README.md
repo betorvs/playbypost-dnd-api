@@ -1,14 +1,15 @@
-# playbypost-dnd-api
+# playbypost-dnd
 
-![Go Test](https://github.com/betorvs/playbypost-dnd-api/workflows/Go%20Test/badge.svg)
+![Go Test](https://github.com/betorvs/playbypost-dnd/workflows/Go%20Test/badge.svg)
 [![Coverage Status](https://coveralls.io/repos/github/betorvs/playbypost-dnd-api/badge.svg?branch=main)](https://coveralls.io/github/betorvs/playbypost-dnd-api?branch=main)
+
 
 ## Environment variables
 
 ```sh
 export PORT=8080
 
-export APP_NAME=playbypost-dnd-api
+export APP_NAME=playbypost-dnd
 
 export LOG_LEVEL=INFO
 ```
@@ -46,12 +47,11 @@ and export DB_CONNECTION_STRING
 export DB_CONNECTION_STRING="mongodb://localhost:27017/playbypost"
 ```
 
-
-## References
+## Refences
 
 ### Dependency Management
 The project is using [Go Modules](https://blog.golang.org/using-go-modules) for dependency management
-Module: github.com/betorvs/playbypost-dnd-api
+Module: github.com/betorvs/playbypost-dnd
 
 ### Golang Spell
 The project was initialized using [Golang Spell](https://github.com/golangspell/golangspell). More details [here](1).
@@ -59,7 +59,5 @@ The project was initialized using [Golang Spell](https://github.com/golangspell/
 ### Architectural Model
 The Architectural Model adopted to structure the application is based on The Clean Architecture.
 Further details can be found here: [The Clean Architecture](https://8thlight.com/blog/uncle-bob/2012/08/13/the-clean-architecture.html) and in the Clean Architecture Book.
-
-
 
 [1]: https://medium.com/golangspell-go-fast-small-and-productive/go-fast-small-and-productive-with-golangspell-be193c65a382

@@ -1,10 +1,10 @@
 package main
 
 import (
-	"github.com/betorvs/playbypost-dnd-api/config"
-	"github.com/betorvs/playbypost-dnd-api/controller"
-	_ "github.com/betorvs/playbypost-dnd-api/gateway/customlog"
-	_ "github.com/betorvs/playbypost-dnd-api/gateway/mongodb"
+	"github.com/betorvs/playbypost-dnd/config"
+	"github.com/betorvs/playbypost-dnd/controller"
+	_ "github.com/betorvs/playbypost-dnd/gateway/customlog"
+	_ "github.com/betorvs/playbypost-dnd/gateway/mongodb"
 	"github.com/labstack/echo/v4"
 )
 

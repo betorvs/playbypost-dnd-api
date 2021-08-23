@@ -1,6 +1,6 @@
-module github.com/betorvs/playbypost-dnd-api
+module github.com/betorvs/playbypost-dnd
 
-go 1.15
+go 1.16
 
 require (
 	github.com/labstack/echo-contrib v0.9.0
