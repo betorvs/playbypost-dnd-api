@@ -5,6 +5,7 @@ import (
 	"net/http/httptest"
 	"testing"
 
+	"github.com/betorvs/playbypost-dnd/config"
 	"github.com/labstack/echo/v4"
 	"github.com/stretchr/testify/assert"
 )
@@ -30,7 +31,7 @@ func TestGetReady(t *testing.T) {
 	rec := httptest.NewRecorder()
 	c := e.NewContext(req, rec)
 	c.SetPath("/playbypost-dnd/v1/ready")
-
+	config.Values.IsReady.Store(true)
 	// Assertions
 	if assert.NoError(t, CheckReady(c)) {
 		assert.Equal(t, http.StatusOK, rec.Code)
