@@ -6,6 +6,7 @@ import "sync"
 const (
 	DBClient = "DBClient"
 	Logger   = "Logger"
+	Dice     = "Dice"
 )
 
 //Component is the Base interface for all Components
