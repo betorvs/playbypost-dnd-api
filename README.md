@@ -7,8 +7,11 @@ We keep all documentation in github-pages.
 
 ## Development or Contributing
 
-You can access it here.
+You can access it [here](https://betorvs.github.io/playbypost-dnd/development/).
 
 ## Players and Masters Guide
 
-You can access it here.
+[Players Guide](https://betorvs.github.io/playbypost-dnd/players/)   
+
+[Masters Guide](https://betorvs.github.io/playbypost-dnd/masters/)
+

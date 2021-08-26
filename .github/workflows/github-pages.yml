@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - main  # Set a branch to deploy
-      - add_json_database
   pull_request:
 
 jobs:
@@ -29,7 +28,7 @@ jobs:
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
-        if: ${{ github.ref == 'refs/heads/add_json_database' }}
+        if: ${{ github.ref == 'refs/heads/main' }}
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./documentation/pages/public
