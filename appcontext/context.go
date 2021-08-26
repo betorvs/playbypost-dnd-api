@@ -7,6 +7,7 @@ const (
 	DBClient = "DBClient"
 	Logger   = "Logger"
 	Dice     = "Dice"
+	Database = "Database"
 )
 
 //Component is the Base interface for all Components

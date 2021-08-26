@@ -11,6 +11,7 @@ import (
 	"github.com/betorvs/playbypost-dnd/config"
 	"github.com/betorvs/playbypost-dnd/controller"
 	_ "github.com/betorvs/playbypost-dnd/gateway/customlog"
+	_ "github.com/betorvs/playbypost-dnd/gateway/database"
 	_ "github.com/betorvs/playbypost-dnd/gateway/diceroll"
 	_ "github.com/betorvs/playbypost-dnd/gateway/mongodb"
 	"github.com/labstack/echo/v4"

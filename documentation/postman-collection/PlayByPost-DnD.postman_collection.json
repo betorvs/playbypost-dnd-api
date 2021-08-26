@@ -1,0 +1,559 @@
+{
+	"info": {
+		"_postman_id": "ab839794-6b61-41d0-a552-23ecfdfb9446",
+		"name": "PlayByPost-DnD",
+		"description": "PlayByPost DnD",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "roll",
+			"item": [
+				{
+					"name": "RollDice",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{server}}/playbypost-dnd/v1/roll/1d20",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"playbypost-dnd",
+								"v1",
+								"roll",
+								"1d20"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "ruleGets",
+			"item": [
+				{
+					"name": "GET All Monsters",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{server}}/playbypost-dnd/v1/rule/monster",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"playbypost-dnd",
+								"v1",
+								"rule",
+								"monster"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "warhorse-skeleton",
+									"disabled": true
+								},
+								{
+									"key": "name",
+									"value": "ettin",
+									"disabled": true
+								},
+								{
+									"key": "name",
+									"value": "ancient-red-dragon",
+									"disabled": true
+								},
+								{
+									"key": "xp",
+									"value": "1100",
+									"disabled": true
+								},
+								{
+									"key": "type",
+									"value": "fiend",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET All Magic Items",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{server}}/playbypost-dnd/v1/rule/magicitem",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"playbypost-dnd",
+								"v1",
+								"rule",
+								"magicitem"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "potion",
+									"disabled": true
+								},
+								{
+									"key": "description",
+									"value": "test",
+									"disabled": true
+								},
+								{
+									"key": "title",
+									"value": "Armor",
+									"disabled": true
+								},
+								{
+									"key": "title",
+									"value": "Weapon",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET List of Spells By Class and level",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{server}}/playbypost-dnd/v1/rule/spelllist/cleric/all",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"playbypost-dnd",
+								"v1",
+								"rule",
+								"spelllist",
+								"cleric",
+								"all"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET All Spells",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{server}}/playbypost-dnd/v1/rule/spell",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"playbypost-dnd",
+								"v1",
+								"rule",
+								"spell"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "burning-hands",
+									"disabled": true
+								},
+								{
+									"key": "name",
+									"value": "hellish-rebuke",
+									"disabled": true
+								},
+								{
+									"key": "name",
+									"value": "minor-illusion",
+									"disabled": true
+								},
+								{
+									"key": "name",
+									"value": "thaumaturgy",
+									"disabled": true
+								},
+								{
+									"key": "level",
+									"value": "1",
+									"disabled": true
+								},
+								{
+									"key": "name",
+									"value": "scorching-ray",
+									"disabled": true
+								},
+								{
+									"key": "name",
+									"value": "animal",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET All Weapons",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{server}}/playbypost-dnd/v1/rule/weapon",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"playbypost-dnd",
+								"v1",
+								"rule",
+								"weapon"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "axe",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET All Armors",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{server}}/playbypost-dnd/v1/rule/armor",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"playbypost-dnd",
+								"v1",
+								"rule",
+								"armor"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "scale",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET All Gear",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{server}}/playbypost-dnd/v1/rule/gear",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"playbypost-dnd",
+								"v1",
+								"rule",
+								"gear"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "Emblem",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET All Packs",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{server}}/playbypost-dnd/v1/rule/packs",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"playbypost-dnd",
+								"v1",
+								"rule",
+								"packs"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET All Tools",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{server}}/playbypost-dnd/v1/rule/tools",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"playbypost-dnd",
+								"v1",
+								"rule",
+								"tools"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET All Mounts",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{server}}/playbypost-dnd/v1/rule/mounts",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"playbypost-dnd",
+								"v1",
+								"rule",
+								"mounts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET All Services",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{server}}/playbypost-dnd/v1/rule/services",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"playbypost-dnd",
+								"v1",
+								"rule",
+								"services"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET Random Treasure",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{server}}/playbypost-dnd/v1/rule/randomtreasure/19",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"playbypost-dnd",
+								"v1",
+								"rule",
+								"randomtreasure",
+								"19"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET Random Treasure Hoard",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{server}}/playbypost-dnd/v1/rule/treasurehoard/4",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"playbypost-dnd",
+								"v1",
+								"rule",
+								"treasurehoard",
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET Average Treasure Copy",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{server}}/playbypost-dnd/v1/rule/averagetreasure/17",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"playbypost-dnd",
+								"v1",
+								"rule",
+								"averagetreasure",
+								"17"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET rule description",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{server}}/playbypost-dnd/v1/rule/description/race/dragonborn",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"playbypost-dnd",
+								"v1",
+								"rule",
+								"description",
+								"race",
+								"dragonborn"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET Condition",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{server}}/playbypost-dnd/v1/rule/condition/exhaustion/3",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"playbypost-dnd",
+								"v1",
+								"rule",
+								"condition",
+								"exhaustion",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET rule (list)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{server}}/playbypost-dnd/v1/rule/list/skills",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"playbypost-dnd",
+								"v1",
+								"rule",
+								"list",
+								"skills"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "system-related",
+			"item": [
+				{
+					"name": "Health",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{server}}/playbypost-dnd/v1/health",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"playbypost-dnd",
+								"v1",
+								"health"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Ready",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{server}}/playbypost-dnd/v1/ready",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"playbypost-dnd",
+								"v1",
+								"ready"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Info",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{server}}/playbypost-dnd/v1/info",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"playbypost-dnd",
+								"v1",
+								"info"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
