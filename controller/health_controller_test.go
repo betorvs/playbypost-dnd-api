@@ -36,4 +36,13 @@ func TestGetReady(t *testing.T) {
 	if assert.NoError(t, CheckReady(c)) {
 		assert.Equal(t, http.StatusOK, rec.Code)
 	}
+	req1 := httptest.NewRequest(http.MethodGet, "/", nil)
+	rec1 := httptest.NewRecorder()
+	c1 := e.NewContext(req1, rec1)
+	c1.SetPath("/playbypost-dnd/v1/ready")
+	config.Values.IsReady.Store(true)
+	config.Values.IsReady.Store(false)
+	if assert.NoError(t, CheckReady(c1)) {
+		assert.Equal(t, http.StatusServiceUnavailable, rec1.Code)
+	}
 }

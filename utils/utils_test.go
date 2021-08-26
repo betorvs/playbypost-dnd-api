@@ -3,6 +3,7 @@ package utils
 import (
 	"testing"
 
+	"github.com/betorvs/playbypost-dnd/domain/rule"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -45,6 +46,63 @@ func TestCleanTrimString(t *testing.T) {
 	assert.Equal(t, expected3, res3)
 	res4 := CleanTrimString(words)
 	assert.Equal(t, expected4, res4)
+}
+
+func TestPrintSliceString(t *testing.T) {
+	test1 := []string{"a", "b"}
+	res1 := PrintSliceString(test1)
+	assert.Contains(t, res1, "*a*")
+}
+
+func TestPrintMapStringString(t *testing.T) {
+	test1 := map[string]string{"a": "b"}
+	res1 := PrintMapStringString(test1)
+	assert.Contains(t, res1, "*a:*")
+}
+
+func TestFormatMessage(t *testing.T) {
+	test1 := "a"
+	res1 := FormatMessage(test1)
+	expected1 := new(rule.ReturnMessage)
+	expected1.Message = "a"
+	assert.Equal(t, res1, expected1)
+}
+
+func TestExtractWholeInt(t *testing.T) {
+	test1 := "d20"
+	res1 := ExtractWholeInt(test1)
+	assert.Equal(t, res1, 20)
+	test2 := "d#$%"
+	res2 := ExtractWholeInt(test2)
+	assert.NotNil(t, res2)
+}
+
+func TestExtractInSlice(t *testing.T) {
+	test1 := []string{"a", "b"}
+	res1 := ExtractInSlice("b", test1)
+	assert.Contains(t, res1, "b")
+	res2 := ExtractInSlice("c", test1)
+	assert.Contains(t, res2, "")
+}
+
+func TestEven(t *testing.T) {
+	test1 := 10
+	res1 := Even(test1)
+	assert.True(t, res1)
+	test2 := 3
+	res2 := Even(test2)
+	assert.False(t, res2)
+}
+
+func TestRemoveItemSlice(t *testing.T) {
+	test1 := []string{"a", "b", "c"}
+	res1 := RemoveItemSlice(test1, "b")
+	expected1 := []string{"a", "c"}
+	assert.Equal(t, res1, expected1)
+	test2 := []string{"a", "b", "c"}
+	res2 := RemoveItemSlice(test2, "d")
+	expected2 := []string{"a", "b", "c"}
+	assert.Equal(t, res2, expected2)
 }
 
 func TestGetD20ToRoll(t *testing.T) {
