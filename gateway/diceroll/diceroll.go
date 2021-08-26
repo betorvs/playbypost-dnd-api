@@ -1,6 +1,8 @@
 package diceroll
 
 import (
+	"fmt"
+
 	"github.com/betorvs/dice"
 	"github.com/betorvs/playbypost-dnd/appcontext"
 	"github.com/betorvs/playbypost-dnd/config"
@@ -10,15 +12,17 @@ import (
 type RollInternal struct {
 }
 
-func (r RollInternal) DiceRoll(text string) (dice.RollResult, error) {
+func (r RollInternal) DiceRoll(text string) (int, string, error) {
 	diceRolled, _, err := dice.Roll(text)
 	logLocal := config.GetLogger()
 	if err != nil {
 		logLocal.Error(err)
+		return 0, "No dices to roll", err
 	} else {
-		logLocal.Info("Dice Rolled ", diceRolled.Description(), " and result ", diceRolled.Int(), " with rolls ", diceRolled.String())
+		message := fmt.Sprintf("Dice Rolled %s and result %v with rolls %s", diceRolled.Description(), diceRolled.Int(), diceRolled.String())
+		logLocal.Info(message)
+		return diceRolled.Int(), message, nil
 	}
-	return diceRolled, err
 }
 
 // DicerInit lazy funcion to init Dice

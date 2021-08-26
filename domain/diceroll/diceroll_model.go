@@ -1,7 +1,6 @@
 package diceroll
 
 import (
-	"github.com/betorvs/dice"
 	"github.com/betorvs/playbypost-dnd/appcontext"
 )
 
@@ -9,7 +8,7 @@ import (
 type Dice interface {
 	appcontext.Component
 	// DiceRoll receives text string
-	DiceRoll(text string) (dice.RollResult, error)
+	DiceRoll(text string) (int, string, error)
 }
 
 //GetDice gets the Dice current implementation
