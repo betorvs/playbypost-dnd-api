@@ -1,7 +1,7 @@
 ---
 title: "Home"
 date: 2021-08-25T15:30:08+02:00
-draft: true
+draft: false
 weight: 1
 ---
 
