@@ -1,4 +1,4 @@
-baseURL = 'http://example.org/'
+baseURL = 'https://betorvs.github.io/playbypost-dnd/'
 languageCode = 'en-us'
 title = 'Play by Post DnD'
 theme = 'hugo-theme-techdoc'
