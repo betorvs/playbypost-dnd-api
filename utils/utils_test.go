@@ -122,3 +122,9 @@ func TestGetD20ToRoll(t *testing.T) {
 	res4 := GetD20ToRoll(adv, dis)
 	assert.Equal(t, "1d20", res4)
 }
+
+func TestAllowedStatus(t *testing.T) {
+	res1 := AllowedStatus()
+	expected1 := []string{"onhold", "living", "closed"}
+	assert.Equal(t, res1, expected1)
+}

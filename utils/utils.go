@@ -118,3 +118,8 @@ func GetD20ToRoll(adv, dis bool) string {
 	// simple d20
 	return "1d20"
 }
+
+// AllowedStatus func return a slice with valid status for Campaign, Adventure and Encounter
+func AllowedStatus() []string {
+	return []string{"onhold", "living", "closed"}
+}

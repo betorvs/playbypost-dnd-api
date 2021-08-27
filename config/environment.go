@@ -52,6 +52,10 @@ type Config struct {
 	HoardDatabaseJSON string
 	// ServicesDatabaseJSON string
 	ServicesDatabaseJSON string
+	// Database string
+	Database string
+	// RuleBuiltin bool
+	RuleBuiltin bool
 }
 
 // GetEnv gets an environment variable content or a default value
@@ -71,6 +75,8 @@ func init() {
 	Values.DBConnectionCertificateFileName = GetEnv("DB_CONNECTION_CERTIFICATE_FILE_NAME", "")
 	Values.DBConnectionString = GetEnv("DB_CONNECTION_STRING", "")
 	Values.WaitTime = 10
+	Values.Database = GetEnv("DB_DATABASE", "playbypostdnd")
+	Values.RuleBuiltin = true
 
 	// Load all json databases files
 	Values.MonstersDatabaseJSON = GetEnv("MonstersDatabaseJSON", "./database/new-monster-list.json")
