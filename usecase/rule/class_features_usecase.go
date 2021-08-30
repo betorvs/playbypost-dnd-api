@@ -1046,7 +1046,7 @@ func featureImprovedByLevel(name string, level int) (dice string) {
 		if level < 5 {
 			dice = "1d6"
 		}
-		if level >= 5 {
+		if level >= 5 && level < 10 {
 			dice = "1d8"
 		}
 		if level >= 10 {
@@ -1060,7 +1060,7 @@ func featureImprovedByLevel(name string, level int) (dice string) {
 		if level < 9 {
 			dice = "1d6"
 		}
-		if level >= 9 {
+		if level >= 9 && level < 13 {
 			dice = "1d8"
 		}
 		if level >= 13 {

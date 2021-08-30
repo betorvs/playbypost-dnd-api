@@ -1,6 +1,7 @@
 package rule
 
 import (
+	"fmt"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
@@ -132,106 +133,143 @@ func TestTurnMonstersFeatureList(t *testing.T) {
 }
 
 func TestChoosenClassFeatures(t *testing.T) {
-	test := map[string]map[string]int{
+	test := map[string][]string{
 		"fighting-style": {
-			"archery": 1,
+			"archery", "defense", "dueling", "great-weapon-fighting", "protection", "two-weapon-fighting",
 		},
 		"primal-path": {
-			"berseker": 10,
+			"berseker", "totem",
 		},
 		"bard-college": {
-			"lore": 3,
+			"lore", "valor",
 		},
 		"divine-domain": {
-			"knowledge": 2,
+			"knowledge", "life", "light", "nature", "tempest", "trickery", "war",
 		},
 		"druid-circle": {
-			"arctic": 2,
+			"arctic", "land", "moon",
 		},
 		"martial-archetype": {
-			"champion": 7,
+			"champion", "battle-master", "eldritch-knight",
 		},
 		"monastic-tradition": {
-			"open-hand": 6,
+			"open-hand", "shadow", "four-elements",
 		},
 		"sacred-oath": {
-			"devotion": 7,
+			"devotion", "ancients", "vengeance",
 		},
 		"ranger-archetype": {
-			"colossus-slayer": 3,
+			"hunter", "beast-master", "colossus-slayer", "escape-the-horde", "volley", "evasion",
+		},
+		"natural-explorer": {
+			"arctic", "coast", "desert", "forest", "grassland", "mountain", "swamp", "underdark",
+		},
+		"favored-enemy": {
+			"aberrations", "beasts", "celestials", "constructs", "dragons", "elementals", "fey", "fiends", "giants", "monstrosities", "oozes", "plants", "undead", "bugbear", "gnoll", "goblin", "grimlock", "hobgoblin", "kobold", "lizardfolk", "merfolk", "orc", "sahuagin", "thug", "werebear", "wereboar", "wererat", "weretiger", "werewolf", "gnome", "human", "elf", "dwarf",
 		},
 		"roguish-archetype": {
-			"thief": 3,
+			"thief", "assassin", "arcane-trickster",
 		},
 		"sorcerous-origin": {
-			"black": 0,
+			"black", "blue", "brass", "bronze", "copper", "gold", "green", "red", "silver", "white", "draconic", "wild",
 		},
 		"otherworldly-patron": {
-			"archfey": 1,
+			"archfey", "fiend", "old-one",
+		},
+		"pact-boon": {
+			"chain", "blade", "tome",
 		},
 		"arcane-tradition": {
-			"abjuration": 6,
+			"abjuration", "conjuration", "divination", "enchantment", "evocation", "illusion", "necromancy", "transmutation",
 		},
 	}
-	res := map[string]map[string]string{
+	levels := map[string][]int{
 		"fighting-style": {
-			"archery": "fighting-style-archery",
+			1,
 		},
 		"primal-path": {
-			"berseker": "path-of-berseker-mindless-rage",
+			3, 6, 10, 14,
 		},
 		"bard-college": {
-			"lore": "college-of-lore-bonus-proficiencies",
+			3, 6, 14,
 		},
 		"divine-domain": {
-			"knowledge": "channel-divinity-knowledge-of-the-ages",
+			1, 2, 6, 8, 17,
 		},
 		"druid-circle": {
-			"arctic": "circle-of-the-land-spells-arctic",
+			2, 6, 10, 14,
 		},
 		"martial-archetype": {
-			"champion": "archetype-champion-remarkable-athlete",
+			3, 7, 10, 15, 18,
 		},
 		"monastic-tradition": {
-			"open-hand": "monastic-tradition-way-of-the-open-wholeness-of-body",
+			3, 6, 11, 17,
 		},
 		"sacred-oath": {
-			"devotion": "sacred-oath-of-devotion-aura-of-devotion",
+			3, 7, 15, 20,
 		},
 		"ranger-archetype": {
-			"colossus-slayer": "archetype-hunter-hunters-prey-colossus-slayer",
+			3, 7, 11, 15,
+		},
+		"natural-explorer": {
+			1,
+		},
+		"favored-enemy": {
+			1,
 		},
 		"roguish-archetype": {
-			"thief": "archetype-thief-fast-hands-and-second-storywork",
+			3, 9, 13, 17,
 		},
 		"sorcerous-origin": {
-			"black": "sorcerous-origin-draconic-bloodline-black-dragon-ancestor",
+			1, 6, 14, 18,
 		},
 		"otherworldly-patron": {
-			"archfey": "otherworldly-patron-the-archfey-fey-presence",
+			1, 6, 10, 14,
+		},
+		"pact-boon": {
+			1,
 		},
 		"arcane-tradition": {
-			"abjuration": "arcane-tradition-school-of-abjuration-projected-ward",
+			2, 6, 10, 14,
 		},
 	}
 	for k, v := range test {
-		for key, value := range v {
-			tmp := choosenClassFeatures(k, key, value)
-			assert.Contains(t, tmp, res[k][key])
+		for _, value := range v {
+			for _, level := range levels[k] {
+				fmt.Println(k, value, level)
+				tmp := choosenClassFeatures(k, value, level)
+				assert.GreaterOrEqual(t, len(tmp), 1)
+			}
 		}
 	}
+	test2 := choosenClassFeatures("", "", 1)
+	assert.Empty(t, test2)
 
 }
 
 func TestFeatureImprovedByLevel(t *testing.T) {
 	test1 := "bardic-inspiration"
 	res1 := "1d10"
-	assert.Contains(t, featureImprovedByLevel(test1, 10), res1)
+	assert.Contains(t, featureImprovedByLevel(test1, 11), res1)
+	res2 := "1d6"
+	assert.Contains(t, featureImprovedByLevel(test1, 4), res2)
+	res3 := "1d12"
+	assert.Contains(t, featureImprovedByLevel(test1, 15), res3)
+	res4 := "1d8"
+	assert.Contains(t, featureImprovedByLevel(test1, 9), res4)
+
+	test2 := "song-of-rest"
+	assert.Contains(t, featureImprovedByLevel(test2, 14), res1)
+	assert.Contains(t, featureImprovedByLevel(test2, 4), res2)
+	assert.Contains(t, featureImprovedByLevel(test2, 18), res3)
+	assert.Contains(t, featureImprovedByLevel(test2, 9), res4)
 }
 
 func TestClericDestroyUndead(t *testing.T) {
 	res1 := float64(4)
 	assert.Equal(t, clericDestroyUndead(17), res1)
+	res2 := float64(0.5)
+	assert.Equal(t, clericDestroyUndead(1), res2)
 }
 
 func TestFeaturesWithExtraSpellList(t *testing.T) {
@@ -240,16 +278,56 @@ func TestFeaturesWithExtraSpellList(t *testing.T) {
 }
 
 func TestExtraSpellList(t *testing.T) {
-	test1 := "domain-knowledge"
-	res1 := "suggestion"
-	assert.Contains(t, extraSpellList(test1, 3), res1)
+	test1 := []string{"domain-knowledge", "domain-life", "domain-light", "domain-nature", "domain-tempest", "domain-trickery", "domain-war"}
+	levelsDomains := []int{1, 3, 5, 7, 9}
+	for _, v := range test1 {
+		for _, value := range levelsDomains {
+			tmp := extraSpellList(v, value)
+			assert.GreaterOrEqual(t, len(tmp), 1)
+		}
+	}
+	test2 := []string{"sacred-oath-of-devotion", "sacred-oath-of-ancients", "sacred-oath-of-vengeance"}
+	levelsSacred := []int{3, 5, 9, 13, 17}
+	for _, v := range test2 {
+		for _, value := range levelsSacred {
+			tmp := extraSpellList(v, value)
+			assert.GreaterOrEqual(t, len(tmp), 1)
+		}
+	}
+	test3 := []string{"circle-of-the-land-spells-arctic", "circle-of-the-land-spells-coast", "circle-of-the-land-spells-desert", "circle-of-the-land-spells-forest", "circle-of-the-land-spells-grassland", "circle-of-the-land-spells-mountain", "circle-of-the-land-spells-swamp", "circle-of-the-land-spells-underdark"}
+	levelsCircle := []int{3, 5, 7, 9}
+	for _, v := range test3 {
+		for _, value := range levelsCircle {
+			tmp := extraSpellList(v, value)
+			assert.GreaterOrEqual(t, len(tmp), 1)
+		}
+	}
+	// assert.Contains(t, extraSpellList(test1, 3), res1)
+	// assert.GreaterOrEqual(t, len(tmp), 1)
 }
 
 func TestExtraDamageMeleeAttackFeature(t *testing.T) {
-	test1 := "domain-life-divine-strike"
-	exp1 := "radiant"
-	exp1dice := "2d8"
-	res1dice, res1 := extraDamageMeleeAttackFeature(test1, "", 14, 0, false)
-	assert.Contains(t, res1, exp1)
-	assert.Contains(t, res1dice, exp1dice)
+	test1 := []string{"domain-life-divine-strike", "sneak-attack", "archetype-hunter-hunters-prey-colossus-slayer", "domain-life-divine-strike", "domain-nature-divine-strike", "domain-tempest-divine-strike", "domain-trickery-divine-strike", "domain-war-divine-strike", "divine-smite"}
+	for _, v := range test1 {
+		chosen := "piercing"
+		if v == "domain-nature-divine-strike" {
+			chosen = "cold"
+		}
+		fmt.Println(v, chosen)
+		resDice, resType := extraDamageMeleeAttackFeature(v, chosen, 14, 0, false)
+		assert.NotEmpty(t, resType)
+		assert.Contains(t, resDice, "d")
+		if v == "divine-smite" {
+			res2Dice, res2Type := extraDamageMeleeAttackFeature(v, chosen, 14, 6, false)
+			assert.NotEmpty(t, res2Type)
+			assert.Contains(t, res2Dice, "d")
+			res3Dice, res3Type := extraDamageMeleeAttackFeature(v, chosen, 14, 0, true)
+			assert.NotEmpty(t, res3Type)
+			assert.Contains(t, res3Dice, "d")
+		}
+	}
+	test2Dice, test2Type := extraDamageMeleeAttackFeature("", "", 1, 0, false)
+	assert.Empty(t, test2Dice)
+	assert.Empty(t, test2Type)
+
 }

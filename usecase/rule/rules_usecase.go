@@ -350,7 +350,7 @@ func SpecialRaceFeature(feature *rule.SpecialRaceFeature) (*rule.ReturnCalcMessa
 	var difficult int
 	name, _, _, RacialDamageDice, RacialDamageType, savingThrow, _, difficultClass := RaceSpecialTrait(feature.Race, feature.Subrace, feature.Level, feature.Ability)
 	if name == "" {
-		err := fmt.Errorf("Special Race feature %s its not listed in your race %s", feature.Name, feature.Race)
+		err := fmt.Errorf("special Race feature %s its not listed in your race %s", feature.Name, feature.Race)
 		return returnResult, err
 	}
 	damageDice = RacialDamageDice
