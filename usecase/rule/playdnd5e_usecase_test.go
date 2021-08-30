@@ -1,28 +1,52 @@
 package rule
 
-// func TestCalcProficiency(t *testing.T) {
-// 	expected1 := 2
-// 	test1 := CalcProficiency(1)
-// 	assert.Equal(t, test1, expected1)
-// 	expected2 := 6
-// 	test2 := CalcProficiency(17)
-// 	assert.Equal(t, test2, expected2)
-// }
+import "testing"
 
-// func TestCalcAbilityModifier(t *testing.T) {
-// 	expected1 := -3
-// 	test1 := CalcAbilityModifier(5)
-// 	assert.Equal(t, test1, expected1)
-// 	expected2 := 3
-// 	test2 := CalcAbilityModifier(15)
-// 	assert.Equal(t, test2, expected2)
-// }
+func TestCalcProficiency(t *testing.T) {}
 
-// func TestXPNeeded(t *testing.T) {
-// 	expected1 := 23000
-// 	test1 := XPNeeded(7)
-// 	assert.Equal(t, test1, expected1)
-// 	expected2 := 355000
-// 	test2 := XPNeeded(20)
-// 	assert.Equal(t, test2, expected2)
-// }
+func TestCalcAbilityModifier(t *testing.T) {}
+
+func TestCalcMaxHP(t *testing.T) {}
+
+func TestXPNeeded(t *testing.T) {}
+
+func TestCalculateSpellList(t *testing.T) {}
+
+func TestCalculateClassFeatureList(t *testing.T) {}
+
+func TestSpellSlotsMultiClass(t *testing.T) {}
+
+func TestSpellsPerLevel(t *testing.T) {}
+
+func TestRaceStatistics(t *testing.T) {}
+
+func TestRaceArmorProficiencyExtra(t *testing.T) {}
+
+func TestBackgroundStatistics(t *testing.T) {}
+
+func TestClassStatistics(t *testing.T) {}
+
+func TestClassFeatures(t *testing.T) {}
+
+func TestSpellKnown(t *testing.T) {}
+
+func TestCantripsKnown(t *testing.T) {}
+
+func TestBarbarianClass(t *testing.T) {}
+
+func TestMonkClass(t *testing.T) {}
+
+func TestRogueClass(t *testing.T) {}
+
+func TestWarlockClass(t *testing.T) {}
+
+func TestRaceSpecialTrait(t *testing.T) {}
+
+func TestCoinList(t *testing.T) {}
+
+func TestCoinShortnameList(t *testing.T) {}
+
+func TestCoinShortName(t *testing.T) {}
+
+func TestExchangeRates(t *testing.T) {}
+
