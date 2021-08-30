@@ -1,6 +1,8 @@
 package rule
 
 import (
+	"fmt"
+	"strings"
 	"testing"
 
 	"github.com/betorvs/playbypost-dnd/utils"
@@ -164,16 +166,60 @@ func TestAbilityForSpell(t *testing.T) {
 func TestAbilitySkill(t *testing.T) {
 	test1 := SkillList()
 	for _, v := range test1 {
-		res := AbilityForSpell(v)
+		res := AbilitySkill(v)
 		assert.True(t, utils.StringInSlice(res, AbilityList()))
 		assert.NotEmpty(t, res)
 	}
-	res2 := AbilityForSpell("")
+	res2 := AbilitySkill("")
 	assert.Contains(t, res2, "ask to master")
 }
 
-func TestRaceTraits(t *testing.T) {}
+func TestRaceTraits(t *testing.T) {
+	test1 := RaceList()
+	for _, v := range test1 {
+		fmt.Println(v)
+		subrace := ""
+		if v == "dwarf" {
+			subrace = "hill-dwarf"
+		}
+		if v == "elf" {
+			subrace = "high-elf"
+		}
+		if v == "hafling" {
+			subrace = "lightfoot"
+		}
+		if v == "gnome" {
+			subrace = "rock-gnome"
+		}
+		res := RaceTraits(v, subrace)
+		assert.NotEmpty(t, res)
+	}
+}
 
-func TestSubraceTraits(t *testing.T) {}
+func TestSubraceTraits(t *testing.T) {
+	test1 := []string{"hill-dwarf", "mountain-dwarf", "high-elf", "wood-elf", "lightfoot", "stout", "rock-gnome"}
+	for _, v := range test1 {
+		desc1, desc2 := SubraceTraits(v)
+		assert.NotEmpty(t, desc1)
+		assert.NotEmpty(t, desc2)
+	}
+	desc1, desc2 := SubraceTraits("")
+	assert.Empty(t, desc1)
+	assert.Empty(t, desc2)
 
-func TestClassInfo(t *testing.T) {}
+}
+
+func TestClassInfo(t *testing.T) {
+	test1 := ClassList()
+	for _, v := range test1 {
+		fmt.Println(v)
+		res := ClassInfo(v)
+		ability := strings.ToLower(res["primaryAbility"])
+		if strings.Contains(ability, " ") {
+			temp := strings.Split(ability, " ")
+			ability = temp[0]
+		}
+		assert.True(t, utils.StringInSlice(ability, AbilityList()))
+		assert.NotEmpty(t, res)
+	}
+}

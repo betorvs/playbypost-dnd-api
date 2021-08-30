@@ -255,7 +255,7 @@ func RaceTraits(race, subrace string) map[string]string {
 		subraces = "high-elf, wood-elf, and dark elves, who are commonly called drow"
 		special = "Darkvision, Keen Senses, Fey Ancestry, Trance"
 		link = "https://www.dndbeyond.com/sources/basic-rules/races#Elf"
-	case "Halfling", "hafling":
+	case "Halfling", "halfling":
 		ability = "Your Dexterity score increases by 2."
 		size = "Halflings average about 3 feet tall and weigh about 40 pounds. Your size is Small."
 		speed = "25 feet"
