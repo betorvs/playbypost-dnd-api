@@ -468,7 +468,7 @@ func RaceStatistics(race, subrace string) (size, speedmeasure string, speed int,
 			special = append(special, "Drow Weapon Training")
 		}
 
-	case "Halfling", "hafling":
+	case "Halfling", "halfling":
 		size = "small"
 		speed = 25
 		speedmeasure = "ft"
