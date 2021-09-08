@@ -345,7 +345,7 @@ func AddArmorWeaponPlayerByID(playerID, inventoryID primitive.ObjectID, ac *play
 			armorClass.ClassFeatures = player.ClassFeatures
 			armorClass.Shield = armory.ShieldName
 			armorClass.ShieldMagicBonus = ac.ShieldMagicBonus
-			result := ruleUsecase.CalcArmorClass(armorClass)
+			result := ruleUsecase.CheckArmorClass(armorClass)
 			player.ArmorClass = result.ArmorClass
 			player.ArmorClassBonus = ac.ArmorMagicBonus
 			player.AutoFail = result.ArmorClassAutomaticallyFails

@@ -56,3 +56,9 @@ func TestDamageTypeMap(t *testing.T) {
 	res1 := damageTypeMap("thunder")
 	assert.NotEmpty(t, res1)
 }
+
+func TestGetConditions(t *testing.T) {
+	test := "blinded"
+	res := GetConditions(test, 1)
+	assert.NotEmpty(t, res)
+}

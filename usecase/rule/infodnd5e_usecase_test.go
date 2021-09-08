@@ -223,3 +223,31 @@ func TestClassInfo(t *testing.T) {
 		assert.NotEmpty(t, res)
 	}
 }
+
+func TestListInformation(t *testing.T) {
+	test := []string{"race", "class", "background", "ability", "alignment", "skill", "subrace", "condition", "damage"}
+	for _, v := range test {
+		value := ""
+		if v == "race" {
+			value = "subrace"
+		}
+		res, err := ListInformation(v, value)
+		assert.NoError(t, err)
+		assert.NotNil(t, res)
+	}
+}
+
+func TestFullDescription(t *testing.T) {
+	test := []string{"race", "class", "background", "condition", "damage"}
+	for _, v := range test {
+		race := ""
+		subrace := ""
+		if v == "race" {
+			race = "elf"
+			subrace = "moon-elf"
+		}
+		res, err := FullDescription(v, race, subrace)
+		assert.NoError(t, err)
+		assert.NotNil(t, res)
+	}
+}

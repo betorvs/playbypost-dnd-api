@@ -1,5 +1,7 @@
 package rule
 
+import "github.com/betorvs/playbypost-dnd/domain/rule"
+
 //AbilityList func
 func AbilityList() []string {
 	return []string{"strength", "dexterity", "constitution", "intelligence", "wisdom", "charisma"}
@@ -475,4 +477,66 @@ func ClassInfo(class string) map[string]string {
 	classInfo["skiils"] = skills
 	classInfo["link"] = link
 	return classInfo
+}
+
+//ListInformation func
+func ListInformation(name, value string) (*rule.SimpleList, error) {
+	list := new(rule.SimpleList)
+	switch name {
+	case "race", "races":
+		list.List = RaceList()
+		if value == "subrace" {
+			list.List = RaceListWithSubrace()
+		}
+
+	case "class", "classes":
+		list.List = ClassList()
+
+	case "background", "backgrounds":
+		list.List = BackgroundList()
+
+	case "ability":
+		list.List = AbilityList()
+
+	case "alignment":
+		list.List = AlignmentList()
+
+	case "skills", "skill":
+		list.List = SkillListAbility()
+
+	case "subrace", "subraces":
+		list.List = SubraceList(value)
+
+	case "condition", "conditions":
+		list.List = ListConditions()
+
+	case "damage", "damagetype":
+		list.List = ListOfDamageTypes()
+	}
+	return list, nil
+}
+
+//FullDescription func
+func FullDescription(kind, name, subname string) (*rule.FullDescription, error) {
+	fullDescription := new(rule.FullDescription)
+	switch kind {
+	case "race":
+		fullDescription.Description = RaceTraits(name, subname)
+	case "class":
+		fullDescription.Description = ClassInfo(name)
+
+	case "background":
+		m, _ := BackgroundStatistics(name)
+		fullDescription.Description = m
+
+	case "condition", "conditions":
+		d := conditionsMap(name)
+		fullDescription.Description = d
+
+	case "damage", "damagetype":
+		d := damageTypeMap(name)
+		fullDescription.Description = d
+	}
+
+	return fullDescription, nil
 }

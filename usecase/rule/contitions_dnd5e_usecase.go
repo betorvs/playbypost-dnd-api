@@ -1,6 +1,10 @@
 package rule
 
-import "fmt"
+import (
+	"fmt"
+
+	"github.com/betorvs/playbypost-dnd/domain/rule"
+)
 
 // ListConditions func
 func ListConditions() []string {
@@ -198,4 +202,15 @@ func damageTypeMap(name string) map[string]string {
 	damage["description"] = desc
 
 	return damage
+}
+
+//GetConditions func
+func GetConditions(condition string, level int) *rule.ReturnCondition {
+	message := new(rule.ReturnCondition)
+	desc, dis, auto := conditionsCheck(condition, level)
+	message.Name = condition
+	message.Description = desc
+	message.Disvantages = dis
+	message.AutoFail = auto
+	return message
 }

@@ -230,7 +230,7 @@ func CalcArmorClass(c echo.Context) (err error) {
 		errString := "Cannot parse json"
 		return c.JSON(http.StatusBadRequest, utils.FormatMessage(errString))
 	}
-	result := usecase.CalcArmorClass(ac)
+	result := usecase.CheckArmorClass(ac)
 	return c.JSON(http.StatusOK, result)
 }
 
