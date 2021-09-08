@@ -1,7 +1,6 @@
 package rule
 
 import (
-	"fmt"
 	"strings"
 	"testing"
 
@@ -177,7 +176,6 @@ func TestAbilitySkill(t *testing.T) {
 func TestRaceTraits(t *testing.T) {
 	test1 := RaceList()
 	for _, v := range test1 {
-		fmt.Println(v)
 		subrace := ""
 		if v == "dwarf" {
 			subrace = "hill-dwarf"
@@ -212,7 +210,6 @@ func TestSubraceTraits(t *testing.T) {
 func TestClassInfo(t *testing.T) {
 	test1 := ClassList()
 	for _, v := range test1 {
-		fmt.Println(v)
 		res := ClassInfo(v)
 		ability := strings.ToLower(res["primaryAbility"])
 		if strings.Contains(ability, " ") {

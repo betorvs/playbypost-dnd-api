@@ -1,7 +1,6 @@
 package rule
 
 import (
-	"fmt"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
@@ -236,7 +235,6 @@ func TestChoosenClassFeatures(t *testing.T) {
 	for k, v := range test {
 		for _, value := range v {
 			for _, level := range levels[k] {
-				fmt.Println(k, value, level)
 				tmp := choosenClassFeatures(k, value, level)
 				assert.GreaterOrEqual(t, len(tmp), 1)
 			}
@@ -313,7 +311,6 @@ func TestExtraDamageMeleeAttackFeature(t *testing.T) {
 		if v == "domain-nature-divine-strike" {
 			chosen = "cold"
 		}
-		fmt.Println(v, chosen)
 		resDice, resType := extraDamageMeleeAttackFeature(v, chosen, 14, 0, false)
 		assert.NotEmpty(t, resType)
 		assert.Contains(t, resDice, "d")
