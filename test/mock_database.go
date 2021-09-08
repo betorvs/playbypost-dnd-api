@@ -78,6 +78,163 @@ var (
         ],
         "legendary_actions": [],
         "img_url": "https://media-waterdeep.cursecdn.com/avatars/thumbnails/0/379/1000/1000/636252780450300625.jpeg"
+    },
+    {
+        "name": "dretch",
+        "size": "small",
+        "type": "fiend",
+        "aligment": "chaotic-evil",
+        "senses": "Darkvision 60 ft.,  Passive Perception 9",
+        "darkvision": "60 ft.",
+        "blindsight": "",
+        "tremorsense": "",
+        "truesight": "",
+        "languages": [
+            "abyssal",
+            "telepathy 60 ft."
+        ],
+        "challenge": 0.25,
+        "armor_class": 11,
+        "hit_points": 18,
+        "xp": 50,
+        "actions": [
+            "Multiattack.  The dretch makes two attacks: one with its bite and one with its claws.  ",
+            "Bite.   Melee Weapon Attack:  +2 to hit, reach 5 ft., one target.  Hit:  3 (1d6) piercing damage.  ",
+            "Claws.   Melee Weapon Attack:  +2 to hit, reach 5 ft., one target.  Hit:  5 (2d4) slashing damage.  ",
+            "Fetid Cloud (1/Day).  A 10­-foot radius of disgusting green gas extends out from the dretch. The gas spreads around corners, and its area is lightly obscured. It lasts for 1 minute or until a strong wind disperses it. Any creature that starts its turn in that area must succeed on a DC 11 Constitution saving throw or be poisoned until the start of its next turn. While poisoned in this way, the target can take either an action or a bonus action on its turn, not both, and can't take reactions. "
+        ],
+        "weapon_attack": [
+            {
+                "name": "bite",
+                "attack": 2,
+                "average_damage": 3,
+                "damage": "1d6",
+                "damage_type": "piercing"
+            },
+            {
+                "name": "claws",
+                "attack": 2,
+                "average_damage": 5,
+                "damage": "2d4",
+                "damage_type": "slashing"
+            }
+        ],
+        "special_attack": [
+            {
+                "name": "fetid-cloud",
+                "saving_throws": "constitution",
+                "difficult_class": 11,
+                "damage_type": "poisoned"
+            }
+        ],
+        "spellcast_abilty": {},
+        "innate_spellcast_abilty": {},
+        "ability": {
+            "charisma": 3,
+            "constitution": 12,
+            "dexterity": 11,
+            "intelligence": 5,
+            "strength": 11,
+            "wisdom": 8
+        },
+        "savings": {
+            "charisma": -4,
+            "constitution": 1,
+            "dexterity": 0,
+            "intelligence": -3,
+            "strength": 0,
+            "wisdom": -1
+        },
+        "skills": {},
+        "damage_vulnerabilities": [],
+        "damage_immunities": [
+            "poison"
+        ],
+        "condition_immunities": [
+            "poisoned"
+        ],
+        "damage_resistances": [
+            "cold",
+            "fire",
+            "lightning"
+        ],
+        "passive_perception": 9,
+        "traits": null,
+        "legendary_actions": [],
+        "img_url": "https://media-waterdeep.cursecdn.com/avatars/thumbnails/0/293/1000/1000/636252771253285096.jpeg"
+    },
+    {
+        "name": "skeleton",
+        "size": "medium",
+        "type": "undead",
+        "aligment": "lawful-evil",
+        "senses": "Darkvision 60 ft.,  Passive Perception 9",
+        "darkvision": "60 ft.",
+        "blindsight": "",
+        "tremorsense": "",
+        "truesight": "",
+        "languages": [
+            "understands all languages it knew in life but can't speak"
+        ],
+        "challenge": 0.25,
+        "armor_class": 13,
+        "hit_points": 13,
+        "xp": 50,
+        "actions": [
+            "Shortsword.   Melee Weapon Attack:  +4 to hit, reach 5 ft., one target.  Hit:  5 (1d6 + 2) piercing damage.  ",
+            "Shortbow.   Ranged Weapon Attack:  +4 to hit, range 80/320 ft., one target.  Hit:  5 (1d6 + 2) piercing damage. "
+        ],
+        "weapon_attack": [
+            {
+                "name": "shortsword",
+                "attack": 4,
+                "average_damage": 5,
+                "damage": "1d6+2",
+                "damage_type": "piercing"
+            },
+            {
+                "name": "shortbow",
+                "attack": 4,
+                "average_damage": 5,
+                "damage": "1d6+2",
+                "damage_type": "piercing"
+            }
+        ],
+        "special_attack": [],
+        "spellcast_abilty": {},
+        "innate_spellcast_abilty": {},
+        "ability": {
+            "charisma": 5,
+            "constitution": 15,
+            "dexterity": 14,
+            "intelligence": 6,
+            "strength": 10,
+            "wisdom": 8
+        },
+        "savings": {
+            "charisma": -3,
+            "constitution": 2,
+            "dexterity": 2,
+            "intelligence": -2,
+            "strength": 0,
+            "wisdom": -1
+        },
+        "skills": {},
+        "damage_vulnerabilities": [
+            "bludgeoning"
+        ],
+        "damage_immunities": [
+            "poison"
+        ],
+        "condition_immunities": [
+            "exhaustion",
+            "poisoned"
+        ],
+        "damage_resistances": [],
+        "passive_perception": 9,
+        "traits": null,
+        "legendary_actions": [],
+        "img_url": "https://media-waterdeep.cursecdn.com/avatars/thumbnails/16/472/315/315/636376294573239565.jpeg"
     }]`)
 	MockSpellDescriptionDatabase = []byte(`[{
         "name": "magic-missile",
@@ -92,17 +249,31 @@ var (
         "at_higher_levels": "At Higher Levels. When you cast this spell using a spell slot of 2nd level or higher, the spell creates one more dart for each slot level above 1st."
     }]`)
 	MockSpellListByClass = []byte(`{
-		"Bard": {
-		  "level0": [
-			"Dancing Lights",
-			"Light",
-			"Mage Hand",
-			"Mending",
-			"Message",
-			"Minor Illusion",
-			"Prestidigitation",
-			"True Strike"
-		  ]}}`)
+        "Bard": {
+          "level0": [
+          "Dancing Lights",
+          "Light",
+          "Mage Hand",
+          "Mending",
+          "Message",
+          "Minor Illusion",
+          "Prestidigitation",
+          "True Strike"
+          ]},
+        "Paladin": {
+          "level1": [
+            "Bless",
+            "Command",
+            "Cure Wounds",
+            "Detect Evil and Good",
+            "Detect Magic",
+            "Detect Poison and Disease",
+            "Divine Favor",
+            "Heroism",
+            "Protection from Evil and Good",
+            "Purify Food and Drink",
+            "Shield of Faith"
+          ]}}`)
 	MockMagicItemDatabase = []byte(`[{
         "name": "winged-boots",
         "title": "Winged Boots",

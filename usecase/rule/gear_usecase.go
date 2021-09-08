@@ -739,7 +739,6 @@ func CalcHoardPercentageByLevel(level int) *rule.RandomTreasureHoard {
 		msg += fmt.Sprintf("%s: %s", goldDice, t3)
 		treasure.Treasure.Gold = res3 * 10
 		dice, kind, price, magicItemsRoll := checkHoardBelowFive(res)
-		fmt.Println(price)
 		res4, t4, _ := r.DiceRoll(dice)
 		msg += fmt.Sprintf("%s: %s", dice, t4)
 		switch kind {

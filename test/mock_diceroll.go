@@ -2,7 +2,6 @@ package test
 
 import (
 	"errors"
-	"fmt"
 	"strings"
 
 	"github.com/betorvs/playbypost-dnd/appcontext"
@@ -47,7 +46,6 @@ func (r MockRollInternal) DiceRoll(text string) (int, string, error) {
 	case "1d100e0":
 		return 101, "Rolled 101", nil
 	case "1d100e96h":
-		fmt.Println(text)
 		switch text {
 		case "1d100":
 			return 96, "Rolled 96", nil

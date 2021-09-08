@@ -74,7 +74,7 @@ func returnMonsterPaladinEnemy(name string) bool {
 	db := database.GetDatabaseRepository()
 	monsters := db.GetMonsterDatabase()
 	for _, v := range monsters {
-		if v.Name == name && v.Type == "fiends" {
+		if v.Name == name && v.Type == "fiend" {
 			return true
 		}
 		if v.Name == name && v.Type == "undead" {
