@@ -4,12 +4,13 @@ import (
 	"net/url"
 	"strings"
 
+	"github.com/betorvs/playbypost-dnd/domain/database"
 	"github.com/betorvs/playbypost-dnd/domain/rule"
 )
 
 // GetAllHoard returns a []TreasureHoard
 func GetAllHoard(queryParameters url.Values) []rule.TreasureHoard {
-	db := rule.GetDatabaseRepository()
+	db := database.GetDatabaseRepository()
 	hoards := db.GetHoardDatabase()
 	if len(queryParameters) != 0 {
 		var filtered []rule.TreasureHoard
@@ -38,7 +39,7 @@ func GetAllHoard(queryParameters url.Values) []rule.TreasureHoard {
 
 // HoardByName returns a TreasureHoard by name
 func HoardByName(name string) rule.TreasureHoard {
-	db := rule.GetDatabaseRepository()
+	db := database.GetDatabaseRepository()
 	hoards := db.GetHoardDatabase()
 	var hoard rule.TreasureHoard
 	for _, v := range hoards {
@@ -51,7 +52,7 @@ func HoardByName(name string) rule.TreasureHoard {
 
 // HoardNameList return a list of treasure hoards in []string by value
 func HoardNameList(kind string, value int) []string {
-	db := rule.GetDatabaseRepository()
+	db := database.GetDatabaseRepository()
 	hoards := db.GetHoardDatabase()
 	hoardsList := []string{}
 	for _, v := range hoards {

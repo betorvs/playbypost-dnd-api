@@ -225,9 +225,4 @@ func init() {
 	logLocal := config.GetLogger()
 	logLocal.Info("JSONs Database ready")
 
-	// MonsterDatabase = lazyMonsterDatabaseInit()
-	// SpellDescriptionDatabase = lazySpellDescriptionsDatabaseInit()
-	// SpellListByClass = lazySpellListByClassDatabaseInit()
-	// MagicItemDatabase = lazyMagicItemDatabaseInit()
-
 }

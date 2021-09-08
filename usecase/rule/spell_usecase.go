@@ -6,13 +6,14 @@ import (
 	"regexp"
 	"strings"
 
+	"github.com/betorvs/playbypost-dnd/domain/database"
 	"github.com/betorvs/playbypost-dnd/domain/rule"
 	"github.com/betorvs/playbypost-dnd/utils"
 )
 
 //GetSpellListDescription func
 func GetSpellListDescription(queryParameters url.Values) []rule.SpellDescription {
-	db := rule.GetDatabaseRepository()
+	db := database.GetDatabaseRepository()
 	spellList := db.GetSpellDescriptionDatabase()
 	if len(queryParameters) != 0 {
 		var filtered []rule.SpellDescription
@@ -51,7 +52,7 @@ func GetSpellListDescription(queryParameters url.Values) []rule.SpellDescription
 }
 
 func getSpellByName(name string) (spell rule.SpellDescription) {
-	db := rule.GetDatabaseRepository()
+	db := database.GetDatabaseRepository()
 	spellList := db.GetSpellDescriptionDatabase()
 	for _, v := range spellList {
 		if name == v.Name {
@@ -231,7 +232,7 @@ func getFullListWithFeature(class string, classFeatures []string, level int) []s
 //GetSpellListByClass func
 func GetSpellListByClass(class string, level int) (list rule.SimpleList) {
 	//
-	db := rule.GetDatabaseRepository()
+	db := database.GetDatabaseRepository()
 	var spellList []string
 	switch class {
 	case "bard":

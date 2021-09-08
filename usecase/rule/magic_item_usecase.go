@@ -5,6 +5,7 @@ import (
 	"net/url"
 	"strings"
 
+	"github.com/betorvs/playbypost-dnd/domain/database"
 	"github.com/betorvs/playbypost-dnd/domain/diceroll"
 	"github.com/betorvs/playbypost-dnd/domain/rule"
 	"github.com/betorvs/playbypost-dnd/utils"
@@ -12,7 +13,7 @@ import (
 
 //GetMagicItem func
 func GetMagicItem(queryParameters url.Values) []rule.MagicItem {
-	db := rule.GetDatabaseRepository()
+	db := database.GetDatabaseRepository()
 	magicItems := db.GetMagicItemDatabase()
 	if len(queryParameters) != 0 {
 		var filtered []rule.MagicItem
@@ -42,7 +43,7 @@ func GetMagicItem(queryParameters url.Values) []rule.MagicItem {
 
 // GetMagicItemByName return a magic item by name
 func GetMagicItemByName(name string) (item rule.MagicItem) {
-	db := rule.GetDatabaseRepository()
+	db := database.GetDatabaseRepository()
 	magicItems := db.GetMagicItemDatabase()
 	for _, v := range magicItems {
 		if name == v.Name {
@@ -53,7 +54,7 @@ func GetMagicItemByName(name string) (item rule.MagicItem) {
 }
 
 func getMagicItemByHoardTable(table string) (items []rule.MagicItem) {
-	db := rule.GetDatabaseRepository()
+	db := database.GetDatabaseRepository()
 	magicItems := db.GetMagicItemDatabase()
 	for _, v := range magicItems {
 		if utils.StringInSlice(table, v.HoardTable) {
