@@ -12,7 +12,7 @@ import (
 	"github.com/betorvs/playbypost-dnd/utils"
 )
 
-// GetAllWeapons returns a monster by name
+// GetAllWeapons returns a weapon by name
 func GetAllWeapons(queryParameters url.Values) []rule.Weapon {
 	db := database.GetDatabaseRepository()
 	weapons := db.GetWeaponDatabase()
@@ -418,7 +418,7 @@ func individualPercentageByLevel(level int, random bool) (string, map[string]int
 	res, t, _ := r.DiceRoll("1d100")
 	msg := fmt.Sprintf("d100: %s ", t)
 	switch {
-	case level <= 4:
+	case level >= 1 && level <= 4:
 		coin1 := checkTableBelowFive(res)
 		if random {
 			res1, t1, _ := r.DiceRoll(coin1.Dice)
@@ -461,7 +461,7 @@ func individualPercentageByLevel(level int, random bool) (string, map[string]int
 		}
 		return msg, treasure
 
-	case level > 16:
+	case level > 16 && level <= 20:
 		// coin1, randomDice1, average1, coin2, randomDice2, average2 := checkTableAboveSeventeen(res)
 		coins := checkTableAboveSeventeen(res)
 		if random {
@@ -739,6 +739,7 @@ func CalcHoardPercentageByLevel(level int) *rule.RandomTreasureHoard {
 		msg += fmt.Sprintf("%s: %s", goldDice, t3)
 		treasure.Treasure.Gold = res3 * 10
 		dice, kind, price, magicItemsRoll := checkHoardBelowFive(res)
+		fmt.Println(price)
 		res4, t4, _ := r.DiceRoll(dice)
 		msg += fmt.Sprintf("%s: %s", dice, t4)
 		switch kind {
