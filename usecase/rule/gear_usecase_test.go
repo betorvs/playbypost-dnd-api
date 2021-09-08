@@ -172,42 +172,45 @@ func TestCalcShoppingCart(t *testing.T) {
 }
 
 func TestCalcRandomTreasureByChallengeLevel(t *testing.T) {
-	appcontext.Current.Add(appcontext.Dice, test.InitDice100b20Mock)
+	appcontext.Current.Add(appcontext.Dice, test.InitDiceMock)
+	test.DiceType = "1d100b20"
 	res, err := CalcRandomTreasureByChallengeLevel(-1, true)
 	assert.NotNil(t, res)
 	assert.Error(t, err)
 }
 
 func TestCalcRandomTreasureByChallengeLevelTest14(t *testing.T) {
-	appcontext.Current.Add(appcontext.Dice, test.InitDice100b20Mock)
+	appcontext.Current.Add(appcontext.Dice, test.InitDiceMock)
+	test.DiceType = "1d100b20"
 	res, err := CalcRandomTreasureByChallengeLevel(3, true)
 	assert.NotNil(t, res)
 	assert.NoError(t, err)
 }
 
 func TestCalcRandomTreasureByChallengeLevelTest35(t *testing.T) {
-	appcontext.Current.Add(appcontext.Dice, test.InitDice100e35Mock)
+	appcontext.Current.Add(appcontext.Dice, test.InitDiceMock)
 	res, err := CalcRandomTreasureByChallengeLevel(3, true)
 	assert.NotNil(t, res)
 	assert.NoError(t, err)
 }
 
 func TestCalcRandomTreasureByChallengeLevelTest65(t *testing.T) {
-	appcontext.Current.Add(appcontext.Dice, test.InitDice100e65Mock)
+	appcontext.Current.Add(appcontext.Dice, test.InitDiceMock)
 	res, err := CalcRandomTreasureByChallengeLevel(3, true)
 	assert.NotNil(t, res)
 	assert.NoError(t, err)
 }
 
 func TestCalcRandomTreasureByChallengeLevelTest80(t *testing.T) {
-	appcontext.Current.Add(appcontext.Dice, test.InitDice100e80Mock)
+	appcontext.Current.Add(appcontext.Dice, test.InitDiceMock)
 	res, err := CalcRandomTreasureByChallengeLevel(3, true)
 	assert.NotNil(t, res)
 	assert.NoError(t, err)
 }
 
 func TestCalcRandomTreasureByChallengeLevelTest96(t *testing.T) {
-	appcontext.Current.Add(appcontext.Dice, test.InitDice100e96Mock)
+	appcontext.Current.Add(appcontext.Dice, test.InitDiceMock)
+	test.DiceType = "1d100e96"
 	res, err := CalcRandomTreasureByChallengeLevel(3, true)
 	assert.NotNil(t, res)
 	assert.NoError(t, err)
@@ -216,7 +219,8 @@ func TestCalcRandomTreasureByChallengeLevelTest96(t *testing.T) {
 // TestCheckTableBelowFive
 
 func TestIndividualPercentageByLevelCheckTableBelowFiveTest14(t *testing.T) {
-	appcontext.Current.Add(appcontext.Dice, test.InitDice100b20Mock)
+	appcontext.Current.Add(appcontext.Dice, test.InitDiceMock)
+	test.DiceType = "1d100b20"
 	res1, res2 := individualPercentageByLevel(3, true)
 	assert.NotNil(t, res1)
 	assert.NotNil(t, res2)
@@ -226,35 +230,39 @@ func TestIndividualPercentageByLevelCheckTableBelowFiveTest14(t *testing.T) {
 }
 
 func TestIndividualPercentageByLevelCheckTableBelowFiveTest35(t *testing.T) {
-	appcontext.Current.Add(appcontext.Dice, test.InitDice100e35Mock)
+	appcontext.Current.Add(appcontext.Dice, test.InitDiceMock)
+	test.DiceType = "1d100e35"
 	res1, res2 := individualPercentageByLevel(3, true)
 	assert.NotNil(t, res1)
 	assert.NotNil(t, res2)
 }
 
 func TestIndividualPercentageByLevelCheckTableBelowFiveTest65(t *testing.T) {
-	appcontext.Current.Add(appcontext.Dice, test.InitDice100e65Mock)
+	appcontext.Current.Add(appcontext.Dice, test.InitDiceMock)
+	test.DiceType = "1d100e65"
 	res1, res2 := individualPercentageByLevel(3, true)
 	assert.NotNil(t, res1)
 	assert.NotNil(t, res2)
 }
 
 func TestIndividualPercentageByLevelCheckTableBelowFiveTest80(t *testing.T) {
-	appcontext.Current.Add(appcontext.Dice, test.InitDice100e80Mock)
+	appcontext.Current.Add(appcontext.Dice, test.InitDiceMock)
 	res1, res2 := individualPercentageByLevel(3, true)
 	assert.NotNil(t, res1)
 	assert.NotNil(t, res2)
 }
 
 func TestIndividualPercentageByLevelCheckTableBelowFiveTest96(t *testing.T) {
-	appcontext.Current.Add(appcontext.Dice, test.InitDice100e96Mock)
+	appcontext.Current.Add(appcontext.Dice, test.InitDiceMock)
+	test.DiceType = "1d100e96"
 	res1, res2 := individualPercentageByLevel(3, true)
 	assert.NotNil(t, res1)
 	assert.NotNil(t, res2)
 }
 
 func TestIndividualPercentageByLevelCheckTableBelowFiveTestZero(t *testing.T) {
-	appcontext.Current.Add(appcontext.Dice, test.InitDice100e0Mock)
+	appcontext.Current.Add(appcontext.Dice, test.InitDiceMock)
+	test.DiceType = "1d100e0"
 	res1, res2 := individualPercentageByLevel(3, true)
 	assert.NotNil(t, res1)
 	assert.NotNil(t, res2)
@@ -263,7 +271,8 @@ func TestIndividualPercentageByLevelCheckTableBelowFiveTestZero(t *testing.T) {
 // TestCheckTableBelowTen
 
 func TestIndividualPercentageByLevelCheckTableBelowTenTest14(t *testing.T) {
-	appcontext.Current.Add(appcontext.Dice, test.InitDice100b20Mock)
+	appcontext.Current.Add(appcontext.Dice, test.InitDiceMock)
+	test.DiceType = "1d100b20"
 	res1, res2 := individualPercentageByLevel(9, true)
 	assert.NotNil(t, res1)
 	assert.NotNil(t, res2)
@@ -273,35 +282,40 @@ func TestIndividualPercentageByLevelCheckTableBelowTenTest14(t *testing.T) {
 }
 
 func TestIndividualPercentageByLevelCheckTableBelowTenTest35(t *testing.T) {
-	appcontext.Current.Add(appcontext.Dice, test.InitDice100e35Mock)
+	appcontext.Current.Add(appcontext.Dice, test.InitDiceMock)
+	test.DiceType = "1d100e35"
 	res1, res2 := individualPercentageByLevel(9, true)
 	assert.NotNil(t, res1)
 	assert.NotNil(t, res2)
 }
 
 func TestIndividualPercentageByLevelCheckTableBelowTenTest65(t *testing.T) {
-	appcontext.Current.Add(appcontext.Dice, test.InitDice100e65Mock)
+	appcontext.Current.Add(appcontext.Dice, test.InitDiceMock)
+	test.DiceType = "1d100e65"
 	res1, res2 := individualPercentageByLevel(9, true)
 	assert.NotNil(t, res1)
 	assert.NotNil(t, res2)
 }
 
 func TestIndividualPercentageByLevelCheckTableBelowTenTest80(t *testing.T) {
-	appcontext.Current.Add(appcontext.Dice, test.InitDice100e80Mock)
+	appcontext.Current.Add(appcontext.Dice, test.InitDiceMock)
+	test.DiceType = "1d100e80"
 	res1, res2 := individualPercentageByLevel(9, true)
 	assert.NotNil(t, res1)
 	assert.NotNil(t, res2)
 }
 
 func TestIndividualPercentageByLevelCheckTableBelowTenTest96(t *testing.T) {
-	appcontext.Current.Add(appcontext.Dice, test.InitDice100e96Mock)
+	appcontext.Current.Add(appcontext.Dice, test.InitDiceMock)
+	test.DiceType = "1d100e96"
 	res1, res2 := individualPercentageByLevel(9, true)
 	assert.NotNil(t, res1)
 	assert.NotNil(t, res2)
 }
 
 func TestIndividualPercentageByLevelCheckTableBelowTenTestZero(t *testing.T) {
-	appcontext.Current.Add(appcontext.Dice, test.InitDice100e0Mock)
+	appcontext.Current.Add(appcontext.Dice, test.InitDiceMock)
+	test.DiceType = "1d100e0"
 	res1, res2 := individualPercentageByLevel(9, true)
 	assert.NotNil(t, res1)
 	assert.NotNil(t, res2)
@@ -310,7 +324,8 @@ func TestIndividualPercentageByLevelCheckTableBelowTenTestZero(t *testing.T) {
 //TestCheckTableBelowSeventeen
 
 func TestIndividualPercentageByLevelCheckTableBelowSeventeenTest14(t *testing.T) {
-	appcontext.Current.Add(appcontext.Dice, test.InitDice100b20Mock)
+	appcontext.Current.Add(appcontext.Dice, test.InitDiceMock)
+	test.DiceType = "1d100b20"
 	res1, res2 := individualPercentageByLevel(15, true)
 	assert.NotNil(t, res1)
 	assert.NotNil(t, res2)
@@ -320,28 +335,32 @@ func TestIndividualPercentageByLevelCheckTableBelowSeventeenTest14(t *testing.T)
 }
 
 func TestIndividualPercentageByLevelCheckTableBelowSeventeenTest35(t *testing.T) {
-	appcontext.Current.Add(appcontext.Dice, test.InitDice100e35Mock)
+	appcontext.Current.Add(appcontext.Dice, test.InitDiceMock)
+	test.DiceType = "1d100e35"
 	res1, res2 := individualPercentageByLevel(15, true)
 	assert.NotNil(t, res1)
 	assert.NotNil(t, res2)
 }
 
 func TestIndividualPercentageByLevelCheckTableBelowSeventeenTest65(t *testing.T) {
-	appcontext.Current.Add(appcontext.Dice, test.InitDice100e65Mock)
+	appcontext.Current.Add(appcontext.Dice, test.InitDiceMock)
+	test.DiceType = "1d100e65"
 	res1, res2 := individualPercentageByLevel(15, true)
 	assert.NotNil(t, res1)
 	assert.NotNil(t, res2)
 }
 
 func TestIndividualPercentageByLevelCheckTableBelowSeventeenTest80(t *testing.T) {
-	appcontext.Current.Add(appcontext.Dice, test.InitDice100e80Mock)
+	appcontext.Current.Add(appcontext.Dice, test.InitDiceMock)
+	test.DiceType = "1d100e80"
 	res1, res2 := individualPercentageByLevel(15, true)
 	assert.NotNil(t, res1)
 	assert.NotNil(t, res2)
 }
 
 func TestIndividualPercentageByLevelCheckTableBelowSeventeenTestZero(t *testing.T) {
-	appcontext.Current.Add(appcontext.Dice, test.InitDice100e0Mock)
+	appcontext.Current.Add(appcontext.Dice, test.InitDiceMock)
+	test.DiceType = "1d100e0"
 	res1, res2 := individualPercentageByLevel(15, true)
 	assert.NotNil(t, res1)
 	assert.NotNil(t, res2)
@@ -350,7 +369,8 @@ func TestIndividualPercentageByLevelCheckTableBelowSeventeenTestZero(t *testing.
 // TestCheckTableAboveSeventeen
 
 func TestIndividualPercentageByLevelCheckTableAboveSeventeenTest14(t *testing.T) {
-	appcontext.Current.Add(appcontext.Dice, test.InitDice100b20Mock)
+	appcontext.Current.Add(appcontext.Dice, test.InitDiceMock)
+	test.DiceType = "1d100b20"
 	res1, res2 := individualPercentageByLevel(18, true)
 	assert.NotNil(t, res1)
 	assert.NotNil(t, res2)
@@ -360,28 +380,32 @@ func TestIndividualPercentageByLevelCheckTableAboveSeventeenTest14(t *testing.T)
 }
 
 func TestIndividualPercentageByLevelCheckTableAboveSeventeenTest35(t *testing.T) {
-	appcontext.Current.Add(appcontext.Dice, test.InitDice100e35Mock)
+	appcontext.Current.Add(appcontext.Dice, test.InitDiceMock)
+	test.DiceType = "1d100e35"
 	res1, res2 := individualPercentageByLevel(18, true)
 	assert.NotNil(t, res1)
 	assert.NotNil(t, res2)
 }
 
 func TestIndividualPercentageByLevelCheckTableAboveSeventeenTest80(t *testing.T) {
-	appcontext.Current.Add(appcontext.Dice, test.InitDice100e80Mock)
+	appcontext.Current.Add(appcontext.Dice, test.InitDiceMock)
+	test.DiceType = "1d100e80"
 	res1, res2 := individualPercentageByLevel(18, true)
 	assert.NotNil(t, res1)
 	assert.NotNil(t, res2)
 }
 
 func TestIndividualPercentageByLevelCheckTableAboveSeventeenTestZero(t *testing.T) {
-	appcontext.Current.Add(appcontext.Dice, test.InitDice100e0Mock)
+	appcontext.Current.Add(appcontext.Dice, test.InitDiceMock)
+	test.DiceType = "1d100e0"
 	res1, res2 := individualPercentageByLevel(18, true)
 	assert.NotNil(t, res1)
 	assert.NotNil(t, res2)
 }
 
 func TestCalcHoardPercentageByLevel(t *testing.T) {
-	appcontext.Current.Add(appcontext.Dice, test.InitDice100e96HoardMock)
+	appcontext.Current.Add(appcontext.Dice, test.InitDiceMock)
+	test.DiceType = "1d100e96"
 	appcontext.Current.Add(appcontext.Database, test.InitDatabaseMock)
 	res := CalcHoardPercentageByLevel(4)
 	assert.NotNil(t, res)
