@@ -106,11 +106,11 @@ func CheckArmorClass(ac *rule.ArmorClass) *rule.ReturnACMessage {
 	if utils.StringInSlice("sorcerous-origin-draconic-resistance", ac.ClassFeatures) && ac.Armor == "" {
 		armorClassInitial = 13
 	}
-	if utils.StringInSlice("unarmored-defense-monk", ac.ClassFeatures) {
+	if utils.StringInSlice("unarmored-defense-monk", ac.ClassFeatures) && ac.Armor == "" {
 		unarmoredDefense = CalcAbilityModifier(ac.Ability["wisdom"])
 	}
 
-	if utils.StringInSlice("unarmored-defense-barbarian", ac.ClassFeatures) {
+	if utils.StringInSlice("unarmored-defense-barbarian", ac.ClassFeatures) && ac.Armor == "" {
 		unarmoredDefense = CalcAbilityModifier(ac.Ability["constitution"])
 	}
 	var fightingStyle int

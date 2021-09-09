@@ -318,6 +318,17 @@ var (
         "damage_dice": "1d8",
         "damage_type": "necrotic",
         "attack_rolls": true
+    },
+    {
+        "name": "alter-self",
+        "level": 2,
+        "title": "Alter Self",
+        "subtitle": "2nd-level transmutation",
+        "casting_time": "1 action",
+        "range": "Self",
+        "components": "V, S",
+        "duration": "Concentration, up to 1 hour",
+        "description": " You assume a different form. When you cast the spell, choose one of the following options, the effects of which last for the duration of the spell. While the spell lasts, you can end one option as an action to gain the benefits of a different one. *Aquatic Adaptation.* You adapt your body to an aquatic environment, sprouting gills and growing webbing between your fingers. You can breathe underwater and gain a swimming speed equal to your walking speed. *Change Appearance.* You transform your appearance. You decide what you look like, including your height, weight, facial features, sound of your voice, hair length, coloration, and distinguishing characteristics, if any. You can make yourself appear as a member of another race, though none of your statistics change. You also can’t appear as a creature of a different size than you, and your basic shape stays the same; if you’re bipedal, you can’t use this spell to become quadrupedal, for instance. At any time for the duration of the spell, you can use your action to change your appearance in this way again. *Natural Weapons.* You grow claws, fangs, spines, horns, or a different natural weapon of your choice. Your unarmed strikes deal 1d6 bludgeoning, piercing, or slashing damage, as appropriate to the natural weapon you chose, and you are proficient with your unarmed strikes. Finally, the natural weapon is magic and you have a +1 bonus to the attack and damage rolls you make using it."
     }]`)
 	MockSpellListByClass = []byte(`{
         "Bard": {
@@ -392,7 +403,9 @@ var (
             "Ray of Frost",
             "Shocking Grasp",
             "True Strike"
-          ]
+          ],
+          "level1": [ "Burning Hands" ],
+          "level2": [ "Alter Self" ]
         },
         "Warlock": {
           "level0": [
@@ -445,6 +458,19 @@ var (
         "stealth": true,
         "strength": 0,
         "weight": 8,
+        "measure": "lb"
+    },
+    {
+        "name": "plate",
+        "title": "Plate",
+        "kind": "heavy-armor",
+        "cost": 1500,
+        "coin_type": "gold",
+        "armor_class": 18,
+        "dexterity_modifier": 0,
+        "stealth": true,
+        "strength": 15,
+        "weight": 65,
         "measure": "lb"
     }]`)
 	MockWeaponDatabase = []byte(`[{
