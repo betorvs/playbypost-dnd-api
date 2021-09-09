@@ -16,5 +16,9 @@ Play by Post Dungeons and Dragons should not be a replacement for any platform f
 We shared [here](https://github.com/betorvs/playbypost-dnd/blob/main/documentation/postman-collection/PlayByPost-DnD.postman_collection.json) a postman collection with all REST API. Just need to create a environment variable inside postman called server pointing to your local environment. For instance: `server = http://localhost:8080`.
 
 
-## How to contribute
+## TODO List
+
+- [ ] Add Hoard Calcutation for levels: 5-10, 11-16, >17.
+- [ ] Add Slack Controller, usecase and gateway.
+- [ ] End to End test with github actions.
 
