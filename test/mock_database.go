@@ -400,6 +400,13 @@ var (
         "description": "opaque dark gray with red flecks",
         "value": 50,
         "coin_type": "gold"
+    },
+    {
+        "name": "Ewer",
+        "kind": "art-object",
+        "description": "Silver ewer",
+        "value": 25,
+        "coin_type": "gold"
     }]`)
 	MockServicesDatabase = []byte(`[{
         "name": "lifestyle poor",

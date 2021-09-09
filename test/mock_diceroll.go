@@ -2,6 +2,7 @@ package test
 
 import (
 	"errors"
+	"fmt"
 	"strings"
 
 	"github.com/betorvs/playbypost-dnd/appcontext"
@@ -12,6 +13,8 @@ var (
 	DiceRollCall int
 	// DiceType string
 	DiceType string
+	// DiceResult int
+	DiceResult int
 )
 
 // MockRollInternal struct
@@ -32,23 +35,8 @@ func (r MockRollInternal) DiceRoll(text string) (int, string, error) {
 		return 1, "Rolled 1", errors.New("invalid dice")
 	}
 	DiceRollCall++
-	switch DiceType {
-	case "1d100b20":
-		return 14, "Rolled 14", nil
-	case "1d100e35":
-		return 35, "Rolled 35", nil
-	case "1d100e65":
-		return 65, "Rolled 65", nil
-	case "1d100e80":
-		return 80, "Rolled 80", nil
-	case "1d100e96":
-		return 96, "Rolled 96", nil
-	case "1d100e0":
-		return 101, "Rolled 101", nil
-	case "1d100e96h":
+	if DiceResult != 0 {
 		switch text {
-		case "1d100":
-			return 96, "Rolled 96", nil
 		case "6d6":
 			return 36, "Rolled 36", nil
 		case "3d6":
@@ -56,6 +44,8 @@ func (r MockRollInternal) DiceRoll(text string) (int, string, error) {
 		case "2d6":
 			return 12, "Rolled 12", nil
 
+		default:
+			return DiceResult, fmt.Sprintf("Rolled %v", DiceResult), nil
 		}
 	}
 	return 20, "Rolled 20", nil
