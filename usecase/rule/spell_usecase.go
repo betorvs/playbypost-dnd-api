@@ -272,8 +272,8 @@ func GetSpellListByClass(class string, level int) (list rule.SimpleList) {
 			spellList = db.GetSpellListByClass().Ranger.Level4
 		case 5:
 			spellList = db.GetSpellListByClass().Ranger.Level5
-		default:
-			spellList = db.GetSpellListByClass().Ranger.Level1
+			// default:
+			// 	spellList = db.GetSpellListByClass().Ranger.Level1
 		}
 
 	case "sorcerer":
@@ -408,8 +408,8 @@ func GetSpellListByClass(class string, level int) (list rule.SimpleList) {
 			spellList = db.GetSpellListByClass().Paladin.Level4
 		case 5:
 			spellList = db.GetSpellListByClass().Paladin.Level5
-		default:
-			spellList = db.GetSpellListByClass().Paladin.Level1
+			// default:
+			// 	spellList = db.GetSpellListByClass().Paladin.Level1
 		}
 
 	case "warlock":

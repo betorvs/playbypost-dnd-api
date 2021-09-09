@@ -34,27 +34,56 @@ func TestGetSpellByName(t *testing.T) {
 	assert.NotEmpty(t, res)
 }
 
-func TestSpellDamageIncrease(t *testing.T) {}
+func TestSpellDamageIncrease(t *testing.T) {
+	appcontext.Current.Add(appcontext.Database, test.InitDatabaseMock)
+	test := getSpellByName("fireball")
+	res := spellDamageIncrease(test, 9)
+	assert.NotEmpty(t, res)
+	list := []string{"produce-flame", "acid-splash", "chill-touch"}
+	levels := []int{5, 11, 17}
+	for _, v := range list {
+		test1 := getSpellByName(v)
+		for _, value := range levels {
+			res1 := spellDamageIncrease(test1, value)
+			assert.NotEmpty(t, res1)
+		}
+	}
+}
 
-func TestSpellDamageMax(t *testing.T) {}
+func TestSpellDamageMax(t *testing.T) {
+	res := spellDamageMax("6d6")
+	assert.NotEmpty(t, res)
+}
 
-func TestSpellLevelRegex(t *testing.T) {}
+func TestSpellLevelRegex(t *testing.T) {
+	res := spellLevelRegex("1st")
+	assert.NotEmpty(t, res)
+}
 
-func TestSpellHealIncreases(t *testing.T) {}
+func TestSpellHealIncreases(t *testing.T) {
+	res := spellHealIncreases("3d8", "healing increases by 1d8 for each slot level above 5th.", 10)
+	assert.NotEmpty(t, res)
+}
 
-func TestHealSpell(t *testing.T) {}
+func TestHealSpell(t *testing.T) {
+	res1 := healSpell(5)
+	assert.NotEmpty(t, res1)
+	res2 := healSpell(10)
+	assert.NotEmpty(t, res2)
+}
 
 func TestGetFullSpellList(t *testing.T) {
 	appcontext.Current.Add(appcontext.Database, test.InitDatabaseMock)
-	list := []string{"paladin", "bard"}
-	for _, v := range list {
+	// list := []string{"paladin", "bard"}
+	for _, v := range ClassWithSpell() {
 		res := GetFullSpellList(v)
 		assert.NotNil(t, res)
 	}
 }
 
-func TestGetFullListWithFeature(t *testing.T) {}
-
-func TestGetSpellListByClass(t *testing.T) {
-
+func TestGetFullListWithFeature(t *testing.T) {
+	testFeatures := ClassFeatures("cleric", 3)
+	testFeatures = append(testFeatures, "domain-war")
+	res := getFullListWithFeature("cleric", testFeatures, 3)
+	assert.NotEmpty(t, res)
 }

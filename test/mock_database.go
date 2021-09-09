@@ -247,19 +247,122 @@ var (
         "duration": "Instantaneous",
         "description": " You create three glowing darts of magical force. Each dart hits a creature of your choice that you can see within range. A dart deals 1d4 + 1 force damage to its target. The darts all strike simultaneously, and you can direct them to hit one creature or several. *At Higher Levels.* When you cast this spell using a spell slot of 2nd level or higher, the spell creates one more dart for each slot level above 1st.",
         "at_higher_levels": "At Higher Levels. When you cast this spell using a spell slot of 2nd level or higher, the spell creates one more dart for each slot level above 1st."
+    },
+    {
+        "name": "spiritual-weapon",
+        "level": 2,
+        "title": "Spiritual Weapon",
+        "subtitle": "2nd-level evocation",
+        "casting_time": "1 bonus action",
+        "range": "60 feet",
+        "components": "V, S",
+        "duration": "1 minute",
+        "description": " You create a floating, spectral weapon within range that lasts for the duration or until you cast this spell again. When you cast the spell, you can make a melee spell attack against a creature within 5 feet of the weapon. On a hit, the target takes force damage equal to 1d8 + your spellcasting ability modifier. As a bonus action on your turn, you can move the weapon up to 20 feet and repeat the attack against a creature within 5 feet of it. The weapon can take whatever form you choose. Clerics of deities who are associated with a particular weapon (as St. Cuthbert is known for his mace and Thor for his hammer) make this spell’s effect resemble that weapon. *At Higher Levels.* When you cast this spell using a spell slot of 3rd level or higher, the damage increases by 1d8 for every two slot levels above 2nd.",
+        "at_higher_levels": "At Higher Levels. When you cast this spell using a spell slot of 3rd level or higher, the damage increases by 1d8 for every two slot levels above 2nd.",
+        "attack_rolls": true
+    },
+    {
+        "name": "fireball",
+        "level": 3,
+        "title": "Fireball",
+        "subtitle": "3rd-level evocation",
+        "casting_time": "1 action",
+        "range": "150 feet",
+        "components": "V, S, M (a tiny ball of bat guano and sulfur)",
+        "duration": "Instantaneous",
+        "description": " A bright streak flashes from your pointing finger to a point you choose within range and then blossoms with a low roar into an explosion of flame. Each creature in a 20-foot-radius sphere centered on that point must make a Dexterity saving throw. A target takes 8d6 fire damage on a failed save, or half as much damage on a successful one. The fire spreads around corners. It ignites flammable objects in the area that aren’t being worn or carried. *At Higher Levels.* When you cast this spell using a spell slot of 4th level or higher, the damage increases by 1d6 for each slot level above 3rd.",
+        "at_higher_levels": "At Higher Levels. When you cast this spell using a spell slot of 4th level or higher, the damage increases by 1d6 for each slot level above 3rd.",
+        "damage_dice": "8d6",
+        "damage_type": "fire",
+        "saving_throw": "dexterity"
+    },
+    {
+        "name": "produce-flame",
+        "level": 0,
+        "title": "Produce Flame",
+        "subtitle": "conjuration cantrip",
+        "casting_time": "1 action",
+        "range": "Self",
+        "components": "V, S",
+        "duration": "10 minutes",
+        "description": " A flickering flame appears in your hand. The flame remains there for the duration and harms neither you nor your equipment. The flame sheds bright light in a 10-foot radius and dim light for an additional 10 feet. The spell ends if you dismiss it as an action or if you cast it again. You can also attack with the flame, although doing so ends the spell. When you cast this spell, or as an action on a later turn, you can hurl the flame at a creature within 30 feet of you. Make a ranged spell attack. On a hit, the target takes 1d8 fire damage. This spell’s damage increases by 1d8 when you reach 5th level (2d8), 11th level (3d8), and 17th level (4d8).",
+        "damage_increase": "This spell’s damage increases by 1d8 when you reach 5th level (2d8), 11th level (3d8), and 17th level (4d8).",
+        "damage_dice": "1d8",
+        "damage_type": "fire",
+        "attack_rolls": true
+    },
+    {
+        "name": "acid-splash",
+        "level": 0,
+        "title": "Acid Splash",
+        "subtitle": "conjuration cantrip",
+        "casting_time": "1 action",
+        "range": "60 feet",
+        "components": "V, S",
+        "duration": "Instantaneous",
+        "description": " You hurl a bubble of acid. Choose one creature within range, or choose two creatures within range that are within 5 feet of each other. A target must succeed on a Dexterity saving throw or take 1d6 acid damage. This spell’s damage increases by 1d6 when you reach 5th level (2d6), 11th level (3d6), and 17th level (4d6).",
+        "damage_increase": "This spell’s damage increases by 1d6 when you reach 5th level (2d6), 11th level (3d6), and 17th level (4d6).",
+        "saving_throw": "dexterity"
+    },
+    {
+        "name": "chill-touch",
+        "level": 0,
+        "title": "Chill Touch",
+        "subtitle": "necromancy cantrip",
+        "casting_time": "1 action",
+        "range": "120 feet",
+        "components": "V, S",
+        "duration": "1 round",
+        "description": " You create a ghostly, skeletal hand in the space of a creature within range. Make a ranged spell attack against the creature to assail it with the chill of the grave. On a hit, the target takes 1d8 necrotic damage, and it can’t regain hit points until the start of your next turn. Until then, the hand clings to the target. If you hit an undead target, it also has disadvantage on attack rolls against you until the end of your next turn. This spell’s damage increases by 1d8 when you reach 5th level (2d8), 11th level (3d8), and 17th level (4d8).",
+        "damage_increase": "This spell’s damage increases by 1d8 when you reach 5th level (2d8), 11th level (3d8), and 17th level (4d8).",
+        "damage_dice": "1d8",
+        "damage_type": "necrotic",
+        "attack_rolls": true
     }]`)
 	MockSpellListByClass = []byte(`{
         "Bard": {
           "level0": [
-          "Dancing Lights",
-          "Light",
-          "Mage Hand",
-          "Mending",
-          "Message",
-          "Minor Illusion",
-          "Prestidigitation",
-          "True Strike"
-          ]},
+            "Dancing Lights",
+            "Light",
+            "Mage Hand",
+            "Mending",
+            "Message",
+            "Minor Illusion",
+            "Prestidigitation",
+            "True Strike"
+          ]
+        },
+        "Cleric": {
+          "level0": [
+            "Guidance",
+            "Light",
+            "Mending",
+            "Resistance",
+            "Sacred Flame",
+            "Thaumaturgy"
+          ]
+        },
+        "Druid": {
+          "level0": [
+            "Guidance",
+            "Mending",
+            "Produce Flame",
+            "Resistance",
+            "Shillelagh"
+          ]
+        },
+        "Ranger": {
+          "level1": [
+            "Alarm",
+            "Cure Wounds",
+            "Detect Magic",
+            "Detect Poison and Disease",
+            "Fog Cloud",
+            "Jump",
+            "Longstrider",
+            "Speak with Animals"
+          ]
+        },
         "Paladin": {
           "level1": [
             "Bless",
@@ -273,7 +376,51 @@ var (
             "Protection from Evil and Good",
             "Purify Food and Drink",
             "Shield of Faith"
-          ]}}`)
+          ]
+        },
+        "Sorcerer": {
+          "level0": [
+            "Acid Splash",
+            "Chill Touch",
+            "Dancing Lights",
+            "Light",
+            "Mage Hand",
+            "Mending",
+            "Message",
+            "Minor Illusion",
+            "Prestidigitation",
+            "Ray of Frost",
+            "Shocking Grasp",
+            "True Strike"
+          ]
+        },
+        "Warlock": {
+          "level0": [
+            "Chill Touch",
+            "Mage Hand",
+            "Minor Illusion",
+            "Prestidigitation",
+            "True Strike"
+          ]
+        },
+        "Wizard": {
+          "level0": [
+            "Acid Splash",
+            "Chill Touch",
+            "Dancing Lights",
+            "Light",
+            "Mage Hand",
+            "Mending",
+            "Message",
+            "Minor Illusion",
+            "Prestidigitation",
+            "Ray of Frost",
+            "Shocking Grasp",
+            "True Strike"
+          ]
+        }
+      }
+      `)
 	MockMagicItemDatabase = []byte(`[{
         "name": "winged-boots",
         "title": "Winged Boots",
