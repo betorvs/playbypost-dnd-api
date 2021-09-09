@@ -329,6 +329,35 @@ var (
         "components": "V, S",
         "duration": "Concentration, up to 1 hour",
         "description": " You assume a different form. When you cast the spell, choose one of the following options, the effects of which last for the duration of the spell. While the spell lasts, you can end one option as an action to gain the benefits of a different one. *Aquatic Adaptation.* You adapt your body to an aquatic environment, sprouting gills and growing webbing between your fingers. You can breathe underwater and gain a swimming speed equal to your walking speed. *Change Appearance.* You transform your appearance. You decide what you look like, including your height, weight, facial features, sound of your voice, hair length, coloration, and distinguishing characteristics, if any. You can make yourself appear as a member of another race, though none of your statistics change. You also can’t appear as a creature of a different size than you, and your basic shape stays the same; if you’re bipedal, you can’t use this spell to become quadrupedal, for instance. At any time for the duration of the spell, you can use your action to change your appearance in this way again. *Natural Weapons.* You grow claws, fangs, spines, horns, or a different natural weapon of your choice. Your unarmed strikes deal 1d6 bludgeoning, piercing, or slashing damage, as appropriate to the natural weapon you chose, and you are proficient with your unarmed strikes. Finally, the natural weapon is magic and you have a +1 bonus to the attack and damage rolls you make using it."
+    },
+    {
+        "name": "burning-hands",
+        "level": 1,
+        "title": "Burning Hands",
+        "subtitle": "1st-level evocation",
+        "casting_time": "1 action",
+        "range": "Self (15-foot cone)",
+        "components": "V, S",
+        "duration": "Instantaneous",
+        "description": " As you hold your hands with thumbs touching and fingers spread, a thin sheet of flames shoots forth from your outstretched fingertips. Each creature in a 15-foot cone must make a Dexterity saving throw. A creature takes 3d6 fire damage on a failed save, or half as much damage on a successful one. The fire ignites any flammable objects in the area that aren’t being worn or carried. *At Higher Levels.* When you cast this spell using a spell slot of 2nd level or higher, the damage increases by 1d6 for each slot level above 1st.",
+        "at_higher_levels": "At Higher Levels. When you cast this spell using a spell slot of 2nd level or higher, the damage increases by 1d6 for each slot level above 1st.",
+        "damage_dice": "3d6",
+        "damage_type": "fire",
+        "saving_throw": "dexterity"
+    },
+    {
+        "name": "cure-wounds",
+        "level": 1,
+        "title": "Cure Wounds",
+        "subtitle": "1st-level evocation",
+        "casting_time": "1 action",
+        "range": "Touch",
+        "components": "V, S",
+        "duration": "Instantaneous",
+        "description": " A creature you touch regains a number of hit points equal to 1d8 + your spellcasting ability modifier. This spell has no effect on undead or constructs. *At Higher Levels.* When you cast this spell using a spell slot of 2nd level or higher, the healing increases by 1d8 for each slot level above 1st.",
+        "at_higher_levels": "At Higher Levels. When you cast this spell using a spell slot of 2nd level or higher, the healing increases by 1d8 for each slot level above 1st.",
+        "heal_dice": "1d8",
+        "healing_increase": "healing increases by 1d8 for each slot level above 1st."
     }]`)
 	MockSpellListByClass = []byte(`{
         "Bard": {
@@ -351,7 +380,8 @@ var (
             "Resistance",
             "Sacred Flame",
             "Thaumaturgy"
-          ]
+          ],
+          "level1": ["Cure Wounds"]
         },
         "Druid": {
           "level0": [
@@ -430,7 +460,10 @@ var (
             "Ray of Frost",
             "Shocking Grasp",
             "True Strike"
-          ]
+          ],
+          "level1": ["Burning Hands"],
+          "level2": ["Acid Arrow"],
+          "level3": ["Fireball"]
         }
       }
       `)
@@ -446,6 +479,24 @@ var (
         "required_attunement": true,
         "roleplay": true,
         "forbidden": false
+    },
+    {
+        "name": "potion-of-climbing",
+        "title": "Potion of Climbing",
+        "content": "When you drink this potion, you gain a climbing speed equal to your walking speed for 1 hour. During this time, you have advantage on Strength (Athletics) checks you make to climb. The potion is separated into brown, silver, and gray layers resembling bands of stone. Shaking the bottle fails to mix the colors.",
+        "category": "potions",
+        "rarity": "common",
+        "hoard_table": [
+            "A"
+        ],
+        "required_attunement": false,
+        "roleplay": false,
+        "forbidden": false,
+        "magic_feature": {
+            "advantages": [
+                "athletics"
+            ]
+        }
     }]`)
 	MockArmorDatabase = []byte(`[{
         "name": "padded",

@@ -20,6 +20,7 @@ We shared [here](https://github.com/betorvs/playbypost-dnd/blob/main/documentati
 
 - [ ] Add Hoard Calcutation for levels: 5-10, 11-16, >17.
 - [ ] Finish creating all Core Features and Core Powers and migrate all features to use this centralised function.
+  - [ ] Re write Use Potion usecase to use Power
 - [ ] Add Slack Controller, usecase and gateway.
 - [ ] End to End test with github actions.
 
