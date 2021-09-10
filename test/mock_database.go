@@ -235,6 +235,77 @@ var (
         "traits": null,
         "legendary_actions": [],
         "img_url": "https://media-waterdeep.cursecdn.com/avatars/thumbnails/16/472/315/315/636376294573239565.jpeg"
+    },
+    {
+        "name": "orc",
+        "size": "medium",
+        "type": "humanoid",
+        "aligment": "chaotic-evil",
+        "senses": "Darkvision 60 ft.,  Passive Perception 10",
+        "darkvision": "60 ft.",
+        "blindsight": "",
+        "tremorsense": "",
+        "truesight": "",
+        "languages": [
+            "common",
+            "orc"
+        ],
+        "challenge": 0.5,
+        "armor_class": 13,
+        "hit_points": 15,
+        "xp": 100,
+        "actions": [
+            "Greataxe.   Melee Weapon Attack:  +5 to hit, reach 5 ft., one target.  Hit:  9 (1d12 + 3) slashing damage.  ",
+            "Javelin.   Melee or  Ranged Weapon Attack:  +5 to hit, reach 5 ft. or range 30/120 ft., one target.  Hit:  6 (1d6 + 3) piercing damage. "
+        ],
+        "weapon_attack": [
+            {
+                "name": "greataxe",
+                "attack": 5,
+                "average_damage": 9,
+                "damage": "1d12+3",
+                "damage_type": "slashing"
+            },
+            {
+                "name": "javelin",
+                "attack": 5,
+                "average_damage": 6,
+                "damage": "1d6+3",
+                "damage_type": "piercing"
+            }
+        ],
+        "special_attack": [],
+        "spellcast_abilty": {},
+        "innate_spellcast_abilty": {},
+        "ability": {
+            "charisma": 10,
+            "constitution": 16,
+            "dexterity": 12,
+            "intelligence": 7,
+            "strength": 16,
+            "wisdom": 11
+        },
+        "savings": {
+            "charisma": 0,
+            "constitution": 3,
+            "dexterity": 1,
+            "intelligence": -2,
+            "strength": 3,
+            "wisdom": 0
+        },
+        "skills": {
+            "intimidation": 2
+        },
+        "damage_vulnerabilities": [],
+        "damage_immunities": [],
+        "condition_immunities": [],
+        "damage_resistances": [],
+        "passive_perception": 10,
+        "traits": [
+            "Aggressive . As a bonus action, the orc can move up to its speed toward a hostile creature that it can see. "
+        ],
+        "legendary_actions": [],
+        "img_url": "https://media-waterdeep.cursecdn.com/avatars/thumbnails/0/301/1000/1000/636252771691385727.jpeg"
     }]`)
 	MockSpellDescriptionDatabase = []byte(`[{
         "name": "magic-missile",

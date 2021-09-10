@@ -149,7 +149,7 @@ func spellLevelRegex(value string) int {
 	var level int
 	var reSpellLevel = regexp.MustCompile(`(?m)(1st|2nd|3rd|4th|5th|6th|7th|8th|9th)`)
 	levelString := reSpellLevel.FindString(value)
-	fmt.Println(levelString)
+	// fmt.Println(levelString)
 	if levelString != "" {
 		level = utils.ExtractWholeInt(levelString)
 	}

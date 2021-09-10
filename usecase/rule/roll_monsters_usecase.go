@@ -226,11 +226,11 @@ func TurnUndeadRolls(monsters *rule.MonsterTurn) (*rule.ReturnCalcMessage, error
 
 	// "sacred-oath-of-devotion-oauth-spells-and-channel-divinity" fiend and undead
 	// "sacred-oath-of-ancients-oauth-spells-and-channel-divinity" fey and fiends
-	if classFeature == "sacred-oath-of-devotion-oauth-spells-and-channel-divinity" {
+	if classFeature == "sacred-oath-of-devotion-channel-divinity" {
 		monsterTurnAffected = []string{"undead", "fiend"}
 		clericTurnUndead = false
 	}
-	if classFeature == "sacred-oath-of-ancients-oauth-spells-and-channel-divinity" {
+	if classFeature == "sacred-oath-of-ancients-channel-divinity" {
 		monsterTurnAffected = []string{"fey", "fiend"}
 		clericTurnUndead = false
 	}
@@ -288,7 +288,8 @@ func savingRollMonster(name, kind, saving, damageType, message string, difficult
 	res, text, _ := r.DiceRoll(d20)
 	roll := res + monster.Savings[saving]
 	if roll < difficult {
-		if kind == "turn-undead" {
+		switch kind {
+		case "turn-undead":
 			result.Name = monster.Name
 			result.Success = true
 			result.Message = message
@@ -299,15 +300,15 @@ func savingRollMonster(name, kind, saving, damageType, message string, difficult
 				result.Message = fmt.Sprintf("Undead %s destroyed", monster.Name)
 				result.RolledMessage = fmt.Sprintf("Undead %s rolled %s", monster.Name, text)
 			}
-		}
-		if kind == "turn-monster" && utils.StringInSlice(monster.Type, monstersAffected) {
-			result.Name = monster.Name
-			result.Success = true
-			result.Message = message
-			result.DamageMessage = fmt.Sprintf("Monster %s failed", monster.Name)
-			result.RolledMessage = fmt.Sprintf("Monster %s rolled %s", monster.Name, text)
-		}
-		if kind == "spell" {
+		case "turn-monster":
+			if utils.StringInSlice(monster.Type, monstersAffected) {
+				result.Name = monster.Name
+				result.Success = true
+				result.Message = message
+				result.DamageMessage = fmt.Sprintf("Monster %s failed", monster.Name)
+				result.RolledMessage = fmt.Sprintf("Monster %s rolled %s", monster.Name, text)
+			}
+		case "spell":
 			result.Name = monster.Name
 			tempMessage, tempDamage, tempSuccess := validateDamage(monster.Name, damageType, monster.DamageImmunities, monster.DamageResistances, monster.DamageVulnerabilities, damage)
 			result.DamageValue = tempDamage
@@ -319,37 +320,39 @@ func savingRollMonster(name, kind, saving, damageType, message string, difficult
 			result.RolledValue = res
 			result.Success = true
 		}
-
 	}
-	if kind == "turn-undead" && roll >= difficult {
-		result.Name = monster.Name
-		result.Message = fmt.Sprintf("Undead %s PASS", monster.Name)
-		result.RolledMessage = fmt.Sprintf("Undead %s rolled %s", monster.Name, text)
-		result.Success = false
+	if roll >= difficult {
+		switch kind {
+		case "turn-undead":
+			result.Name = monster.Name
+			result.Message = fmt.Sprintf("Undead %s PASS", monster.Name)
+			result.RolledMessage = fmt.Sprintf("Undead %s rolled %s", monster.Name, text)
+			result.Success = false
+		case "turn-monster":
+			result.Name = monster.Name
+			result.Message = fmt.Sprintf("Monster %s PASS", monster.Name)
+			result.RolledMessage = fmt.Sprintf("Monster %s rolled %s", monster.Name, text)
+			result.Success = false
+		case "spell":
+			result.Name = monster.Name
+			// result.Message = fmt.Sprintf("Monster %s PASS and receive half of damage", monster.Name)
+			// result.RolledMessage = fmt.Sprintf("Monster %s rolled %s", monster.Name, text)
+			tempMessage, tempDamage, tempSuccess := validateDamage(monster.Name, damageType, monster.DamageImmunities, monster.DamageResistances, monster.DamageVulnerabilities, damage)
+			result.DamageValue = tempDamage / 2
+			result.Message = message
+			result.DamageMessage = tempMessage
+			result.DamageType = damageType
+			result.Success = tempSuccess
+			result.Success = false
+		}
 	}
-	if kind == "turn-monster" && roll >= difficult {
-		result.Name = monster.Name
-		result.Message = fmt.Sprintf("Monster %s PASS", monster.Name)
-		result.RolledMessage = fmt.Sprintf("Monster %s rolled %s", monster.Name, text)
-		result.Success = false
-	}
-	if kind == "turn-undead" || kind == "turn-monster" && !utils.StringInSlice(monster.Type, monstersAffected) {
-		result.Name = monster.Name
-		result.Message = fmt.Sprintf("Monster %s NOT AFFECTED", monster.Name)
-		result.RolledMessage = ""
-		result.Success = false
-	}
-	if kind == "spell" && roll >= difficult {
-		result.Name = monster.Name
-		// result.Message = fmt.Sprintf("Monster %s PASS and receive half of damage", monster.Name)
-		// result.RolledMessage = fmt.Sprintf("Monster %s rolled %s", monster.Name, text)
-		tempMessage, tempDamage, tempSuccess := validateDamage(monster.Name, damageType, monster.DamageImmunities, monster.DamageResistances, monster.DamageVulnerabilities, damage)
-		result.DamageValue = tempDamage / 2
-		result.Message = message
-		result.DamageMessage = tempMessage
-		result.DamageType = damageType
-		result.Success = tempSuccess
-		result.Success = false
+	if kind == "turn-undead" || kind == "turn-monster" {
+		if !utils.StringInSlice(monster.Type, monstersAffected) {
+			result.Name = monster.Name
+			result.Message = fmt.Sprintf("Monster %s NOT AFFECTED", monster.Name)
+			result.RolledMessage = ""
+			result.Success = false
+		}
 	}
 
 	return result
