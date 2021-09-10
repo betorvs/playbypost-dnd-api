@@ -90,6 +90,7 @@ func ClassFeatureRoll(feature *rule.Feature) (*rule.ReturnCalcMessage, error) {
 		abilityModifier := CalcAbilityModifier(feature.Ability["wisdom"])
 		abilitySaving := "constitution"
 		difficult := prof + 8 + abilityModifier
+		returnResult.Success = true
 		if len(feature.MonsterList) != 0 {
 			for _, m := range feature.MonsterList {
 				tmpMessage := fmt.Sprintf("Your %s Feature have saving with %s and DC: %v", feature.Name, abilitySaving, difficult)
@@ -106,10 +107,10 @@ func ClassFeatureRoll(feature *rule.Feature) (*rule.ReturnCalcMessage, error) {
 		var recover int
 		for _, s := range feature.GenericList {
 			spell := getSpellByName(s)
-			if !strings.Contains(spell.Title, "necromancy") {
+			if !strings.Contains(spell.Subtitle, "necromancy") {
 				recover = spell.Level * 2
 			}
-			if strings.Contains(spell.Title, "necromancy") {
+			if strings.Contains(spell.Subtitle, "necromancy") {
 				recover = spell.Level * 3
 			}
 
@@ -123,6 +124,7 @@ func ClassFeatureRoll(feature *rule.Feature) (*rule.ReturnCalcMessage, error) {
 	// if dont find any feature
 	if !returnResult.Success {
 		returnResult.Message = fmt.Sprintf("Cannot find any feature with name %s", feature.Name)
+		return returnResult, fmt.Errorf("cannot find any feature with name %s", feature.Name)
 	}
 	return returnResult, nil
 }
