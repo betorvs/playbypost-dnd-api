@@ -129,37 +129,37 @@ func ClassWithCantrips() []string {
 	return []string{"bard", "cleric", "druid", "sorcerer", "warlock", "wizard", "arcane-trickster", "eldritch-knight"}
 }
 
-// func skillListByClass(class string) []string {
-// 	switch class {
-// 	case "barbarian":
-// 		return barbarianSkillList()
-// 	case "bard":
-// 		return bardSkillList()
-// 	case "cleric":
-// 		return clericSkillList()
-// 	case "druid":
-// 		return druidSkillList()
-// 	case "fighter":
-// 		return fighterSkillList()
-// 	case "monk":
-// 		return monkSkillList()
-// 	case "paladin":
-// 		return paladinSkillList()
-// 	case "ranger":
-// 		return rangerSkillList()
-// 	case "rogue":
-// 		return rogueSkillList()
-// 	case "sorcerer":
-// 		return sorcererSkillList()
-// 	case "warlock":
-// 		return warlockSkillList()
-// 	case "wizard":
-// 		return wizardSkillList()
+func skillListByClass(class string) []string {
+	switch class {
+	case "barbarian":
+		return barbarianSkillList()
+	case "bard":
+		return bardSkillList()
+	case "cleric":
+		return clericSkillList()
+	case "druid":
+		return druidSkillList()
+	case "fighter":
+		return fighterSkillList()
+	case "monk":
+		return monkSkillList()
+	case "paladin":
+		return paladinSkillList()
+	case "ranger":
+		return rangerSkillList()
+	case "rogue":
+		return rogueSkillList()
+	case "sorcerer":
+		return sorcererSkillList()
+	case "warlock":
+		return warlockSkillList()
+	case "wizard":
+		return wizardSkillList()
 
-// 	default:
-// 		return []string{}
-// 	}
-// }
+	default:
+		return []string{}
+	}
+}
 
 //AbilityForSpell func
 func AbilityForSpell(class string) string {

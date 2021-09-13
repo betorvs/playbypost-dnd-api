@@ -248,7 +248,7 @@ func CalculateCharacter(purpose *rule.NewCharacter) (*rule.Character, error) {
 		}
 		if utils.StringInSlice("blessings-of-knowledge", characterFinal.ClassFeatures) {
 			// skills
-			skillAllowed := []string{"arcana", "history", "nature", "religion"}
+			skillAllowed := blessingsOfKnowledge()
 			if len(purpose.ChosenSkillsByFeatures) != 0 {
 				verified, err := skillsAdded(purpose.ChosenSkillsByFeatures, characterFinal.Skills, skillAllowed, 2)
 				if err != nil {
@@ -859,4 +859,8 @@ func skillsAdded(extra, current, allowed []string, add int) (verified []string, 
 		return wrongly, err
 	}
 	return verified, nil
+}
+
+func blessingsOfKnowledge() []string {
+	return []string{"arcana", "history", "nature", "religion"}
 }
