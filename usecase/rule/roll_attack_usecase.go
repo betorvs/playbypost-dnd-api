@@ -148,10 +148,14 @@ func calcBonusAttackPerWeapon(weapon string, armorProficiency, classFeatures []s
 		}
 	}
 	var twoHandWeapon bool
-	if twoHands && strings.Contains(weapons.Properties, "Versatile") {
-		versatile := strings.Split(weapons.Properties, ":")
-		damage = versatile[1]
-		twoHandWeapon = true
+	if twoHands && strings.Contains(weapons.Properties, "ersatile") {
+		// versatile := strings.Split(weapons.Properties, "(")
+		// damage = versatile[1]
+		damageLocal, err := utils.ExtractDiceString(weapons.Properties)
+		if err == nil {
+			damage = damageLocal
+			twoHandWeapon = true
+		}
 	}
 	if strings.Contains(weapons.Properties, "Two-handed") {
 		twoHandWeapon = true

@@ -622,6 +622,30 @@ var (
         "weight": 3,
         "measure": "lb",
         "properties": "Versatile (1d10)"
+    },
+    {
+        "name": "dagger",
+        "title": "Dagger",
+        "kind": "simple-weapon",
+        "cost": 2,
+        "coin_type": "gold",
+        "damage": "1d4",
+        "damage_type": "piercing",
+        "weight": 1,
+        "measure": "lb",
+        "properties": "Finesse, light, thrown (range 20/60)"
+    },
+    {
+        "name": "crossbow-light",
+        "title": "Crossbow, light",
+        "kind": "simple-weapon",
+        "cost": 25,
+        "coin_type": "gold",
+        "damage": "1d8",
+        "damage_type": "piercing",
+        "weight": 5,
+        "measure": "lb",
+        "properties": "Ammunition (range 80/320), loading, two-handed"
     }]`)
 	MockGearDatabase = []byte(`[{
         "name": "bottle glass",
