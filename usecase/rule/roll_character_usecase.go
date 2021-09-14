@@ -679,8 +679,10 @@ func CalculateCharacter(purpose *rule.NewCharacter) (*rule.Character, error) {
 		if warlock == "" {
 			archetypeMessage = fmt.Sprintf("Please choose one %v", warlockOtherworldlyPatronList())
 		}
+
 		characterFinal.ClassFeatures = utils.RemoveItemSlice(characterFinal.ClassFeatures, "otherworldly-patron")
 		characterFinal.ClassFeatures = utils.RemoveItemSlice(characterFinal.ClassFeatures, "otherworldly-patron-feature")
+		characterFinal.ClassFeatures = utils.RemoveItemSlice(characterFinal.ClassFeatures, "pact-boon")
 
 	case "wizard":
 		verified, err = skillsAdded(purpose.ChosenSkills, characterFinal.Skills, wizardSkillList(), skillNumber)
