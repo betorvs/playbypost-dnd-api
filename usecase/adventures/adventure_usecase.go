@@ -89,13 +89,13 @@ func CheckEncounterWasAdded(adventureID primitive.ObjectID, encounter string) (s
 }
 
 //AddEncounter func
-func AddEncounter(adventureID primitive.ObjectID, fight string) (int64, error) {
-	_, checkFightName := CheckEncounterWasAdded(adventureID, fight)
+func AddEncounter(adventureID primitive.ObjectID, encounters string) (int64, error) {
+	_, checkFightName := CheckEncounterWasAdded(adventureID, encounters)
 	if checkFightName {
 		return -1, nil
 	}
 	repo := mongodb.GetMongoRepository()
-	result, err := repo.AddEncounterToAdventure(adventureID, fight)
+	result, err := repo.AddEncounterToAdventure(adventureID, encounters)
 	if err != nil {
 		return 0, err
 	}
