@@ -129,6 +129,10 @@ func (repo MongoRepositoryMock) UpdateCampaign(campaignID primitive.ObjectID, ca
 
 // AddPlayerToCampaign func
 func (repo MongoRepositoryMock) AddPlayerToCampaign(campaignID primitive.ObjectID, playerID, playerName string) (int64, error) {
+	exampleID1, _ := primitive.ObjectIDFromHex("5e70e4c5d2f3f777c16b29f8")
+	if campaignID == exampleID1 {
+		return -1, fmt.Errorf("simulated error")
+	}
 	MongoDBCallsAddPlayerToCampaign++
 	return 1, nil
 }
@@ -158,7 +162,12 @@ func (repo MongoRepositoryMock) GetOneCampaign(campaignID primitive.ObjectID) (*
 	exampleID, _ := primitive.ObjectIDFromHex("5e70e4c5d2f3f777c16b29f6")
 	if campaignID == exampleID {
 		campaigns.ID = exampleID
+		campaigns.PlayersID = []string{"playerID"}
 		return campaigns, nil
+	}
+	exampleID1, _ := primitive.ObjectIDFromHex("5e70e4c5d2f3f777c16b29f8")
+	if campaignID == exampleID1 {
+		return campaigns, fmt.Errorf("simulated error")
 	}
 	MongoDBCallsGetOneCampaign++
 	return campaigns, nil
