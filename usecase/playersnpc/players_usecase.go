@@ -68,7 +68,7 @@ func CreatePlayer(player *player.Players) (res string, err error) {
 
 // UpdatePlayerRecalc func
 func UpdatePlayerRecalc(playerID primitive.ObjectID, player *player.Players) (string, error) {
-	fmt.Println("update with recalc")
+	// fmt.Println("update with recalc")
 	if player.AbilityWithoutMagic == nil {
 		player.AbilityWithoutMagic = player.Ability
 	}
@@ -94,7 +94,7 @@ func UpdatePlayerRecalc(playerID primitive.ObjectID, player *player.Players) (st
 	if err != nil {
 		return "", err
 	}
-	fmt.Printf("%#v", player)
+	// fmt.Printf("%#v", player)
 	return UpdatePlayer(playerID, player)
 }
 
