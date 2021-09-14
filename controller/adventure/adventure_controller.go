@@ -30,6 +30,7 @@ func GetOneAdventure(c echo.Context) (err error) {
 		errString := "Cannot parse adventure id"
 		return c.JSON(http.StatusBadRequest, utils.FormatMessage(errString))
 	}
+	fmt.Println(adventureID)
 	res, err := adventuresUsecase.GetOneAdventure(adventureID)
 	if err != nil {
 		errString := "Cannot find any adventure"
@@ -70,19 +71,19 @@ func PostAdventure(c echo.Context) (err error) {
 func PutAdventure(c echo.Context) (err error) {
 	putBody := new(adventure.Adventure)
 	if err = c.Bind(putBody); err != nil {
-		errString := fmt.Sprintf("Cannot parse json gameday %v", err)
+		errString := fmt.Sprintf("Cannot parse json adventure %v", err)
 		return c.JSON(http.StatusBadRequest, utils.FormatMessage(errString))
 	}
 	if !utils.StringInSlice(putBody.Status, utils.AllowedStatus()) {
 		errString := fmt.Sprintf("Adventure can only have the following status %v", utils.AllowedStatus())
 		return c.JSON(http.StatusBadRequest, utils.FormatMessage(errString))
 	}
-	gameID, err := primitive.ObjectIDFromHex(putBody.CampaignID)
+	advID, err := primitive.ObjectIDFromHex(putBody.CampaignID)
 	if err != nil {
 		errString := "Cannot parse campaign id"
 		return c.JSON(http.StatusBadRequest, utils.FormatMessage(errString))
 	}
-	if !campaignsUsecase.CheckCampaignExist(gameID) {
+	if !campaignsUsecase.CheckCampaignExist(advID) {
 		errString := "Campaign not found"
 		return c.JSON(http.StatusBadRequest, utils.FormatMessage(errString))
 	}
@@ -119,7 +120,7 @@ func AddEncounter(c echo.Context) (err error) {
 	}
 	adventureID, err := primitive.ObjectIDFromHex(c.Param("id"))
 	if err != nil {
-		errString := "Cannot parse game day id"
+		errString := "Cannot parse adventure id"
 		return c.JSON(http.StatusBadRequest, utils.FormatMessage(errString))
 	}
 	if !adventuresUsecase.CheckAdventureExist(adventureID) {

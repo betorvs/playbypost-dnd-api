@@ -90,8 +90,8 @@ func CheckEncounterWasAdded(adventureID primitive.ObjectID, encounter string) (s
 
 //AddEncounter func
 func AddEncounter(adventureID primitive.ObjectID, encounters string) (int64, error) {
-	_, checkFightName := CheckEncounterWasAdded(adventureID, encounters)
-	if checkFightName {
+	_, checkEncounter := CheckEncounterWasAdded(adventureID, encounters)
+	if checkEncounter {
 		return -1, nil
 	}
 	repo := mongodb.GetMongoRepository()

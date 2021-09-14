@@ -73,7 +73,7 @@ func MapRoutes(e *echo.Echo) {
 	g.GET("/adventure/:id", adventure.GetOneAdventure)
 	g.POST("/adventure", adventure.PostAdventure)
 	g.PUT("/adventure", adventure.PutAdventure)
-	g.POST("/adventure/:id/fightscene", adventure.AddEncounter)
+	g.POST("/adventure/:id/encounter", adventure.AddEncounter)
 	g.PUT("/adventure/:id/:status", adventure.ChangeAdventureStatus)
 	g.DELETE("/adventure/:id", adventure.DeleteAdventure)
 

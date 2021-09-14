@@ -120,12 +120,12 @@ func AddCampaignToPlayer(c echo.Context) (err error) {
 		errString := "Player not found"
 		return c.JSON(http.StatusBadRequest, utils.FormatMessage(errString))
 	}
-	game := new(player.AddCampaign)
-	if err = c.Bind(game); err != nil {
+	campaigns := new(player.AddCampaign)
+	if err = c.Bind(campaigns); err != nil {
 		errString := "Cannot parse json"
 		return c.JSON(http.StatusBadRequest, utils.FormatMessage(errString))
 	}
-	result, err := playersnpcUsecase.AddCampaignToPlayer(playerID, game)
+	result, err := playersnpcUsecase.AddCampaignToPlayer(playerID, campaigns)
 	if err != nil {
 		errString := fmt.Sprintf("Cannot add campaign %v", err)
 		return c.JSON(http.StatusBadRequest, utils.FormatMessage(errString))

@@ -155,12 +155,17 @@ func (repo MongoRepositoryMock) GetCampaign(queryParameters url.Values) ([]*camp
 // GetOneCampaign func
 func (repo MongoRepositoryMock) GetOneCampaign(campaignID primitive.ObjectID) (*campaign.Campaign, error) {
 	campaigns := new(campaign.Campaign)
+	exampleID, _ := primitive.ObjectIDFromHex("5e70e4c5d2f3f777c16b29f6")
+	if campaignID == exampleID {
+		campaigns.ID = exampleID
+		return campaigns, nil
+	}
 	MongoDBCallsGetOneCampaign++
 	return campaigns, nil
 }
 
 // DeleteCampaignByID func
-func (repo MongoRepositoryMock) DeleteCampaignByID(gameID primitive.ObjectID) (int64, error) {
+func (repo MongoRepositoryMock) DeleteCampaignByID(campaignID primitive.ObjectID) (int64, error) {
 	MongoDBCallsDeleteCampaignByID++
 	return 1, nil
 }
@@ -188,13 +193,26 @@ func (repo MongoRepositoryMock) GetAdventure(queryParameters url.Values) ([]*adv
 
 // GetOneAdventure func
 func (repo MongoRepositoryMock) GetOneAdventure(adventureID primitive.ObjectID) (*adventure.Adventure, error) {
-	day := new(adventure.Adventure)
+	adv := new(adventure.Adventure)
+	exampleID, _ := primitive.ObjectIDFromHex("5e70e4c5d2f3f777c16b29f8")
+	if adventureID == exampleID {
+		return adv, fmt.Errorf("simulated error")
+	}
+	exampleID1, _ := primitive.ObjectIDFromHex("5e70e4c5d2f3f777c16b29f6")
+	if adventureID == exampleID1 {
+		adv.ID = exampleID1
+		return adv, nil
+	}
 	MongoDBCallsGetOneAdventure++
-	return day, nil
+	return adv, nil
 }
 
 // AddEncounterToAdventure func
 func (repo MongoRepositoryMock) AddEncounterToAdventure(adventureID primitive.ObjectID, encounter string) (int64, error) {
+	exampleID, _ := primitive.ObjectIDFromHex("5e70e4c5d2f3f777c16b29f8")
+	if adventureID == exampleID {
+		return 0, fmt.Errorf("sismulated error")
+	}
 	MongoDBCallsAddEncounterToAdventure++
 	return 1, nil
 }
@@ -207,6 +225,10 @@ func (repo MongoRepositoryMock) ChangeAdventureStatusByID(adventureID primitive.
 
 // DeleteAdventureByID func
 func (repo MongoRepositoryMock) DeleteAdventureByID(adventureID primitive.ObjectID) (int64, error) {
+	exampleID, _ := primitive.ObjectIDFromHex("5e70e4c5d2f3f777c16b29f8")
+	if adventureID == exampleID {
+		return 0, fmt.Errorf("simulated error")
+	}
 	MongoDBCallsDeleteAdventureByID++
 	return 1, nil
 }

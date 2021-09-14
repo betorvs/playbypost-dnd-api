@@ -46,7 +46,7 @@ func (repo MongoRepository) UpdateAdventure(adventureID primitive.ObjectID, adve
 	return res.ModifiedCount, nil
 }
 
-//GetAdventure return all games created
+//GetAdventure return all adventures created
 func (repo MongoRepository) GetAdventure(queryParameters url.Values) ([]*adventure.Adventure, error) {
 	adventures := make([]*adventure.Adventure, 0)
 	collection := repo.Conn.Database(config.Values.Database).Collection(collectionAdventure)
@@ -137,7 +137,7 @@ func (repo MongoRepository) ChangeAdventureStatusByID(adventureID primitive.Obje
 	return res.ModifiedCount, nil
 }
 
-//DeleteAdventureByID delete game by ID
+//DeleteAdventureByID delete adventure by ID
 func (repo MongoRepository) DeleteAdventureByID(adventureID primitive.ObjectID) (int64, error) {
 	collection := repo.Conn.Database(config.Values.Database).Collection(collectionAdventure)
 	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)

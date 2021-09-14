@@ -117,12 +117,12 @@ func AddPlayerCampaign(c echo.Context) (err error) {
 
 // DeleteCampaign func
 func DeleteCampaign(c echo.Context) (err error) {
-	gameID, err := primitive.ObjectIDFromHex(c.Param("id"))
+	advID, err := primitive.ObjectIDFromHex(c.Param("id"))
 	if err != nil {
 		errString := "Cannot parse id"
 		return c.JSON(http.StatusBadRequest, utils.FormatMessage(errString))
 	}
-	result, err := campaignsUsecase.DeleteCampaign(gameID)
+	result, err := campaignsUsecase.DeleteCampaign(advID)
 	if err != nil {
 		errString := fmt.Sprintf("Cannot delete campaign: %v", err)
 		return c.JSON(http.StatusBadRequest, utils.FormatMessage(errString))
