@@ -84,8 +84,8 @@ func CheckNPCExist(encounterID primitive.ObjectID, npc string) (string, bool) {
 
 //AddNPC func
 func AddNPC(encounterID primitive.ObjectID, npc string) (int64, error) {
-	_, checkFightName := CheckNPCExist(encounterID, npc)
-	if checkFightName {
+	_, checkEncounter := CheckNPCExist(encounterID, npc)
+	if checkEncounter {
 		return -1, nil
 	}
 	repo := mongodb.GetMongoRepository()
