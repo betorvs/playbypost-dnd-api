@@ -220,7 +220,7 @@ func (repo MongoRepositoryMock) GetOneAdventure(adventureID primitive.ObjectID) 
 func (repo MongoRepositoryMock) AddEncounterToAdventure(adventureID primitive.ObjectID, encounter string) (int64, error) {
 	exampleID, _ := primitive.ObjectIDFromHex("5e70e4c5d2f3f777c16b29f8")
 	if adventureID == exampleID {
-		return 0, fmt.Errorf("sismulated error")
+		return 0, fmt.Errorf("simulated error")
 	}
 	MongoDBCallsAddEncounterToAdventure++
 	return 1, nil
@@ -266,12 +266,26 @@ func (repo MongoRepositoryMock) GetEncounter(queryParameters url.Values) ([]*enc
 // GetOneEncounter func
 func (repo MongoRepositoryMock) GetOneEncounter(encounterID primitive.ObjectID) (*encounter.Encounter, error) {
 	encounters := new(encounter.Encounter)
+	exampleID, _ := primitive.ObjectIDFromHex("5e70e4c5d2f3f777c16b29f6")
+	if encounterID == exampleID {
+		encounters.ID = exampleID
+		encounters.PlayersID = []string{"playerID"}
+		return encounters, nil
+	}
+	exampleID1, _ := primitive.ObjectIDFromHex("5e70e4c5d2f3f777c16b29f8")
+	if encounterID == exampleID1 {
+		return encounters, fmt.Errorf("simulated error")
+	}
 	MongoDBCallsGetOneEncounter++
 	return encounters, nil
 }
 
 // AddNPCTOEncounter func
 func (repo MongoRepositoryMock) AddNPCTOEncounter(encounterID primitive.ObjectID, npc string) (int64, error) {
+	exampleID, _ := primitive.ObjectIDFromHex("5e70e4c5d2f3f777c16b29f8")
+	if encounterID == exampleID {
+		return 0, fmt.Errorf("simulated error")
+	}
 	MongoDBCallsAddNPCTOEncounter++
 	return 1, nil
 }
@@ -284,6 +298,10 @@ func (repo MongoRepositoryMock) ChangeEncounterStatusByID(encounterID primitive.
 
 // DeleteEncounterByID func
 func (repo MongoRepositoryMock) DeleteEncounterByID(encounterID primitive.ObjectID) (int64, error) {
+	exampleID, _ := primitive.ObjectIDFromHex("5e70e4c5d2f3f777c16b29f8")
+	if encounterID == exampleID {
+		return 0, fmt.Errorf("simulated error")
+	}
 	MongoDBCallsDeleteEncounterByID++
 	return 1, nil
 }
@@ -306,6 +324,22 @@ func (repo MongoRepositoryMock) GetPlayers(queryParameters url.Values) ([]*playe
 // GetOnePlayer func
 func (repo MongoRepositoryMock) GetOnePlayer(playerID primitive.ObjectID) (*player.Players, error) {
 	play := new(player.Players)
+	exampleID, _ := primitive.ObjectIDFromHex("5e70e4c5d2f3f777c16b29f8")
+	if playerID == exampleID {
+		return play, fmt.Errorf("simulated error")
+	}
+	// player exist
+	exampleID1, _ := primitive.ObjectIDFromHex("5e70e4c5d2f3f777c16b29f6")
+	if playerID == exampleID1 {
+		play.ID = exampleID1
+		return play, nil
+	}
+	// player exist but without inventory id
+	exampleID2, _ := primitive.ObjectIDFromHex("5e70e4c5d2f3f777c16b29f9")
+	if playerID == exampleID2 {
+		play.ID = exampleID2
+		return play, nil
+	}
 	MongoDBCallsGetOnePlayer++
 	return play, nil
 }
@@ -367,6 +401,9 @@ func (repo MongoRepositoryMock) GetInventoryByID(inventoryID primitive.ObjectID)
 
 // GetInventoryID func
 func (repo MongoRepositoryMock) GetInventoryID(playerID string) (primitive.ObjectID, error) {
+	if playerID == "5e70e4c5d2f3f777c16b29f9" {
+		return primitive.ObjectID{}, fmt.Errorf("inventory do not exist")
+	}
 	MongoDBCallsGetInventoryID++
 	return primitive.ObjectID{}, nil
 }
@@ -422,6 +459,10 @@ func (repo MongoRepositoryMock) SetArmorWeaponPlayerByID(playerID primitive.Obje
 
 // DeletePlayerByID func
 func (repo MongoRepositoryMock) DeletePlayerByID(playerID primitive.ObjectID) (int64, error) {
+	exampleID, _ := primitive.ObjectIDFromHex("5e70e4c5d2f3f777c16b29f8")
+	if playerID == exampleID {
+		return 0, fmt.Errorf("simulated error")
+	}
 	MongoDBCallsDeletePlayerByID++
 	return 1, nil
 }
@@ -449,18 +490,40 @@ func (repo MongoRepositoryMock) GetNPCS(queryParameters url.Values) ([]*player.N
 
 // SetDamageNPCByID func
 func (repo MongoRepositoryMock) SetDamageNPCByID(npcID primitive.ObjectID, hit int) (int64, error) {
+	exampleID, _ := primitive.ObjectIDFromHex("5e70e4c5d2f3f777c16b29f8")
+	if npcID == exampleID {
+		return -1, fmt.Errorf("simulated error")
+	}
+	// player exist
+	exampleID1, _ := primitive.ObjectIDFromHex("5e70e4c5d2f3f777c16b29f6")
+	if npcID == exampleID1 {
+		return 1, nil
+	}
 	MongoDBCallsSetDamageNPCByID++
 	return 1, nil
 }
 
 // SetContitionNPCByID func
 func (repo MongoRepositoryMock) SetContitionNPCByID(npcID primitive.ObjectID, npc *player.NPCCondition) (int64, error) {
+	exampleID, _ := primitive.ObjectIDFromHex("5e70e4c5d2f3f777c16b29f8")
+	if npcID == exampleID {
+		return -1, fmt.Errorf("simulated error")
+	}
+	// player exist
+	exampleID1, _ := primitive.ObjectIDFromHex("5e70e4c5d2f3f777c16b29f6")
+	if npcID == exampleID1 {
+		return 1, nil
+	}
 	MongoDBCallsSetContitionNPCByID++
 	return 1, nil
 }
 
 // DeleteNPCByID func
 func (repo MongoRepositoryMock) DeleteNPCByID(npcID primitive.ObjectID) (int64, error) {
+	exampleID, _ := primitive.ObjectIDFromHex("5e70e4c5d2f3f777c16b29f8")
+	if npcID == exampleID {
+		return 0, fmt.Errorf("simulated error")
+	}
 	MongoDBCallsDeleteNPCByID++
 	return 1, nil
 }

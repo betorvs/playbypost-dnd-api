@@ -17,7 +17,7 @@ func GetAllCampaign(c echo.Context) (err error) {
 	res, err := campaignsUsecase.GetAllCampaigns(queryParams)
 	if err != nil {
 		errString := "Cannot find any campaigns"
-		return c.JSON(http.StatusBadGateway, utils.FormatMessage(errString))
+		return c.JSON(http.StatusUnprocessableEntity, utils.FormatMessage(errString))
 	}
 	return c.JSON(http.StatusOK, res)
 }
@@ -32,7 +32,7 @@ func GetOneCampaign(c echo.Context) (err error) {
 	res, err := campaignsUsecase.GetOneCampaign(campaignID)
 	if err != nil {
 		errString := "Cannot find any campaign"
-		return c.JSON(http.StatusBadGateway, utils.FormatMessage(errString))
+		return c.JSON(http.StatusUnprocessableEntity, utils.FormatMessage(errString))
 	}
 	return c.JSON(http.StatusOK, res)
 }

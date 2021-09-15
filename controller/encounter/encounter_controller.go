@@ -6,6 +6,7 @@ import (
 
 	"github.com/betorvs/playbypost-dnd/domain/adventure"
 	"github.com/betorvs/playbypost-dnd/domain/encounter"
+	adventuresUsecase "github.com/betorvs/playbypost-dnd/usecase/adventures"
 	encountersUsecase "github.com/betorvs/playbypost-dnd/usecase/encounters"
 	"github.com/betorvs/playbypost-dnd/utils"
 	"github.com/labstack/echo/v4"
@@ -15,12 +16,12 @@ import (
 // GetAllEncounter func
 func GetAllEncounter(c echo.Context) (err error) {
 	queryParams := c.QueryParams()
-	fight, err := encountersUsecase.GetEncounter(queryParams)
+	encounters, err := encountersUsecase.GetEncounter(queryParams)
 	if err != nil {
 		errString := "Cannot find any encounter"
-		return c.JSON(http.StatusBadGateway, utils.FormatMessage(errString))
+		return c.JSON(http.StatusUnprocessableEntity, utils.FormatMessage(errString))
 	}
-	return c.JSON(http.StatusOK, fight)
+	return c.JSON(http.StatusOK, encounters)
 }
 
 // GetOneEncounter func
@@ -33,7 +34,7 @@ func GetOneEncounter(c echo.Context) (err error) {
 	res, err := encountersUsecase.GetOneEncounter(encounterID)
 	if err != nil {
 		errString := "Cannot find any encounter "
-		return c.JSON(http.StatusBadGateway, utils.FormatMessage(errString))
+		return c.JSON(http.StatusUnprocessableEntity, utils.FormatMessage(errString))
 	}
 	return c.JSON(http.StatusOK, res)
 }
@@ -47,6 +48,15 @@ func PostEncounter(c echo.Context) (err error) {
 	}
 	if !utils.StringInSlice(postBody.Status, utils.AllowedStatus()) {
 		errString := fmt.Sprintf("Encounter can only have the following status %v", utils.AllowedStatus())
+		return c.JSON(http.StatusBadRequest, utils.FormatMessage(errString))
+	}
+	adventureID, err := primitive.ObjectIDFromHex(postBody.AdventureID)
+	if err != nil {
+		errString := "Cannot parse adventure id"
+		return c.JSON(http.StatusBadRequest, utils.FormatMessage(errString))
+	}
+	if !adventuresUsecase.CheckAdventureExist(adventureID) {
+		errString := "adventure not found"
 		return c.JSON(http.StatusBadRequest, utils.FormatMessage(errString))
 	}
 	result, err := encountersUsecase.CreateEncounter(postBody)
@@ -68,6 +78,15 @@ func PutEncounter(c echo.Context) (err error) {
 		errString := fmt.Sprintf("Encounter can only have the following status %v", utils.AllowedStatus())
 		return c.JSON(http.StatusBadRequest, utils.FormatMessage(errString))
 	}
+	adventureID, err := primitive.ObjectIDFromHex(putBody.AdventureID)
+	if err != nil {
+		errString := "Cannot parse adventure id"
+		return c.JSON(http.StatusBadRequest, utils.FormatMessage(errString))
+	}
+	if !adventuresUsecase.CheckAdventureExist(adventureID) {
+		errString := "adventure not found"
+		return c.JSON(http.StatusBadRequest, utils.FormatMessage(errString))
+	}
 	result, err := encountersUsecase.UpdateEncounter(putBody.ID, putBody)
 	if err != nil {
 		errString := fmt.Sprintf("Cannot create encounter: %v", err)
@@ -78,15 +97,15 @@ func PutEncounter(c echo.Context) (err error) {
 
 // DeleteEncounter func
 func DeleteEncounter(c echo.Context) (err error) {
-	fightID, err := primitive.ObjectIDFromHex(c.Param("id"))
+	encountersID, err := primitive.ObjectIDFromHex(c.Param("id"))
 	if err != nil {
 		errString := "Cannot parse id"
 		return c.JSON(http.StatusBadRequest, utils.FormatMessage(errString))
 	}
-	result, err := encountersUsecase.DeleteEncounter(fightID)
+	result, err := encountersUsecase.DeleteEncounter(encountersID)
 	if err != nil {
 		errString := fmt.Sprintf("Cannot delete encounter: %v", err)
-		return c.JSON(http.StatusBadRequest, utils.FormatMessage(errString))
+		return c.JSON(http.StatusUnprocessableEntity, utils.FormatMessage(errString))
 	}
 	res := fmt.Sprintf("Records Deleted: %v", result)
 	return c.JSON(http.StatusOK, utils.FormatMessage(res))

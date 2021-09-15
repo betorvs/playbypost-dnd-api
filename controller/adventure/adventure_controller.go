@@ -18,7 +18,7 @@ func GetAllAdventure(c echo.Context) (err error) {
 	res, err := adventuresUsecase.GetAllAdventure(queryParams)
 	if err != nil {
 		errString := "Cannot find any adventure"
-		return c.JSON(http.StatusBadGateway, utils.FormatMessage(errString))
+		return c.JSON(http.StatusUnprocessableEntity, utils.FormatMessage(errString))
 	}
 	return c.JSON(http.StatusOK, res)
 }
@@ -34,7 +34,7 @@ func GetOneAdventure(c echo.Context) (err error) {
 	res, err := adventuresUsecase.GetOneAdventure(adventureID)
 	if err != nil {
 		errString := "Cannot find any adventure"
-		return c.JSON(http.StatusBadGateway, utils.FormatMessage(errString))
+		return c.JSON(http.StatusUnprocessableEntity, utils.FormatMessage(errString))
 	}
 	return c.JSON(http.StatusOK, res)
 }
@@ -62,7 +62,7 @@ func PostAdventure(c echo.Context) (err error) {
 	result, err := adventuresUsecase.CreateAdventure(postBody)
 	if err != nil {
 		errString := "Cannot create adventure"
-		return c.JSON(http.StatusBadGateway, utils.FormatMessage(errString))
+		return c.JSON(http.StatusUnprocessableEntity, utils.FormatMessage(errString))
 	}
 	return c.JSON(http.StatusOK, utils.FormatMessage(result))
 }
@@ -90,7 +90,7 @@ func PutAdventure(c echo.Context) (err error) {
 	result, err := adventuresUsecase.UpdateAdventure(putBody.ID, putBody)
 	if err != nil {
 		errString := "Cannot create adventure"
-		return c.JSON(http.StatusBadGateway, utils.FormatMessage(errString))
+		return c.JSON(http.StatusUnprocessableEntity, utils.FormatMessage(errString))
 	}
 	return c.JSON(http.StatusOK, utils.FormatMessage(result))
 }
@@ -105,7 +105,7 @@ func DeleteAdventure(c echo.Context) (err error) {
 	result, err := adventuresUsecase.DeleteAdventure(adventureID)
 	if err != nil {
 		errString := "Cannot delete adventure"
-		return c.JSON(http.StatusBadGateway, utils.FormatMessage(errString))
+		return c.JSON(http.StatusUnprocessableEntity, utils.FormatMessage(errString))
 	}
 	res := fmt.Sprintf("Records Deleted: %v", result)
 	return c.JSON(http.StatusOK, utils.FormatMessage(res))

@@ -53,7 +53,18 @@ func TestGetOneCampaign(t *testing.T) {
 	c1.SetParamValues("5e70e4c5d2f3f777c16b29f8")
 
 	if assert.NoError(t, GetOneCampaign(c1)) {
-		assert.Equal(t, http.StatusBadGateway, rec1.Code)
+		assert.Equal(t, http.StatusUnprocessableEntity, rec1.Code)
+	}
+
+	req2 := httptest.NewRequest(http.MethodGet, "/", nil)
+	rec2 := httptest.NewRecorder()
+	c2 := e.NewContext(req2, rec2)
+	c2.SetPath("/campaign/:id")
+	c2.SetParamNames("id")
+	c2.SetParamValues("BLA")
+
+	if assert.NoError(t, GetOneCampaign(c2)) {
+		assert.Equal(t, http.StatusBadRequest, rec2.Code)
 	}
 }
 
@@ -61,7 +72,7 @@ func TestPostCampaign(t *testing.T) {
 	appcontext.Current.Add(appcontext.Logger, test.InitMockLogger)
 	appcontext.Current.Add(appcontext.MongoRepository, test.InitMongoMock)
 	e := echo.New()
-	example := campaign.Campaign{}
+	example := "{\"key\":\"value\"}"
 	requestByte, _ := json.Marshal(example)
 	requestReader := bytes.NewReader(requestByte)
 	req := httptest.NewRequest(http.MethodPost, "/", requestReader)
@@ -77,7 +88,7 @@ func TestPostCampaign(t *testing.T) {
 
 	example1 := campaign.Campaign{}
 	// example1.CampaignID = "BLA"
-	example1.Status = "onhold"
+	example1.Status = "BLA"
 	requestByte1, _ := json.Marshal(example1)
 	requestReader1 := bytes.NewReader(requestByte1)
 	req1 := httptest.NewRequest(http.MethodPost, "/", requestReader1)
@@ -88,7 +99,23 @@ func TestPostCampaign(t *testing.T) {
 
 	// Assertions
 	if assert.NoError(t, PostCampaign(c1)) {
-		assert.Equal(t, http.StatusOK, rec1.Code)
+		assert.Equal(t, http.StatusBadRequest, rec1.Code)
+	}
+
+	example2 := campaign.Campaign{}
+	// example2.CampaignID = "BLA"
+	example2.Status = "onhold"
+	requestByte2, _ := json.Marshal(example2)
+	requestReader2 := bytes.NewReader(requestByte2)
+	req2 := httptest.NewRequest(http.MethodPost, "/", requestReader2)
+	req2.Header.Set(echo.HeaderContentType, echo.MIMEApplicationJSON)
+	rec2 := httptest.NewRecorder()
+	c2 := e.NewContext(req2, rec2)
+	c2.SetPath("/campaign")
+
+	// Assertions
+	if assert.NoError(t, PostCampaign(c2)) {
+		assert.Equal(t, http.StatusOK, rec2.Code)
 	}
 }
 
@@ -96,7 +123,7 @@ func TestPutCampaign(t *testing.T) {
 	appcontext.Current.Add(appcontext.Logger, test.InitMockLogger)
 	appcontext.Current.Add(appcontext.MongoRepository, test.InitMongoMock)
 	e := echo.New()
-	example := campaign.Campaign{}
+	example := "{\"key\":\"value\"}"
 	requestByte, _ := json.Marshal(example)
 	requestReader := bytes.NewReader(requestByte)
 	req := httptest.NewRequest(http.MethodPut, "/", requestReader)
@@ -112,7 +139,7 @@ func TestPutCampaign(t *testing.T) {
 
 	example1 := campaign.Campaign{}
 	// example1.CampaignID = "BLA"
-	example1.Status = "onhold"
+	example1.Status = "BLA"
 	requestByte1, _ := json.Marshal(example1)
 	requestReader1 := bytes.NewReader(requestByte1)
 	req1 := httptest.NewRequest(http.MethodPut, "/", requestReader1)
@@ -123,7 +150,23 @@ func TestPutCampaign(t *testing.T) {
 
 	// Assertions
 	if assert.NoError(t, PutCampaign(c1)) {
-		assert.Equal(t, http.StatusOK, rec1.Code)
+		assert.Equal(t, http.StatusBadRequest, rec1.Code)
+	}
+
+	example2 := campaign.Campaign{}
+	// example2.CampaignID = "BLA"
+	example2.Status = "onhold"
+	requestByte2, _ := json.Marshal(example2)
+	requestReader2 := bytes.NewReader(requestByte2)
+	req2 := httptest.NewRequest(http.MethodPut, "/", requestReader2)
+	req2.Header.Set(echo.HeaderContentType, echo.MIMEApplicationJSON)
+	rec2 := httptest.NewRecorder()
+	c2 := e.NewContext(req2, rec2)
+	c2.SetPath("/campaign")
+
+	// Assertions
+	if assert.NoError(t, PutCampaign(c2)) {
+		assert.Equal(t, http.StatusOK, rec2.Code)
 	}
 
 }
@@ -217,6 +260,22 @@ func TestAddPlayerCampaign(t *testing.T) {
 	// Assertions
 	if assert.NoError(t, AddPlayerCampaign(c2)) {
 		assert.Equal(t, http.StatusBadRequest, rec2.Code)
+	}
+
+	example3 := "{\"key\":\"value\"}"
+	requestByte3, _ := json.Marshal(example3)
+	requestReader3 := bytes.NewReader(requestByte3)
+	req3 := httptest.NewRequest(http.MethodPost, "/", requestReader3)
+	req3.Header.Set(echo.HeaderContentType, echo.MIMEApplicationJSON)
+	rec3 := httptest.NewRecorder()
+	c3 := e.NewContext(req3, rec3)
+	c3.SetPath("/campaign/:id/player")
+	c3.SetParamNames("id")
+	c3.SetParamValues("5e70e4c5d2f3f777c16b29f8")
+
+	// Assertions
+	if assert.NoError(t, AddPlayerCampaign(c3)) {
+		assert.Equal(t, http.StatusBadRequest, rec3.Code)
 	}
 }
 

@@ -18,7 +18,7 @@ func GetAllNPC(c echo.Context) (err error) {
 	npcs, err := playersnpcUsecase.GetAllNPCS(queryParams)
 	if err != nil {
 		errString := "Cannot find any npc"
-		return c.JSON(http.StatusBadGateway, utils.FormatMessage(errString))
+		return c.JSON(http.StatusUnprocessableEntity, utils.FormatMessage(errString))
 	}
 	return c.JSON(http.StatusOK, npcs)
 }

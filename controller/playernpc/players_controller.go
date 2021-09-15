@@ -20,7 +20,7 @@ func GetAllPlayers(c echo.Context) (err error) {
 	players, err := playersnpcUsecase.GetAllPlayers(queryParams)
 	if err != nil {
 		errString := "Cannot find any player"
-		return c.JSON(http.StatusBadGateway, utils.FormatMessage(errString))
+		return c.JSON(http.StatusUnprocessableEntity, utils.FormatMessage(errString))
 	}
 	return c.JSON(http.StatusOK, players)
 }
@@ -35,7 +35,7 @@ func GetOnePlayer(c echo.Context) (err error) {
 	players, err := playersnpcUsecase.GetOnePlayer(playerID)
 	if err != nil {
 		errString := "Cannot find any player"
-		return c.JSON(http.StatusBadGateway, utils.FormatMessage(errString))
+		return c.JSON(http.StatusUnprocessableEntity, utils.FormatMessage(errString))
 	}
 	return c.JSON(http.StatusOK, players)
 }
