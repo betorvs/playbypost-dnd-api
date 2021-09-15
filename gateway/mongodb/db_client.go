@@ -15,8 +15,14 @@ import (
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
-//DatabaseName in MongoDB
-const DatabaseName = "playbypost"
+const (
+	collectionCampaign  = "campaigns"
+	collectionAdventure = "adventures"
+	collectionEncounter = "encounters"
+	collectionPlayers   = "players"
+	collectionNPCS      = "npcs"
+	collectionInventory = "inventory"
+)
 
 //MongoClient is a struct to keep the DB connection and URI
 type MongoClient struct {
@@ -36,7 +42,7 @@ func getCustomTLSConfig(caFile string) (*tls.Config, error) {
 	ok := tlsConfig.RootCAs.AppendCertsFromPEM(certs)
 
 	if !ok {
-		return tlsConfig, errors.New("Failed parsing pem file")
+		return tlsConfig, errors.New("failed parsing pem file")
 	}
 
 	return tlsConfig, nil

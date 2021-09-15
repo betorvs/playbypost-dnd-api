@@ -6,14 +6,15 @@ import (
 	"net/url"
 	"strings"
 
+	"github.com/betorvs/playbypost-dnd/domain/database"
 	"github.com/betorvs/playbypost-dnd/domain/diceroll"
 	"github.com/betorvs/playbypost-dnd/domain/rule"
 	"github.com/betorvs/playbypost-dnd/utils"
 )
 
-// GetAllWeapons returns a monster by name
+// GetAllWeapons returns a weapon by name
 func GetAllWeapons(queryParameters url.Values) []rule.Weapon {
-	db := rule.GetDatabaseRepository()
+	db := database.GetDatabaseRepository()
 	weapons := db.GetWeaponDatabase()
 	if len(queryParameters) != 0 {
 		var filtered []rule.Weapon
@@ -48,7 +49,7 @@ func GetAllWeapons(queryParameters url.Values) []rule.Weapon {
 
 // WeaponsList returns a list weapons in []string
 func WeaponsList() []string {
-	db := rule.GetDatabaseRepository()
+	db := database.GetDatabaseRepository()
 	weapons := db.GetWeaponDatabase()
 	weaponList := []string{}
 	for _, v := range weapons {
@@ -59,7 +60,7 @@ func WeaponsList() []string {
 
 // WeaponsByName returns a monster by name
 func WeaponsByName(name string) rule.Weapon {
-	db := rule.GetDatabaseRepository()
+	db := database.GetDatabaseRepository()
 	weapons := db.GetWeaponDatabase()
 	var weapon rule.Weapon
 	for _, v := range weapons {
@@ -72,7 +73,7 @@ func WeaponsByName(name string) rule.Weapon {
 
 // GetAllArmor returns a monster by name
 func GetAllArmor(queryParameters url.Values) []rule.Armor {
-	db := rule.GetDatabaseRepository()
+	db := database.GetDatabaseRepository()
 	armors := db.GetArmorDatabase()
 	if len(queryParameters) != 0 {
 		var filtered []rule.Armor
@@ -101,7 +102,7 @@ func GetAllArmor(queryParameters url.Values) []rule.Armor {
 
 // ArmorList return a list of armors in []string
 func ArmorList() []string {
-	db := rule.GetDatabaseRepository()
+	db := database.GetDatabaseRepository()
 	armors := db.GetArmorDatabase()
 	armorList := []string{}
 	for _, v := range armors {
@@ -112,7 +113,7 @@ func ArmorList() []string {
 
 // ArmorByName returns a monster by name
 func ArmorByName(name string) rule.Armor {
-	db := rule.GetDatabaseRepository()
+	db := database.GetDatabaseRepository()
 	armors := db.GetArmorDatabase()
 	var armor rule.Armor
 	for _, v := range armors {
@@ -125,7 +126,7 @@ func ArmorByName(name string) rule.Armor {
 
 // GetAllGears returns a monster by name
 func GetAllGears(queryParameters url.Values) []rule.Gear {
-	db := rule.GetDatabaseRepository()
+	db := database.GetDatabaseRepository()
 	gears := db.GetGearDatabase()
 	if len(queryParameters) != 0 {
 		var filtered []rule.Gear
@@ -154,7 +155,7 @@ func GetAllGears(queryParameters url.Values) []rule.Gear {
 
 // GearByName returns a monster by name
 func GearByName(name string) rule.Gear {
-	db := rule.GetDatabaseRepository()
+	db := database.GetDatabaseRepository()
 	gears := db.GetGearDatabase()
 	var gear rule.Gear
 	for _, v := range gears {
@@ -167,7 +168,7 @@ func GearByName(name string) rule.Gear {
 
 // GetAllPacks returns a monster by name
 func GetAllPacks(queryParameters url.Values) []rule.Packs {
-	db := rule.GetDatabaseRepository()
+	db := database.GetDatabaseRepository()
 	packs := db.GetPacksDatabase()
 	if len(queryParameters) != 0 {
 		var filtered []rule.Packs
@@ -190,7 +191,7 @@ func GetAllPacks(queryParameters url.Values) []rule.Packs {
 
 // PacksByName returns a monster by name
 func PacksByName(name string) rule.Packs {
-	db := rule.GetDatabaseRepository()
+	db := database.GetDatabaseRepository()
 	packs := db.GetPacksDatabase()
 	var pack rule.Packs
 	for _, v := range packs {
@@ -203,7 +204,7 @@ func PacksByName(name string) rule.Packs {
 
 // PacksList return a list of armors in []string
 func PacksList() []string {
-	db := rule.GetDatabaseRepository()
+	db := database.GetDatabaseRepository()
 	packs := db.GetPacksDatabase()
 	packsList := []string{}
 	for _, v := range packs {
@@ -214,7 +215,7 @@ func PacksList() []string {
 
 // GetAllTools returns a monster by name
 func GetAllTools(queryParameters url.Values) []rule.Tools {
-	db := rule.GetDatabaseRepository()
+	db := database.GetDatabaseRepository()
 	tools := db.GetToolsDatabase()
 	if len(queryParameters) != 0 {
 		var filtered []rule.Tools
@@ -243,7 +244,7 @@ func GetAllTools(queryParameters url.Values) []rule.Tools {
 
 // ToolsByName returns a monster by name
 func ToolsByName(name string) rule.Tools {
-	db := rule.GetDatabaseRepository()
+	db := database.GetDatabaseRepository()
 	tools := db.GetToolsDatabase()
 	var tool rule.Tools
 	for _, v := range tools {
@@ -256,7 +257,7 @@ func ToolsByName(name string) rule.Tools {
 
 // ToolsList return a list of armors in []string
 func ToolsList() []string {
-	db := rule.GetDatabaseRepository()
+	db := database.GetDatabaseRepository()
 	tools := db.GetToolsDatabase()
 	toolsList := []string{}
 	for _, v := range tools {
@@ -267,7 +268,7 @@ func ToolsList() []string {
 
 // GetAllMounts returns a monster by name
 func GetAllMounts(queryParameters url.Values) []rule.Mounts {
-	db := rule.GetDatabaseRepository()
+	db := database.GetDatabaseRepository()
 	mounts := db.GetMountsDatabase()
 	if len(queryParameters) != 0 {
 		var filtered []rule.Mounts
@@ -290,7 +291,7 @@ func GetAllMounts(queryParameters url.Values) []rule.Mounts {
 
 // MountsByName returns a monster by name
 func MountsByName(name string) rule.Mounts {
-	db := rule.GetDatabaseRepository()
+	db := database.GetDatabaseRepository()
 	mounts := db.GetMountsDatabase()
 	var mount rule.Mounts
 	for _, v := range mounts {
@@ -303,7 +304,7 @@ func MountsByName(name string) rule.Mounts {
 
 // MountsList return a list of armors in []string
 func MountsList() []string {
-	db := rule.GetDatabaseRepository()
+	db := database.GetDatabaseRepository()
 	mounts := db.GetMountsDatabase()
 	mountsList := []string{}
 	for _, v := range mounts {
@@ -417,7 +418,7 @@ func individualPercentageByLevel(level int, random bool) (string, map[string]int
 	res, t, _ := r.DiceRoll("1d100")
 	msg := fmt.Sprintf("d100: %s ", t)
 	switch {
-	case level <= 4:
+	case level >= 1 && level <= 4:
 		coin1 := checkTableBelowFive(res)
 		if random {
 			res1, t1, _ := r.DiceRoll(coin1.Dice)
@@ -460,7 +461,7 @@ func individualPercentageByLevel(level int, random bool) (string, map[string]int
 		}
 		return msg, treasure
 
-	case level > 16:
+	case level > 16 && level <= 20:
 		// coin1, randomDice1, average1, coin2, randomDice2, average2 := checkTableAboveSeventeen(res)
 		coins := checkTableAboveSeventeen(res)
 		if random {

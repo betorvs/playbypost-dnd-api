@@ -1,5 +1,7 @@
 package rule
 
+import "github.com/betorvs/playbypost-dnd/domain/rule"
+
 //AbilityList func
 func AbilityList() []string {
 	return []string{"strength", "dexterity", "constitution", "intelligence", "wisdom", "charisma"}
@@ -127,37 +129,37 @@ func ClassWithCantrips() []string {
 	return []string{"bard", "cleric", "druid", "sorcerer", "warlock", "wizard", "arcane-trickster", "eldritch-knight"}
 }
 
-// func skillListByClass(class string) []string {
-// 	switch class {
-// 	case "barbarian":
-// 		return barbarianSkillList()
-// 	case "bard":
-// 		return bardSkillList()
-// 	case "cleric":
-// 		return clericSkillList()
-// 	case "druid":
-// 		return druidSkillList()
-// 	case "fighter":
-// 		return fighterSkillList()
-// 	case "monk":
-// 		return monkSkillList()
-// 	case "paladin":
-// 		return paladinSkillList()
-// 	case "ranger":
-// 		return rangerSkillList()
-// 	case "rogue":
-// 		return rogueSkillList()
-// 	case "sorcerer":
-// 		return sorcererSkillList()
-// 	case "warlock":
-// 		return warlockSkillList()
-// 	case "wizard":
-// 		return wizardSkillList()
+func skillListByClass(class string) []string {
+	switch class {
+	case "barbarian":
+		return barbarianSkillList()
+	case "bard":
+		return bardSkillList()
+	case "cleric":
+		return clericSkillList()
+	case "druid":
+		return druidSkillList()
+	case "fighter":
+		return fighterSkillList()
+	case "monk":
+		return monkSkillList()
+	case "paladin":
+		return paladinSkillList()
+	case "ranger":
+		return rangerSkillList()
+	case "rogue":
+		return rogueSkillList()
+	case "sorcerer":
+		return sorcererSkillList()
+	case "warlock":
+		return warlockSkillList()
+	case "wizard":
+		return wizardSkillList()
 
-// 	default:
-// 		return []string{}
-// 	}
-// }
+	default:
+		return []string{}
+	}
+}
 
 //AbilityForSpell func
 func AbilityForSpell(class string) string {
@@ -255,7 +257,7 @@ func RaceTraits(race, subrace string) map[string]string {
 		subraces = "high-elf, wood-elf, and dark elves, who are commonly called drow"
 		special = "Darkvision, Keen Senses, Fey Ancestry, Trance"
 		link = "https://www.dndbeyond.com/sources/basic-rules/races#Elf"
-	case "Halfling", "hafling":
+	case "Halfling", "halfling":
 		ability = "Your Dexterity score increases by 2."
 		size = "Halflings average about 3 feet tall and weigh about 40 pounds. Your size is Small."
 		speed = "25 feet"
@@ -475,4 +477,66 @@ func ClassInfo(class string) map[string]string {
 	classInfo["skiils"] = skills
 	classInfo["link"] = link
 	return classInfo
+}
+
+//ListInformation func
+func ListInformation(name, value string) (*rule.SimpleList, error) {
+	list := new(rule.SimpleList)
+	switch name {
+	case "race", "races":
+		list.List = RaceList()
+		if value == "subrace" {
+			list.List = RaceListWithSubrace()
+		}
+
+	case "class", "classes":
+		list.List = ClassList()
+
+	case "background", "backgrounds":
+		list.List = BackgroundList()
+
+	case "ability":
+		list.List = AbilityList()
+
+	case "alignment":
+		list.List = AlignmentList()
+
+	case "skills", "skill":
+		list.List = SkillListAbility()
+
+	case "subrace", "subraces":
+		list.List = SubraceList(value)
+
+	case "condition", "conditions":
+		list.List = ListConditions()
+
+	case "damage", "damagetype":
+		list.List = ListOfDamageTypes()
+	}
+	return list, nil
+}
+
+//FullDescription func
+func FullDescription(kind, name, subname string) (*rule.FullDescription, error) {
+	fullDescription := new(rule.FullDescription)
+	switch kind {
+	case "race":
+		fullDescription.Description = RaceTraits(name, subname)
+	case "class":
+		fullDescription.Description = ClassInfo(name)
+
+	case "background":
+		m, _ := BackgroundStatistics(name)
+		fullDescription.Description = m
+
+	case "condition", "conditions":
+		d := conditionsMap(name)
+		fullDescription.Description = d
+
+	case "damage", "damagetype":
+		d := damageTypeMap(name)
+		fullDescription.Description = d
+	}
+
+	return fullDescription, nil
 }

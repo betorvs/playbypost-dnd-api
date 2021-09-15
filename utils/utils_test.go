@@ -122,3 +122,24 @@ func TestGetD20ToRoll(t *testing.T) {
 	res4 := GetD20ToRoll(adv, dis)
 	assert.Equal(t, "1d20", res4)
 }
+
+func TestAllowedStatus(t *testing.T) {
+	res1 := AllowedStatus()
+	expected1 := []string{"onhold", "living", "closed"}
+	assert.Equal(t, res1, expected1)
+}
+
+func TestExtractDiceString(t *testing.T) {
+	test1 := "Versatile (1d10)"
+	res1, err1 := ExtractDiceString(test1)
+	assert.NoError(t, err1)
+	assert.Equal(t, "1d10", res1)
+	test2 := "Versatile (10)"
+	res2, err2 := ExtractDiceString(test2)
+	assert.Error(t, err2)
+	assert.Equal(t, "Versatile (10)", res2)
+	test3 := "Thrown (range 20/60), versatile (1d8)"
+	res3, err3 := ExtractDiceString(test3)
+	assert.NoError(t, err3)
+	assert.Equal(t, "1d8", res3)
+}

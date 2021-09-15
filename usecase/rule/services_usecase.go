@@ -4,12 +4,13 @@ import (
 	"net/url"
 	"strings"
 
+	"github.com/betorvs/playbypost-dnd/domain/database"
 	"github.com/betorvs/playbypost-dnd/domain/rule"
 )
 
 // GetAllServices returns all services
 func GetAllServices(queryParameters url.Values) []rule.Services {
-	db := rule.GetDatabaseRepository()
+	db := database.GetDatabaseRepository()
 	services := db.GetServicesDatabase()
 	if len(queryParameters) != 0 {
 		var filtered []rule.Services
@@ -38,7 +39,7 @@ func GetAllServices(queryParameters url.Values) []rule.Services {
 
 // ServiceByName returns a service by name
 func ServiceByName(name string) rule.Services {
-	db := rule.GetDatabaseRepository()
+	db := database.GetDatabaseRepository()
 	services := db.GetServicesDatabase()
 	var service rule.Services
 	for _, v := range services {
@@ -51,7 +52,7 @@ func ServiceByName(name string) rule.Services {
 
 // ServicesNameList return a list of services based on word
 func ServicesNameList() []string {
-	db := rule.GetDatabaseRepository()
+	db := database.GetDatabaseRepository()
 	services := db.GetServicesDatabase()
 	servicesList := []string{}
 	for _, v := range services {

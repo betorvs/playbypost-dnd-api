@@ -6,13 +6,14 @@ import (
 	"regexp"
 	"strings"
 
+	"github.com/betorvs/playbypost-dnd/domain/database"
 	"github.com/betorvs/playbypost-dnd/domain/rule"
 	"github.com/betorvs/playbypost-dnd/utils"
 )
 
 //GetSpellListDescription func
 func GetSpellListDescription(queryParameters url.Values) []rule.SpellDescription {
-	db := rule.GetDatabaseRepository()
+	db := database.GetDatabaseRepository()
 	spellList := db.GetSpellDescriptionDatabase()
 	if len(queryParameters) != 0 {
 		var filtered []rule.SpellDescription
@@ -51,7 +52,7 @@ func GetSpellListDescription(queryParameters url.Values) []rule.SpellDescription
 }
 
 func getSpellByName(name string) (spell rule.SpellDescription) {
-	db := rule.GetDatabaseRepository()
+	db := database.GetDatabaseRepository()
 	spellList := db.GetSpellDescriptionDatabase()
 	for _, v := range spellList {
 		if name == v.Name {
@@ -148,7 +149,7 @@ func spellLevelRegex(value string) int {
 	var level int
 	var reSpellLevel = regexp.MustCompile(`(?m)(1st|2nd|3rd|4th|5th|6th|7th|8th|9th)`)
 	levelString := reSpellLevel.FindString(value)
-	fmt.Println(levelString)
+	// fmt.Println(levelString)
 	if levelString != "" {
 		level = utils.ExtractWholeInt(levelString)
 	}
@@ -231,7 +232,7 @@ func getFullListWithFeature(class string, classFeatures []string, level int) []s
 //GetSpellListByClass func
 func GetSpellListByClass(class string, level int) (list rule.SimpleList) {
 	//
-	db := rule.GetDatabaseRepository()
+	db := database.GetDatabaseRepository()
 	var spellList []string
 	switch class {
 	case "bard":
@@ -271,8 +272,8 @@ func GetSpellListByClass(class string, level int) (list rule.SimpleList) {
 			spellList = db.GetSpellListByClass().Ranger.Level4
 		case 5:
 			spellList = db.GetSpellListByClass().Ranger.Level5
-		default:
-			spellList = db.GetSpellListByClass().Ranger.Level1
+			// default:
+			// 	spellList = db.GetSpellListByClass().Ranger.Level1
 		}
 
 	case "sorcerer":
@@ -407,8 +408,8 @@ func GetSpellListByClass(class string, level int) (list rule.SimpleList) {
 			spellList = db.GetSpellListByClass().Paladin.Level4
 		case 5:
 			spellList = db.GetSpellListByClass().Paladin.Level5
-		default:
-			spellList = db.GetSpellListByClass().Paladin.Level1
+			// default:
+			// 	spellList = db.GetSpellListByClass().Paladin.Level1
 		}
 
 	case "warlock":

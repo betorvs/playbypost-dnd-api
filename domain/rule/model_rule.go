@@ -1,7 +1,5 @@
 package rule
 
-import "github.com/betorvs/playbypost-dnd/appcontext"
-
 //SimpleList struct
 type SimpleList struct {
 	List []string `json:"list"`
@@ -389,38 +387,4 @@ type CoinTable struct {
 	Dice         string
 	AverageValue int
 	Multiple     int
-}
-
-// DatabaseRepository interface
-type DatabaseRepository interface {
-	appcontext.Component
-	//GetMonsterDatabase returns monster json database
-	GetMonsterDatabase() []MonsterNPC
-	// GetSpellListByClass return list of spell by class
-	GetSpellListByClass() SpellListByClass
-	//GetSpellDescriptionDatabase returns spell descriptions json database
-	GetSpellDescriptionDatabase() []SpellDescription
-	// GetMagicItemDatabase returns magic items json database
-	GetMagicItemDatabase() []MagicItem
-	// GetArmorDatabase returns armors json database
-	GetArmorDatabase() []Armor
-	// GetWeaponDatabase returns weapons json database
-	GetWeaponDatabase() []Weapon
-	// GetGearDatabase returns advantures gear to shop
-	GetGearDatabase() []Gear
-	// GetPacksDatabase returns adventures gear packs to shop
-	GetPacksDatabase() []Packs
-	// GetToolsDatabase returns Tools database to shop
-	GetToolsDatabase() []Tools
-	// GetMountsDatabase returns Mounts database to shop
-	GetMountsDatabase() []Mounts
-	// GetHoardDatabase returns TreasureHoard database to create random treasure hoards
-	GetHoardDatabase() []TreasureHoard
-	// GetServicesDatabase returns services database
-	GetServicesDatabase() []Services
-}
-
-// GetDatabaseRepository func return DatabaseRepository interface
-func GetDatabaseRepository() DatabaseRepository {
-	return appcontext.Current.Get(appcontext.Database).(DatabaseRepository)
 }

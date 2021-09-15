@@ -1,360 +1,534 @@
 package test
 
-// import (
-// 	"fmt"
-// 	"net/url"
+import (
+	"fmt"
+	"net/url"
 
-// 	"github.com/betorvs/playbypost-dnd/appcontext"
-// 	"github.com/betorvs/playbypost-dnd/domain/game"
-// 	"github.com/betorvs/playbypost-dnd/domain/player"
-// 	"go.mongodb.org/mongo-driver/bson/primitive"
-// )
+	"github.com/betorvs/playbypost-dnd/appcontext"
+	"github.com/betorvs/playbypost-dnd/domain/adventure"
+	"github.com/betorvs/playbypost-dnd/domain/campaign"
+	"github.com/betorvs/playbypost-dnd/domain/encounter"
+	"github.com/betorvs/playbypost-dnd/domain/player"
+	"go.mongodb.org/mongo-driver/bson/primitive"
+)
 
-// var (
-// 	// MongoDBCalls int
-// 	MongoDBCalls int
-// )
+var (
+	// MongoDBCalls int
+	MongoDBCalls int
+	// MongoDBCallsSaveCampaign int
+	MongoDBCallsSaveCampaign int
+	// MongoDBCallsUpdateCampaign int
+	MongoDBCallsUpdateCampaign int
+	// MongoDBCallsAddPlayerToCampaign int
+	MongoDBCallsAddPlayerToCampaign int
+	// MongoDBCallsGetCampaign int
+	MongoDBCallsGetCampaign int
+	// MongoDBCallsGetOneCampaign int
+	MongoDBCallsGetOneCampaign int
+	// MongoDBCallsDeleteCampaignByID int
+	MongoDBCallsDeleteCampaignByID int
+	// MongoDBCallsAddAdventure int
+	MongoDBCallsAddAdventure int
+	// MongoDBCallsUpdateAdventure int
+	MongoDBCallsUpdateAdventure int
+	// MongoDBCallsGetAdventure int
+	MongoDBCallsGetAdventure int
+	// MongoDBCallsGetOneAdventure int
+	MongoDBCallsGetOneAdventure int
+	// MongoDBCallsAddEncounterToAdventure int
+	MongoDBCallsAddEncounterToAdventure int
+	// MongoDBCallsChangeAdventureStatusByID int
+	MongoDBCallsChangeAdventureStatusByID int
+	// MongoDBCallsDeleteAdventureByID int
+	MongoDBCallsDeleteAdventureByID int
+	// MongoDBCallsAddEncounter int
+	MongoDBCallsAddEncounter int
+	// MongoDBCallsUpdateEncounter int
+	MongoDBCallsUpdateEncounter int
+	// MongoDBCallsGetEncounter int
+	MongoDBCallsGetEncounter int
+	// MongoDBCallsGetOneEncounter int
+	MongoDBCallsGetOneEncounter int
+	// MongoDBCallsAddNPCTOEncounter int
+	MongoDBCallsAddNPCTOEncounter int
+	// MongoDBCallsChangeEncounterStatusByID int
+	MongoDBCallsChangeEncounterStatusByID int
+	// MongoDBCallsDeleteEncounterByID int
+	MongoDBCallsDeleteEncounterByID int
+	// MongoDBCallsGetPlayers int
+	MongoDBCallsGetPlayers int
+	// MongoDBCallsGetOnePlayer int
+	MongoDBCallsGetOnePlayer int
+	// MongoDBCallsSavePlayer int
+	MongoDBCallsSavePlayer int
+	// MongoDBCallsUpdatePlayer int
+	MongoDBCallsUpdatePlayer int
+	// MongoDBCallsAddCampaignToPlayer int
+	MongoDBCallsAddCampaignToPlayer int
+	// MongoDBCallsChangePlayerCondition int
+	MongoDBCallsChangePlayerCondition int
+	// MongoDBCallsAddPlayerXP int
+	MongoDBCallsAddPlayerXP int
+	// MongoDBCallsAddOrRemovePlayerHP int
+	MongoDBCallsAddOrRemovePlayerHP int
+	// MongoDBCallsCreateInventory int
+	MongoDBCallsCreateInventory int
+	// MongoDBCallsDeleteInventoryByID int
+	MongoDBCallsDeleteInventoryByID int
+	// MongoDBCallsGetInventoryByID int
+	MongoDBCallsGetInventoryByID int
+	// MongoDBCallsGetInventoryID int
+	MongoDBCallsGetInventoryID int
+	// MongoDBCallsAddTreasurePlayer int
+	MongoDBCallsAddTreasurePlayer int
+	// MongoDBCallsAddOthersItems int
+	MongoDBCallsAddOthersItems int
+	// MongoDBCallsRemoveOthersItems int
+	MongoDBCallsRemoveOthersItems int
+	// MongoDBCallsGetArmory int
+	MongoDBCallsGetArmory int
+	// MongoDBCallsUsageSpellByLevel int
+	MongoDBCallsUsageSpellByLevel int
+	// MongoDBCallsSetHPTempPlayerByID int
+	MongoDBCallsSetHPTempPlayerByID int
+	// MongoDBCallsSetSpellUsedPlayerByID int
+	MongoDBCallsSetSpellUsedPlayerByID int
+	// MongoDBCallsSetArmorWeaponPlayerByID int
+	MongoDBCallsSetArmorWeaponPlayerByID int
+	// MongoDBCallsDeletePlayerByID int
+	MongoDBCallsDeletePlayerByID int
+	// MongoDBCallsSetMagicalEffect int
+	MongoDBCallsSetMagicalEffect int
+	// MongoDBCallsSaveNPC int
+	MongoDBCallsSaveNPC int
+	// MongoDBCallsGetNPCS int
+	MongoDBCallsGetNPCS int
+	// MongoDBCallsSetDamageNPCByID int
+	MongoDBCallsSetDamageNPCByID int
+	// MongoDBCallsSetContitionNPCByID int
+	MongoDBCallsSetContitionNPCByID int
+	// MongoDBCallsDeleteNPCByID int
+	MongoDBCallsDeleteNPCByID int
+)
 
-// // MongoRepositoryMock struct is used for Mock MongoRepositoryMock requests
-// type MongoRepositoryMock struct {
-// }
+// MongoRepositoryMock struct is used for Mock MongoRepositoryMock requests
+type MongoRepositoryMock struct {
+}
 
-// //SaveGame func
-// func (repo MongoRepositoryMock) SaveGame(game *game.Game) (primitive.ObjectID, error) {
-// 	MongoDBCalls++
-// 	return primitive.ObjectID{}, nil
-// }
+//SaveCampaign func
+func (repo MongoRepositoryMock) SaveCampaign(campaigns *campaign.Campaign) (primitive.ObjectID, error) {
+	MongoDBCallsSaveCampaign++
+	return primitive.ObjectID{}, nil
+}
 
-// // UpdateGame func
-// func (repo MongoRepositoryMock) UpdateGame(gameID primitive.ObjectID, game *game.Game) (int64, error) {
-// 	MongoDBCalls++
-// 	return 1, nil
-// }
+// UpdateCampaign func
+func (repo MongoRepositoryMock) UpdateCampaign(campaignID primitive.ObjectID, campaigns *campaign.Campaign) (int64, error) {
+	MongoDBCallsUpdateCampaign++
+	return 1, nil
+}
 
-// // AddPlayerToGame func
-// func (repo MongoRepositoryMock) AddPlayerToGame(gameID primitive.ObjectID, playerID, playerName string) (int64, error) {
-// 	MongoDBCalls++
-// 	return 1, nil
-// }
+// AddPlayerToCampaign func
+func (repo MongoRepositoryMock) AddPlayerToCampaign(campaignID primitive.ObjectID, playerID, playerName string) (int64, error) {
+	exampleID1, _ := primitive.ObjectIDFromHex("5e70e4c5d2f3f777c16b29f8")
+	if campaignID == exampleID1 {
+		return -1, fmt.Errorf("simulated error")
+	}
+	MongoDBCallsAddPlayerToCampaign++
+	return 1, nil
+}
 
-// // GetGame func
-// func (repo MongoRepositoryMock) GetGame(queryParameters url.Values) ([]*game.Game, error) {
-// 	games := new(game.Game)
-// 	games.MasterID = "testmaster"
-// 	var sliceGames []*game.Game
-// 	sliceGames = append(sliceGames, games)
-// 	MongoDBCalls++
-// 	if len(queryParameters) != 0 {
-// 		if queryParameters["master_id"][0] == "testerror" {
-// 			return sliceGames, fmt.Errorf("error")
-// 		}
-// 	}
-// 	return sliceGames, nil
-// }
+// GetCampaign func
+func (repo MongoRepositoryMock) GetCampaign(queryParameters url.Values) ([]*campaign.Campaign, error) {
+	campaings := new(campaign.Campaign)
+	campaings.MasterID = "testmaster"
+	var sliceCampaigns []*campaign.Campaign
+	sliceCampaigns = append(sliceCampaigns, campaings)
+	MongoDBCallsGetCampaign++
+	if len(queryParameters) != 0 {
+		// if queryParameters["master_id"][0] == "testerror" {
+		// 	return sliceCampaigns, fmt.Errorf("error")
+		// }
+		// if len(queryParameters["channel_id"]) >= 1 {
+		var sliceCampaignsLocal []*campaign.Campaign
+		return sliceCampaignsLocal, nil
+		// }
+	}
+	return sliceCampaigns, nil
+}
 
-// // GetOneGame func
-// func (repo MongoRepositoryMock) GetOneGame(gameID primitive.ObjectID) (*game.Game, error) {
-// 	games := new(game.Game)
-// 	MongoDBCalls++
-// 	return games, nil
-// }
+// GetOneCampaign func
+func (repo MongoRepositoryMock) GetOneCampaign(campaignID primitive.ObjectID) (*campaign.Campaign, error) {
+	campaigns := new(campaign.Campaign)
+	exampleID, _ := primitive.ObjectIDFromHex("5e70e4c5d2f3f777c16b29f6")
+	if campaignID == exampleID {
+		campaigns.ID = exampleID
+		campaigns.PlayersID = []string{"playerID"}
+		return campaigns, nil
+	}
+	exampleID1, _ := primitive.ObjectIDFromHex("5e70e4c5d2f3f777c16b29f8")
+	if campaignID == exampleID1 {
+		return campaigns, fmt.Errorf("simulated error")
+	}
+	MongoDBCallsGetOneCampaign++
+	return campaigns, nil
+}
 
-// // DeleteGameByID func
-// func (repo MongoRepositoryMock) DeleteGameByID(gameID primitive.ObjectID) (int64, error) {
-// 	MongoDBCalls++
-// 	return 1, nil
-// }
+// DeleteCampaignByID func
+func (repo MongoRepositoryMock) DeleteCampaignByID(campaignID primitive.ObjectID) (int64, error) {
+	MongoDBCallsDeleteCampaignByID++
+	return 1, nil
+}
 
-// //AddGameDay func
-// func (repo MongoRepositoryMock) AddGameDay(gameday *game.Day) (primitive.ObjectID, error) {
-// 	MongoDBCalls++
-// 	return primitive.ObjectID{}, nil
-// }
+//AddAdventure func
+func (repo MongoRepositoryMock) AddAdventure(adventures *adventure.Adventure) (primitive.ObjectID, error) {
+	MongoDBCallsAddAdventure++
+	return primitive.ObjectID{}, nil
+}
 
-// // UpdateGameDay func
-// func (repo MongoRepositoryMock) UpdateGameDay(gameDayID primitive.ObjectID, gameday *game.Day) (int64, error) {
-// 	MongoDBCalls++
-// 	return 1, nil
-// }
+// UpdateAdventure func
+func (repo MongoRepositoryMock) UpdateAdventure(adventureID primitive.ObjectID, adventures *adventure.Adventure) (int64, error) {
+	MongoDBCallsUpdateAdventure++
+	return 1, nil
+}
 
-// // GetGameDay func
-// func (repo MongoRepositoryMock) GetGameDay(queryParameters url.Values) ([]*game.Day, error) {
-// 	day := new(game.Day)
-// 	var sliceGameDay []*game.Day
-// 	sliceGameDay = append(sliceGameDay, day)
-// 	MongoDBCalls++
-// 	return sliceGameDay, nil
-// }
+// GetAdventure func
+func (repo MongoRepositoryMock) GetAdventure(queryParameters url.Values) ([]*adventure.Adventure, error) {
+	day := new(adventure.Adventure)
+	var sliceAdventure []*adventure.Adventure
+	sliceAdventure = append(sliceAdventure, day)
+	MongoDBCallsGetAdventure++
+	return sliceAdventure, nil
+}
 
-// // GetOneGameDay func
-// func (repo MongoRepositoryMock) GetOneGameDay(gameDayID primitive.ObjectID) (*game.Day, error) {
-// 	day := new(game.Day)
-// 	MongoDBCalls++
-// 	return day, nil
-// }
+// GetOneAdventure func
+func (repo MongoRepositoryMock) GetOneAdventure(adventureID primitive.ObjectID) (*adventure.Adventure, error) {
+	adv := new(adventure.Adventure)
+	exampleID, _ := primitive.ObjectIDFromHex("5e70e4c5d2f3f777c16b29f8")
+	if adventureID == exampleID {
+		return adv, fmt.Errorf("simulated error")
+	}
+	exampleID1, _ := primitive.ObjectIDFromHex("5e70e4c5d2f3f777c16b29f6")
+	if adventureID == exampleID1 {
+		adv.ID = exampleID1
+		return adv, nil
+	}
+	MongoDBCallsGetOneAdventure++
+	return adv, nil
+}
 
-// // AddFightSceneToGameDay func
-// func (repo MongoRepositoryMock) AddFightSceneToGameDay(gameDayID primitive.ObjectID, fight string) (int64, error) {
-// 	MongoDBCalls++
-// 	return 1, nil
-// }
+// AddEncounterToAdventure func
+func (repo MongoRepositoryMock) AddEncounterToAdventure(adventureID primitive.ObjectID, encounter string) (int64, error) {
+	exampleID, _ := primitive.ObjectIDFromHex("5e70e4c5d2f3f777c16b29f8")
+	if adventureID == exampleID {
+		return 0, fmt.Errorf("simulated error")
+	}
+	MongoDBCallsAddEncounterToAdventure++
+	return 1, nil
+}
 
-// //ChangeGameDayStatusByID func
-// func (repo MongoRepositoryMock) ChangeGameDayStatusByID(gameDayID primitive.ObjectID, status string, playersID *game.AddPlayersID) (int64, error) {
-// 	MongoDBCalls++
-// 	return 1, nil
-// }
+//ChangeAdventureStatusByID func
+func (repo MongoRepositoryMock) ChangeAdventureStatusByID(adventureID primitive.ObjectID, status string, playersID *adventure.AddPlayersID) (int64, error) {
+	MongoDBCallsChangeAdventureStatusByID++
+	return 1, nil
+}
 
-// // DeleteGameDayByID func
-// func (repo MongoRepositoryMock) DeleteGameDayByID(gameDayID primitive.ObjectID) (int64, error) {
-// 	MongoDBCalls++
-// 	return 1, nil
-// }
+// DeleteAdventureByID func
+func (repo MongoRepositoryMock) DeleteAdventureByID(adventureID primitive.ObjectID) (int64, error) {
+	exampleID, _ := primitive.ObjectIDFromHex("5e70e4c5d2f3f777c16b29f8")
+	if adventureID == exampleID {
+		return 0, fmt.Errorf("simulated error")
+	}
+	MongoDBCallsDeleteAdventureByID++
+	return 1, nil
+}
 
-// //AddJournals func
-// func (repo MongoRepositoryMock) AddJournals(journals *game.Journals) (primitive.ObjectID, error) {
-// 	MongoDBCalls++
-// 	return primitive.ObjectID{}, nil
-// }
+//AddEncounter func
+func (repo MongoRepositoryMock) AddEncounter(encounters *encounter.Encounter) (primitive.ObjectID, error) {
+	MongoDBCallsAddEncounter++
+	return primitive.ObjectID{}, nil
+}
 
-// // GetJournals func
-// func (repo MongoRepositoryMock) GetJournals(queryParameters url.Values) ([]*game.Journals, error) {
-// 	journal := new(game.Journals)
-// 	var sliceJournal []*game.Journals
-// 	sliceJournal = append(sliceJournal, journal)
-// 	MongoDBCalls++
-// 	return sliceJournal, nil
-// }
+//UpdateEncounter func
+func (repo MongoRepositoryMock) UpdateEncounter(encounterID primitive.ObjectID, encounters *encounter.Encounter) (int64, error) {
+	MongoDBCallsUpdateEncounter++
+	return 1, nil
+}
 
-// // DeleteJournalsByID func
-// func (repo MongoRepositoryMock) DeleteJournalsByID(journalsID primitive.ObjectID) (int64, error) {
-// 	MongoDBCalls++
-// 	return 1, nil
-// }
+// GetEncounter func
+func (repo MongoRepositoryMock) GetEncounter(queryParameters url.Values) ([]*encounter.Encounter, error) {
+	encounters := new(encounter.Encounter)
+	var sliceEncounter []*encounter.Encounter
+	sliceEncounter = append(sliceEncounter, encounters)
+	MongoDBCallsGetEncounter++
+	return sliceEncounter, nil
+}
 
-// //AddFightScene func
-// func (repo MongoRepositoryMock) AddFightScene(fight *game.FightScene) (primitive.ObjectID, error) {
-// 	MongoDBCalls++
-// 	return primitive.ObjectID{}, nil
-// }
+// GetOneEncounter func
+func (repo MongoRepositoryMock) GetOneEncounter(encounterID primitive.ObjectID) (*encounter.Encounter, error) {
+	encounters := new(encounter.Encounter)
+	exampleID, _ := primitive.ObjectIDFromHex("5e70e4c5d2f3f777c16b29f6")
+	if encounterID == exampleID {
+		encounters.ID = exampleID
+		encounters.PlayersID = []string{"playerID"}
+		return encounters, nil
+	}
+	exampleID1, _ := primitive.ObjectIDFromHex("5e70e4c5d2f3f777c16b29f8")
+	if encounterID == exampleID1 {
+		return encounters, fmt.Errorf("simulated error")
+	}
+	MongoDBCallsGetOneEncounter++
+	return encounters, nil
+}
 
-// //UpdateFightScene func
-// func (repo MongoRepositoryMock) UpdateFightScene(fightID primitive.ObjectID, fight *game.FightScene) (int64, error) {
-// 	MongoDBCalls++
-// 	return 1, nil
-// }
+// AddNPCTOEncounter func
+func (repo MongoRepositoryMock) AddNPCTOEncounter(encounterID primitive.ObjectID, npc string) (int64, error) {
+	exampleID, _ := primitive.ObjectIDFromHex("5e70e4c5d2f3f777c16b29f8")
+	if encounterID == exampleID {
+		return 0, fmt.Errorf("simulated error")
+	}
+	MongoDBCallsAddNPCTOEncounter++
+	return 1, nil
+}
 
-// // GetFightScene func
-// func (repo MongoRepositoryMock) GetFightScene(queryParameters url.Values) ([]*game.FightScene, error) {
-// 	fight := new(game.FightScene)
-// 	var sliceFightScene []*game.FightScene
-// 	sliceFightScene = append(sliceFightScene, fight)
-// 	MongoDBCalls++
-// 	return sliceFightScene, nil
-// }
+//ChangeEncounterStatusByID func
+func (repo MongoRepositoryMock) ChangeEncounterStatusByID(encounterID primitive.ObjectID, status string, playersID *adventure.AddPlayersID) (int64, error) {
+	MongoDBCallsChangeEncounterStatusByID++
+	return 1, nil
+}
 
-// // GetOneFightScene func
-// func (repo MongoRepositoryMock) GetOneFightScene(fightID primitive.ObjectID) (*game.FightScene, error) {
-// 	fight := new(game.FightScene)
-// 	MongoDBCalls++
-// 	return fight, nil
-// }
+// DeleteEncounterByID func
+func (repo MongoRepositoryMock) DeleteEncounterByID(encounterID primitive.ObjectID) (int64, error) {
+	exampleID, _ := primitive.ObjectIDFromHex("5e70e4c5d2f3f777c16b29f8")
+	if encounterID == exampleID {
+		return 0, fmt.Errorf("simulated error")
+	}
+	MongoDBCallsDeleteEncounterByID++
+	return 1, nil
+}
 
-// // AddNPCTOFightScene func
-// func (repo MongoRepositoryMock) AddNPCTOFightScene(fightID primitive.ObjectID, npc string) (int64, error) {
-// 	MongoDBCalls++
-// 	return 1, nil
-// }
+// GetPlayers func
+func (repo MongoRepositoryMock) GetPlayers(queryParameters url.Values) ([]*player.Players, error) {
+	play := new(player.Players)
+	play.SlackID = "testplayer"
+	var slicePlayers []*player.Players
+	slicePlayers = append(slicePlayers, play)
+	MongoDBCallsGetPlayers++
+	if len(queryParameters) != 0 {
+		if queryParameters["slack_id"][0] == "testerror" {
+			return slicePlayers, fmt.Errorf("error")
+		}
+	}
+	return slicePlayers, nil
+}
 
-// //ChangeFightSceneStatusByID func
-// func (repo MongoRepositoryMock) ChangeFightSceneStatusByID(fightID primitive.ObjectID, status string, playersID *game.AddPlayersID) (int64, error) {
-// 	MongoDBCalls++
-// 	return 1, nil
-// }
+// GetOnePlayer func
+func (repo MongoRepositoryMock) GetOnePlayer(playerID primitive.ObjectID) (*player.Players, error) {
+	play := new(player.Players)
+	exampleID, _ := primitive.ObjectIDFromHex("5e70e4c5d2f3f777c16b29f8")
+	if playerID == exampleID {
+		return play, fmt.Errorf("simulated error")
+	}
+	// player exist
+	exampleID1, _ := primitive.ObjectIDFromHex("5e70e4c5d2f3f777c16b29f6")
+	if playerID == exampleID1 {
+		play.ID = exampleID1
+		return play, nil
+	}
+	// player exist but without inventory id
+	exampleID2, _ := primitive.ObjectIDFromHex("5e70e4c5d2f3f777c16b29f9")
+	if playerID == exampleID2 {
+		play.ID = exampleID2
+		return play, nil
+	}
+	MongoDBCallsGetOnePlayer++
+	return play, nil
+}
 
-// // DeleteFightSceneByID func
-// func (repo MongoRepositoryMock) DeleteFightSceneByID(fightSceneID primitive.ObjectID) (int64, error) {
-// 	MongoDBCalls++
-// 	return 1, nil
-// }
+//SavePlayer func
+func (repo MongoRepositoryMock) SavePlayer(player *player.Players) (primitive.ObjectID, error) {
+	MongoDBCallsSavePlayer++
+	return primitive.ObjectID{}, nil
+}
 
-// // GetPlayers func
-// func (repo MongoRepositoryMock) GetPlayers(queryParameters url.Values) ([]*player.Players, error) {
-// 	play := new(player.Players)
-// 	play.SlackID = "testplayer"
-// 	var slicePlayers []*player.Players
-// 	slicePlayers = append(slicePlayers, play)
-// 	MongoDBCalls++
-// 	if len(queryParameters) != 0 {
-// 		if queryParameters["slack_id"][0] == "testerror" {
-// 			return slicePlayers, fmt.Errorf("error")
-// 		}
-// 	}
-// 	return slicePlayers, nil
-// }
+//UpdatePlayer func
+func (repo MongoRepositoryMock) UpdatePlayer(playerID primitive.ObjectID, player *player.Players) (int64, error) {
+	MongoDBCallsUpdatePlayer++
+	return 1, nil
+}
 
-// // GetOnePlayer func
-// func (repo MongoRepositoryMock) GetOnePlayer(playerID primitive.ObjectID) (*player.Players, error) {
-// 	play := new(player.Players)
-// 	MongoDBCalls++
-// 	return play, nil
-// }
+// AddCampaignToPlayer func
+func (repo MongoRepositoryMock) AddCampaignToPlayer(playerID primitive.ObjectID, campaignID, campaignTitle, slackChannelID string) (int64, error) {
+	MongoDBCallsAddCampaignToPlayer++
+	return 1, nil
+}
 
-// //SavePlayer func
-// func (repo MongoRepositoryMock) SavePlayer(player *player.Players) (primitive.ObjectID, error) {
-// 	MongoDBCalls++
-// 	return primitive.ObjectID{}, nil
-// }
+// ChangePlayerCondition func
+func (repo MongoRepositoryMock) ChangePlayerCondition(playerID primitive.ObjectID, player *player.Condition) (int64, error) {
+	MongoDBCallsChangePlayerCondition++
+	return 1, nil
+}
 
-// //UpdatePlayer func
-// func (repo MongoRepositoryMock) UpdatePlayer(playerID primitive.ObjectID, player *player.Players) (int64, error) {
-// 	MongoDBCalls++
-// 	return 1, nil
-// }
+// AddPlayerXP func
+func (repo MongoRepositoryMock) AddPlayerXP(playerID primitive.ObjectID, xp int) (int64, error) {
+	MongoDBCallsAddPlayerXP++
+	return 1, nil
+}
 
-// // AddGameToPlayer func
-// func (repo MongoRepositoryMock) AddGameToPlayer(playerID primitive.ObjectID, gameID, gameTitle, slackChannelID string) (int64, error) {
-// 	MongoDBCalls++
-// 	return 1, nil
-// }
+// AddOrRemovePlayerHP func
+func (repo MongoRepositoryMock) AddOrRemovePlayerHP(playerID primitive.ObjectID, hit int) (int64, error) {
+	MongoDBCallsAddOrRemovePlayerHP++
+	return 1, nil
+}
 
-// // ChangePlayerCondition func
-// func (repo MongoRepositoryMock) ChangePlayerCondition(playerID primitive.ObjectID, player *player.Condition) (int64, error) {
-// 	MongoDBCalls++
-// 	return 1, nil
-// }
+//CreateInventory func
+func (repo MongoRepositoryMock) CreateInventory(inventory *player.Inventory) error {
+	MongoDBCallsCreateInventory++
+	return nil
+}
 
-// // AddPlayerXP func
-// func (repo MongoRepositoryMock) AddPlayerXP(playerID primitive.ObjectID, xp int) (int64, error) {
-// 	MongoDBCalls++
-// 	return 1, nil
-// }
+//DeleteInventoryByID delete Inventory by ID
+func (repo MongoRepositoryMock) DeleteInventoryByID(inventoryID primitive.ObjectID) (int64, error) {
+	MongoDBCallsDeleteInventoryByID++
+	return 1, nil
+}
 
-// // AddOrRemovePlayerHP func
-// func (repo MongoRepositoryMock) AddOrRemovePlayerHP(playerID primitive.ObjectID, hit int) (int64, error) {
-// 	MongoDBCalls++
-// 	return 1, nil
-// }
+// GetInventoryByID func
+func (repo MongoRepositoryMock) GetInventoryByID(inventoryID primitive.ObjectID) (*player.Inventory, error) {
+	MongoDBCallsGetInventoryByID++
+	inventory := new(player.Inventory)
+	return inventory, nil
+}
 
-// //CreateInventory func
-// func (repo MongoRepositoryMock) CreateInventory(inventory *player.Inventory) error {
-// 	MongoDBCalls++
-// 	return nil
-// }
+// GetInventoryID func
+func (repo MongoRepositoryMock) GetInventoryID(playerID string) (primitive.ObjectID, error) {
+	if playerID == "5e70e4c5d2f3f777c16b29f9" {
+		return primitive.ObjectID{}, fmt.Errorf("inventory do not exist")
+	}
+	MongoDBCallsGetInventoryID++
+	return primitive.ObjectID{}, nil
+}
 
-// //DeleteInventoryByID delete Inventory by ID
-// func (repo MongoRepositoryMock) DeleteInventoryByID(inventoryID primitive.ObjectID) (int64, error) {
-// 	MongoDBCalls++
-// 	return 1, nil
-// }
+//AddTreasurePlayer func
+func (repo MongoRepositoryMock) AddTreasurePlayer(inventoryID primitive.ObjectID, treasure map[string]int) (int64, error) {
+	MongoDBCallsAddTreasurePlayer++
+	return 1, nil
+}
 
-// // GetInventoryID func
-// func (repo MongoRepositoryMock) GetInventoryID(playerID string) (primitive.ObjectID, error) {
-// 	MongoDBCalls++
-// 	return primitive.ObjectID{}, nil
-// }
+//AddOthersItems func
+func (repo MongoRepositoryMock) AddOthersItems(playerID primitive.ObjectID, item []string, magic bool) (int64, error) {
+	MongoDBCallsAddOthersItems++
+	return 1, nil
+}
 
-// //AddTreasurePlayer func
-// func (repo MongoRepositoryMock) AddTreasurePlayer(playerID primitive.ObjectID, coins map[string]int) (int64, error) {
-// 	MongoDBCalls++
-// 	return 1, nil
-// }
+//RemoveOthersItems func
+func (repo MongoRepositoryMock) RemoveOthersItems(playerID primitive.ObjectID, item []string, magic bool) (int64, error) {
+	MongoDBCallsRemoveOthersItems++
+	return 1, nil
+}
 
-// //AddOthersItems func
-// func (repo MongoRepositoryMock) AddOthersItems(playerID primitive.ObjectID, item []string) (int64, error) {
-// 	MongoDBCalls++
-// 	return 1, nil
-// }
+// GetArmory func
+func (repo MongoRepositoryMock) GetArmory(inventoryID primitive.ObjectID) (*player.Armory, error) {
+	MongoDBCallsGetArmory++
+	armory := new(player.Armory)
+	return armory, nil
+}
 
-// //RemoveOthersItems func
-// func (repo MongoRepositoryMock) RemoveOthersItems(playerID primitive.ObjectID, item []string) (int64, error) {
-// 	MongoDBCalls++
-// 	return 1, nil
-// }
+//UsageSpellByLevel func spells_used.level0
+func (repo MongoRepositoryMock) UsageSpellByLevel(playerID primitive.ObjectID, spellByLevel map[string]int) (int64, error) {
+	MongoDBCallsUsageSpellByLevel++
+	return 1, nil
+}
 
-// // GetArmory func
-// func (repo MongoRepositoryMock) GetArmory(inventoryID primitive.ObjectID) (*player.Armory, error) {
-// 	MongoDBCalls++
-// 	armory := new(player.Armory)
-// 	return armory, nil
-// }
+// SetHPTempPlayerByID func
+func (repo MongoRepositoryMock) SetHPTempPlayerByID(playerID primitive.ObjectID, hp int) (int64, error) {
+	MongoDBCallsSetHPTempPlayerByID++
+	return 1, nil
+}
 
-// //UsageSpellByLevel func spells_used.level0
-// func (repo MongoRepositoryMock) UsageSpellByLevel(playerID primitive.ObjectID, spellByLevel map[string]int) (int64, error) {
-// 	MongoDBCalls++
-// 	return 1, nil
-// }
+// SetSpellUsedPlayerByID func
+func (repo MongoRepositoryMock) SetSpellUsedPlayerByID(playerID primitive.ObjectID, spell map[string]int) (int64, error) {
+	MongoDBCallsSetSpellUsedPlayerByID++
+	return 1, nil
+}
 
-// // SetHPTempPlayerByID func
-// func (repo MongoRepositoryMock) SetHPTempPlayerByID(playerID primitive.ObjectID, hp int) (int64, error) {
-// 	MongoDBCalls++
-// 	return 1, nil
-// }
+// SetArmorWeaponPlayerByID func
+func (repo MongoRepositoryMock) SetArmorWeaponPlayerByID(playerID primitive.ObjectID, armory *player.Armory) (int64, error) {
+	MongoDBCallsSetArmorWeaponPlayerByID++
+	return 1, nil
+}
 
-// // SetSpellUsedPlayerByID func
-// func (repo MongoRepositoryMock) SetSpellUsedPlayerByID(playerID primitive.ObjectID, spell map[string]int) (int64, error) {
-// 	MongoDBCalls++
-// 	return 1, nil
-// }
+// DeletePlayerByID func
+func (repo MongoRepositoryMock) DeletePlayerByID(playerID primitive.ObjectID) (int64, error) {
+	exampleID, _ := primitive.ObjectIDFromHex("5e70e4c5d2f3f777c16b29f8")
+	if playerID == exampleID {
+		return 0, fmt.Errorf("simulated error")
+	}
+	MongoDBCallsDeletePlayerByID++
+	return 1, nil
+}
 
-// // SetArmorWeaponPlayerByID func
-// func (repo MongoRepositoryMock) SetArmorWeaponPlayerByID(playerID primitive.ObjectID, armor *player.Armory) (int64, error) {
-// 	MongoDBCalls++
-// 	return 1, nil
-// }
+// SetMagicalEffect
+func (repo MongoRepositoryMock) SetMagicalEffect(playerID primitive.ObjectID, item []string, add bool) (int64, error) {
+	MongoDBCallsSetMagicalEffect++
+	return 1, nil
+}
 
-// // DeletePlayerByID func
-// func (repo MongoRepositoryMock) DeletePlayerByID(playerID primitive.ObjectID) (int64, error) {
-// 	MongoDBCalls++
-// 	return 1, nil
-// }
+//SaveNPC func
+func (repo MongoRepositoryMock) SaveNPC(npc *player.NPC) (primitive.ObjectID, error) {
+	MongoDBCallsSaveNPC++
+	return primitive.ObjectID{}, nil
+}
 
-// //SaveNPC func
-// func (repo MongoRepositoryMock) SaveNPC(npc *player.NPC) (primitive.ObjectID, error) {
-// 	MongoDBCalls++
-// 	return primitive.ObjectID{}, nil
-// }
+// GetNPCS func
+func (repo MongoRepositoryMock) GetNPCS(queryParameters url.Values) ([]*player.NPC, error) {
+	npc := new(player.NPC)
+	var sliceNPC []*player.NPC
+	sliceNPC = append(sliceNPC, npc)
+	MongoDBCallsGetNPCS++
+	return sliceNPC, nil
+}
 
-// // GetNPCS func
-// func (repo MongoRepositoryMock) GetNPCS(queryParameters url.Values) ([]*player.NPC, error) {
-// 	npc := new(player.NPC)
-// 	var sliceNPC []*player.NPC
-// 	sliceNPC = append(sliceNPC, npc)
-// 	MongoDBCalls++
-// 	return sliceNPC, nil
-// }
+// SetDamageNPCByID func
+func (repo MongoRepositoryMock) SetDamageNPCByID(npcID primitive.ObjectID, hit int) (int64, error) {
+	exampleID, _ := primitive.ObjectIDFromHex("5e70e4c5d2f3f777c16b29f8")
+	if npcID == exampleID {
+		return -1, fmt.Errorf("simulated error")
+	}
+	// player exist
+	exampleID1, _ := primitive.ObjectIDFromHex("5e70e4c5d2f3f777c16b29f6")
+	if npcID == exampleID1 {
+		return 1, nil
+	}
+	MongoDBCallsSetDamageNPCByID++
+	return 1, nil
+}
 
-// // SetDamageNPCByID func
-// func (repo MongoRepositoryMock) SetDamageNPCByID(npcID primitive.ObjectID, hit int) (int64, error) {
-// 	MongoDBCalls++
-// 	return 1, nil
-// }
+// SetContitionNPCByID func
+func (repo MongoRepositoryMock) SetContitionNPCByID(npcID primitive.ObjectID, npc *player.NPCCondition) (int64, error) {
+	exampleID, _ := primitive.ObjectIDFromHex("5e70e4c5d2f3f777c16b29f8")
+	if npcID == exampleID {
+		return -1, fmt.Errorf("simulated error")
+	}
+	// player exist
+	exampleID1, _ := primitive.ObjectIDFromHex("5e70e4c5d2f3f777c16b29f6")
+	if npcID == exampleID1 {
+		return 1, nil
+	}
+	MongoDBCallsSetContitionNPCByID++
+	return 1, nil
+}
 
-// // SetContitionNPCByID func
-// func (repo MongoRepositoryMock) SetContitionNPCByID(npcID primitive.ObjectID, npc *player.NPCCondition) (int64, error) {
-// 	MongoDBCalls++
-// 	return 1, nil
-// }
+// DeleteNPCByID func
+func (repo MongoRepositoryMock) DeleteNPCByID(npcID primitive.ObjectID) (int64, error) {
+	exampleID, _ := primitive.ObjectIDFromHex("5e70e4c5d2f3f777c16b29f8")
+	if npcID == exampleID {
+		return 0, fmt.Errorf("simulated error")
+	}
+	MongoDBCallsDeleteNPCByID++
+	return 1, nil
+}
 
-// // DeleteNPCByID func
-// func (repo MongoRepositoryMock) DeleteNPCByID(npcID primitive.ObjectID) (int64, error) {
-// 	MongoDBCalls++
-// 	return 1, nil
-// }
-
-// //SaveMonsters func
-// // func (repo MongoRepositoryMock) SaveMonsters(npc *player.Monster) (primitive.ObjectID, error) {
-// // 	MongoDBCalls++
-// // }
-// // func (repo MongoRepositoryMock) GetMonsters() ([]*player.Monster, error) {
-// // 	MongoDBCalls++
-// // }
-// // func (repo MongoRepositoryMock) DeleteMonsterByID(monsterID primitive.ObjectID) (int64, error) {
-// // 	MongoDBCalls++
-// // }
-
-// // InitMongoMock func returns a RepositoryMongoMock interface
-// func InitMongoMock() appcontext.Component {
-
-// 	return MongoRepositoryMock{}
-// }
+// InitMongoMock func returns a RepositoryMongoMock interface
+func InitMongoMock() appcontext.Component {
+	return MongoRepositoryMock{}
+}

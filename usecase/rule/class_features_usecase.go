@@ -15,8 +15,6 @@ func monsterTypeList() []string {
 	return []string{"aberrations", "beasts", "celestials", "constructs", "dragons", "elementals", "fey", "fiends", "giants", "monstrosities", "oozes", "plants", "undead"}
 }
 
-// "natural-explorer", "natural-explorer-improvement", "favored-enemy", "favored-enemy-improvement",
-
 func featuresListRename() []string {
 	return []string{"fighting-style", "primal-path", "path-feature", "bard-college", "bard-college-feature", "divine-domain", "divine-domain-feature", "druid-circle", "druid-circle-feature", "martial-archetype", "martial-archetype-feature", "sacred-oath", "sacred-oath-feature", "monastic-tradition", "monastic-tradition-feature", "ranger-archetype", "ranger-archetype-feature", "roguish-archetype", "roguish-archetype-feature", "sorcerous-origin", "sorcerous-origin-feature", "otherworldly-patron", "otherworldly-patron-feature", "pact-boon", "arcane-tradition", "arcane-tradition-feature"}
 }
@@ -89,23 +87,18 @@ func wizardArcaneTraditionList() []string {
 	return []string{"abjuration", "conjuration", "divination", "enchantment", "evocation", "illusion", "necromancy", "transmutation"}
 }
 
-// func rangerHuntersFullList() (fullList []string) {
-// 	fullList = append(fullList, huntersPreyList()...)
-// 	fullList = append(fullList, defensiveTacticsList()...)
-// 	fullList = append(fullList, multiattackList()...)
-// 	fullList = append(fullList, huntersDefenseList()...)
-// 	return fullList
-// }
-
 func huntersPreyList() []string {
 	return []string{"colossus-slayer", "giant-killer", "horde-breaker"}
 }
+
 func defensiveTacticsList() []string {
 	return []string{"escape-the-horde", "multiattack-defense", "steel-will"}
 }
+
 func multiattackList() []string {
 	return []string{"volley", "whirlwind-attack"}
 }
+
 func huntersDefenseList() []string {
 	return []string{"evasion", "stand-against-the-tide", "uncanny-dodge"}
 }
@@ -1053,7 +1046,7 @@ func featureImprovedByLevel(name string, level int) (dice string) {
 		if level < 5 {
 			dice = "1d6"
 		}
-		if level >= 5 {
+		if level >= 5 && level < 10 {
 			dice = "1d8"
 		}
 		if level >= 10 {
@@ -1067,7 +1060,7 @@ func featureImprovedByLevel(name string, level int) (dice string) {
 		if level < 9 {
 			dice = "1d6"
 		}
-		if level >= 9 {
+		if level >= 9 && level < 13 {
 			dice = "1d8"
 		}
 		if level >= 13 {

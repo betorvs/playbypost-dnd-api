@@ -118,3 +118,18 @@ func GetD20ToRoll(adv, dis bool) string {
 	// simple d20
 	return "1d20"
 }
+
+// AllowedStatus func return a slice with valid status for Campaign, Adventure and Encounter
+func AllowedStatus() []string {
+	return []string{"onhold", "living", "closed"}
+}
+
+// ExtractDiceString(s string) string
+func ExtractDiceString(s string) (string, error) {
+	var dices = regexp.MustCompile(`(?m)(\d+)?d(\d+)([\+\-]\d+)?`)
+	value := dices.FindString(strings.ReplaceAll(s, " ", ""))
+	if value != "" {
+		return value, nil
+	}
+	return s, fmt.Errorf("string does not contain a dice")
+}

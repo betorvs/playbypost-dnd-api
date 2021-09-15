@@ -1,5 +1,44 @@
 [
     {
+        "name": "padded",
+        "title": "Padded",
+        "kind": "light-armor",
+        "cost": 5,
+        "coin_type": "gold",
+        "armor_class": 11,
+        "dexterity_modifier": 99,
+        "stealth": true,
+        "strength": 0,
+        "weight": 8,
+        "measure": "lb"
+    },
+    {
+        "name": "leather",
+        "title": "Leather",
+        "kind": "light-armor",
+        "cost": 10,
+        "coin_type": "gold",
+        "armor_class": 11,
+        "dexterity_modifier": 99,
+        "stealth": false,
+        "strength": 0,
+        "weight": 10,
+        "measure": "lb"
+    },
+    {
+        "name": "studded-leather",
+        "title": "Studded leather",
+        "kind": "light-armor",
+        "cost": 45,
+        "coin_type": "gold",
+        "armor_class": 12,
+        "dexterity_modifier": 99,
+        "stealth": false,
+        "strength": 0,
+        "weight": 13,
+        "measure": "lb"
+    },
+    {
         "name": "hide",
         "title": "Hide",
         "kind": "medium-armor",
@@ -127,45 +166,6 @@
         "stealth": false,
         "strength": 0,
         "weight": 6,
-        "measure": "lb"
-    },
-    {
-        "name": "padded",
-        "title": "Padded",
-        "kind": "light-armor",
-        "cost": 5,
-        "coin_type": "gold",
-        "armor_class": 11,
-        "dexterity_modifier": 99,
-        "stealth": true,
-        "strength": 0,
-        "weight": 8,
-        "measure": "lb"
-    },
-    {
-        "name": "leather",
-        "title": "Leather",
-        "kind": "light-armor",
-        "cost": 10,
-        "coin_type": "gold",
-        "armor_class": 11,
-        "dexterity_modifier": 99,
-        "stealth": false,
-        "strength": 0,
-        "weight": 10,
-        "measure": "lb"
-    },
-    {
-        "name": "studded-leather",
-        "title": "Studded leather",
-        "kind": "light-armor",
-        "cost": 45,
-        "coin_type": "gold",
-        "armor_class": 12,
-        "dexterity_modifier": 99,
-        "stealth": false,
-        "strength": 0,
-        "weight": 13,
         "measure": "lb"
     }
 ]
