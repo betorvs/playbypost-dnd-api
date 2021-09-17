@@ -10,6 +10,574 @@
 			"name": "roll",
 			"item": [
 				{
+					"name": "players",
+					"item": [
+						{
+							"name": "POST Attack Calculation",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"level\": 1,\n\t\"race\": \"halfling\",\n\t\"ability\": {\n            \"charisma\": 14,\n            \"constitution\": 16,\n            \"dexterity\": 12,\n            \"intelligence\": 10,\n            \"strength\": 16,\n            \"wisdom\": 13\n        },\n\t\"armor_proficiency\": [\n        \"light-armor\",\n        \"medium-armor\",\n        \"heavy-armor\",\n        \"shields\",\n        \"simple-weapon\",\n        \"martial-weapon\"\n    ],\n    \"class_features\": [\"fighting-style-great-weapon-fighting\"],\n\t\"weapon\": [\"longsword\"],\n\t\"two_hands\": true,\n\t\"monster\": \"orc\",\n    \"disvantages\": [],\n    \"advantages\": [],\n    \"auto_fail\": []\n}"
+								},
+								"url": {
+									"raw": "{{server}}/playbypost-dnd/v1/roll/player/attack",
+									"host": [
+										"{{server}}"
+									],
+									"path": [
+										"playbypost-dnd",
+										"v1",
+										"roll",
+										"player",
+										"attack"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "POST Attack Calculation with Feature",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"level\": 8,\n\t\"race\": \"halfling\",\n\t\"ability\": {\n            \"charisma\": 14,\n            \"constitution\": 16,\n            \"dexterity\": 12,\n            \"intelligence\": 10,\n            \"strength\": 16,\n            \"wisdom\": 13\n        },\n\t\"armor_proficiency\": [\n        \"light-armor\",\n        \"medium-armor\",\n        \"heavy-armor\",\n        \"shields\",\n        \"simple-weapon\",\n        \"martial-weapon\"\n    ],\n    \"class_features\": [],\n\t\"weapon\": [\"longsword\"],\n\t\"two_hands\": true,\n\t\"using_feature\": \"domain-nature-divine-strike\",\n\t\"using_feature_type\": \"cold\",\n\t\"monster\": \"orc\",\n    \"disvantages\": [],\n    \"advantages\": [],\n    \"auto_fail\": []\n}"
+								},
+								"url": {
+									"raw": "{{server}}/playbypost-dnd/v1/roll/player/attack",
+									"host": [
+										"{{server}}"
+									],
+									"path": [
+										"playbypost-dnd",
+										"v1",
+										"roll",
+										"player",
+										"attack"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "POST Spellcast Attack Calculation",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"level\": 17,\n\t\"class\": \"wizard\",\n\t\"race\": \"human\",\n\t\"ability\": {\n        \"charisma\": 14,\n            \"constitution\": 15,\n            \"dexterity\": 15,\n            \"intelligence\": 17,\n            \"strength\": 11,\n            \"wisdom\": 16\n    },\n    \"racial_trait\": false,\n    \"spell_name\": \"fireball\",\n    \"spell_level\": 0,\n    \"rage\": false,\n    \"monster\": [\"orc\", \"zombie\", \"adult-red-dragon\"],\n    \"disvantages\": [],\n    \"advantages\": [],\n    \"auto_fail\": []\n}"
+								},
+								"url": {
+									"raw": "{{server}}/playbypost-dnd/v1/roll/player/spellcast",
+									"host": [
+										"{{server}}"
+									],
+									"path": [
+										"playbypost-dnd",
+										"v1",
+										"roll",
+										"player",
+										"spellcast"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "POST Skill / Ability Calculation",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"level\": 1,\n\t\"check\": \"survival\",\n\t\"ability\": {\n        \"charisma\": 12,\n        \"constitution\": 14,\n        \"dexterity\": 12,\n        \"intelligence\": 16,\n        \"strength\": 12,\n        \"wisdom\": 10\n    },\n    \"skills\": [\n        \"history\",\n        \"survival\",\n        \"religion\",\n        \"insight\"\n    ],\n    \"difficult_class\": 15,\n    \"disvantages\": [],\n    \"advantages\": [],\n    \"auto_fail\": []\n}"
+								},
+								"url": {
+									"raw": "{{server}}/playbypost-dnd/v1/roll/player/check",
+									"host": [
+										"{{server}}"
+									],
+									"path": [
+										"playbypost-dnd",
+										"v1",
+										"roll",
+										"player",
+										"check"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "POST Savings Calculation",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"level\": 1,\n\t\"check\": \"spell\",\n\t\"race\": \"gnome\",\n\t\"saving\": \"wisdom\",\n\t\"ability\": {\n        \"charisma\": 12,\n        \"constitution\": 14,\n        \"dexterity\": 12,\n        \"intelligence\": 16,\n        \"strength\": 12,\n        \"wisdom\": 14\n    },\n    \"savings\": [\n        \"strength\",\n        \"charisma\"\n    ],\n    \"difficult_class\": 15,\n    \"disvantages\": [],\n    \"advantages\": [],\n    \"auto_fail\": []\n}"
+								},
+								"url": {
+									"raw": "{{server}}/playbypost-dnd/v1/roll/player/savings",
+									"host": [
+										"{{server}}"
+									],
+									"path": [
+										"playbypost-dnd",
+										"v1",
+										"roll",
+										"player",
+										"savings"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "POST Armor Class Calculation",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"armor\": \"\",\n\t\"shield\": \"\",\n\t\"class\": \"barbarian\",\n    \"class_features\": [\n        \"rage\",\n        \"unarmored-defense-barbarian\"\n    ],\n\t\"magic_bonus\": 0,\n\t\"ability\": {\n        \"charisma\": 12,\n        \"constitution\": 16,\n        \"dexterity\": 14,\n        \"intelligence\": 10,\n        \"strength\": 16,\n        \"wisdom\": 10\n    },\n    \"armor_proficiency\": [\n        \"shortswords\",\n        \"simple-weapon\",\n        \"battleaxe\",\n        \"handaxe\",\n        \"light hammer\",\n        \"warhammer\",\n        \"light-armor\",\n        \"medium-armor\"\n    ]\n}"
+								},
+								"url": {
+									"raw": "{{server}}/playbypost-dnd/v1/roll/player/armorclass",
+									"host": [
+										"{{server}}"
+									],
+									"path": [
+										"playbypost-dnd",
+										"v1",
+										"roll",
+										"player",
+										"armorclass"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "POST Use Class Features",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"level\": 3,\n\t\"name\": \"bless\",\n\t\"class_features\": [\n\t\t\"jack-of-all-trades\",\n        \"song-of-rest\",\n        \"spellcasting\",\n        \"bardic-inspiration\"\n        ]\n}"
+								},
+								"url": {
+									"raw": "{{server}}/playbypost-dnd/v1/roll/player/classfeature",
+									"host": [
+										"{{server}}"
+									],
+									"path": [
+										"playbypost-dnd",
+										"v1",
+										"roll",
+										"player",
+										"classfeature"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "POST Use Race Features",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"level\": 1,\n\t\"name\": \"breath-weapon\",\n\t\"race\": \"human\",\n\t\"subrace\": \"red\",\n\t\"ability\": {\n\t\t\"strength\": 16, \n\t\t\"dexterity\": 12, \n\t\t\"constitution\": 15, \n\t\t\"intelligence\": 12, \n\t\t\"wisdom\": 14, \n\t\t\"charisma\": 10 \n\t},\n\t\"monster\": [\"orc\"] \n}"
+								},
+								"url": {
+									"raw": "{{server}}/playbypost-dnd/v1/roll/player/racefeature",
+									"host": [
+										"{{server}}"
+									],
+									"path": [
+										"playbypost-dnd",
+										"v1",
+										"roll",
+										"player",
+										"racefeature"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "POST Use Potion",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"name\": \"potion-of-climbing\",\n\t\"ability\": {\n        \"charisma\": 12,\n        \"constitution\": 16,\n        \"dexterity\": 14,\n        \"intelligence\": 10,\n        \"strength\": 16,\n        \"wisdom\": 10\n    },\n    \"damage_resistance\": [],\n    \"damage_vulnerabilities\": [],\n    \"damage_immunities\": [],\n    \"condition_immunities\": [\n        \"sleep\"\n    ]\n}"
+								},
+								"url": {
+									"raw": "{{server}}/playbypost-dnd/v1/roll/player/potion",
+									"host": [
+										"{{server}}"
+									],
+									"path": [
+										"playbypost-dnd",
+										"v1",
+										"roll",
+										"player",
+										"potion"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "POST Prepared Spell List",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"level\": 1,\n\t\"class\": \"cleric\",\n\t\"ability\": {\n        \"charisma\": 12,\n        \"constitution\": 16,\n        \"dexterity\": 14,\n        \"intelligence\": 10,\n        \"strength\": 16,\n        \"wisdom\": 16\n    },\n   \"prepared_spells\": [\n   \t\"sacred-flame\",\n    \"thaumaturgy\",\n    \"bane\",\n    \"bless\"\n   \t]\n}"
+								},
+								"url": {
+									"raw": "{{server}}/playbypost-dnd/v1/roll/player/preparedspells",
+									"host": [
+										"{{server}}"
+									],
+									"path": [
+										"playbypost-dnd",
+										"v1",
+										"roll",
+										"player",
+										"preparedspells"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "POST Known Spell List",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"level\": 1,\n\t\"class\": \"sorcerer\",\n\t\"ability\": {\n        \"charisma\": 12,\n        \"constitution\": 16,\n        \"dexterity\": 14,\n        \"intelligence\": 10,\n        \"strength\": 16,\n        \"wisdom\": 16\n    },\n    \"known_spells\": 2,\n    \"spell_max_level\": 1,\n    \"spell_list\": [\n   \t    \"magic-missile\",\n        \"burning-hands\"\n   \t]\n}"
+								},
+								"url": {
+									"raw": "{{server}}/playbypost-dnd/v1/roll/player/knownspells",
+									"host": [
+										"{{server}}"
+									],
+									"path": [
+										"playbypost-dnd",
+										"v1",
+										"roll",
+										"player",
+										"knownspells"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "POST Cantrip List",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"level\": 1,\n\t\"class\": \"cleric\",\n\t\"ability\": {\n        \"charisma\": 12,\n        \"constitution\": 16,\n        \"dexterity\": 14,\n        \"intelligence\": 10,\n        \"strength\": 16,\n        \"wisdom\": 16\n    },\n   \"prepared_spells\": [\n   \t\"sacred-flame\",\n    \"thaumaturgy\",\n    \"bane\",\n    \"bless\"\n   \t]\n}"
+								},
+								"url": {
+									"raw": "{{server}}/playbypost-dnd/v1/roll/player/cantrips",
+									"host": [
+										"{{server}}"
+									],
+									"path": [
+										"playbypost-dnd",
+										"v1",
+										"roll",
+										"player",
+										"cantrips"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "npcs",
+					"item": [
+						{
+							"name": "POST Monster Attack Calculation",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"name\": \"orc\",\n\t\"check\": \"attack\",\n\t\"weapon\": \"greataxe\",\n\t\"difficult_class\": 15,\n    \"disvantages\": [],\n    \"advantages\": [],\n    \"auto_fail\": [],\n    \"enemy_damage_immunities\": [\"\"],\n    \"enemy_rage\": true\n}"
+								},
+								"url": {
+									"raw": "{{server}}/playbypost-dnd/v1/roll/npc/attack",
+									"host": [
+										"{{server}}"
+									],
+									"path": [
+										"playbypost-dnd",
+										"v1",
+										"roll",
+										"npc",
+										"attack"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "POST Monster Savings Calculation",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"name\": \"adult-black-dragon\",\n\t\"check\": \"charisma\",\n\t\"weapon\": \"\",\n\t\"difficult_class\": 15,\n    \"disvantages\": [],\n    \"advantages\": [],\n    \"auto_fail\": []\n}"
+								},
+								"url": {
+									"raw": "{{server}}/playbypost-dnd/v1/roll/npc/savings",
+									"host": [
+										"{{server}}"
+									],
+									"path": [
+										"playbypost-dnd",
+										"v1",
+										"roll",
+										"npc",
+										"savings"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "POST Monster Checks Calculation",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"name\": \"adult-black-dragon\",\n\t\"check\": \"insight\",\n\t\"weapon\": \"\",\n\t\"difficult_class\": 15,\n    \"disvantages\": [],\n    \"advantages\": [],\n    \"auto_fail\": []\n}"
+								},
+								"url": {
+									"raw": "{{server}}/playbypost-dnd/v1/roll/npc/checks",
+									"host": [
+										"{{server}}"
+									],
+									"path": [
+										"playbypost-dnd",
+										"v1",
+										"roll",
+										"npc",
+										"checks"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "POST Monster Initiative",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\"list\": [\"orc\", \"zombie\", \"adult-red-dragon\", \"ape\"]\n}"
+								},
+								"url": {
+									"raw": "{{server}}/playbypost-dnd/v1/roll/npc/initiative",
+									"host": [
+										"{{server}}"
+									],
+									"path": [
+										"playbypost-dnd",
+										"v1",
+										"roll",
+										"npc",
+										"initiative"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "POST Monster TurnUndead Check Paladin",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"level\": 3,\n\t\"ability\": {\n        \"charisma\": 14,\n        \"constitution\": 15,\n        \"dexterity\": 10,\n        \"intelligence\": 10,\n        \"strength\": 14,\n        \"wisdom\": 16\n    },\n    \"class_features\": [\n        \"divine-health\",\n        \"sacred-oath-of-devotion-channel-divinity\",\n        \"fighting-style-defense\",\n        \"spellcasting\",\n        \"divine-smite\",\n        \"divine-sense\",\n        \"lay-on-hands\"\n    ],\n\t\"monster_list\": [\"ogre-zombie\", \"zombie\", \"zombie\", \"wight\", \"orc\", \"bearded-devil\"]\n}"
+								},
+								"url": {
+									"raw": "{{server}}/playbypost-dnd/v1/roll/npc/turnundead",
+									"host": [
+										"{{server}}"
+									],
+									"path": [
+										"playbypost-dnd",
+										"v1",
+										"roll",
+										"npc",
+										"turnundead"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "POST Monster TurnUndead Check",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"level\": 2,\n\t\"ability\": {\n        \"charisma\": 14,\n        \"constitution\": 15,\n        \"dexterity\": 10,\n        \"intelligence\": 10,\n        \"strength\": 14,\n        \"wisdom\": 16\n    },\n    \"class_features\": [\n        \"channel-divinity\",\n        \"domain-knowledge-channel-divinity-knowledge-of-the-ages\",\n        \"spellcasting\",\n        \"domain-knowledge-blessings-of-knowledge\"\n    ],\n\t\"monster_list\": [\"ogre-zombie\", \"zombie\", \"zombie\", \"wight\", \"shadow\" ]\n}"
+								},
+								"url": {
+									"raw": "{{server}}/playbypost-dnd/v1/roll/npc/turnundead",
+									"host": [
+										"{{server}}"
+									],
+									"path": [
+										"playbypost-dnd",
+										"v1",
+										"roll",
+										"npc",
+										"turnundead"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
 					"name": "RollDice",
 					"request": {
 						"method": "PUT",
@@ -24,6 +592,36 @@
 								"v1",
 								"roll",
 								"1d20"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST Shop",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\"list\": [\"longsword\", \"scale mail\", \"dungeoneers pack\", \"Lifestyle Comfortable\", \"emblem\", \"clothes common\", \"playing card set\", \"horse draft\", \"Ale Gallon\" ]\n}"
+						},
+						"url": {
+							"raw": "{{server}}/playbypost-dnd/v1/rule/shops",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"playbypost-dnd",
+								"v1",
+								"rule",
+								"shops"
 							]
 						}
 					},
@@ -548,6 +1146,1284 @@
 								"playbypost-dnd",
 								"v1",
 								"info"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "campaign",
+			"item": [
+				{
+					"name": "GET Campaign",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{server}}/playbypost-dnd/v1/campaign",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"playbypost-dnd",
+								"v1",
+								"campaign"
+							],
+							"query": [
+								{
+									"key": "channel_id",
+									"value": "C013RE6DMML",
+									"disabled": true
+								},
+								{
+									"key": "team_id",
+									"value": "T947BLKCG",
+									"disabled": true
+								},
+								{
+									"key": "master_id",
+									"value": "U947BLKME",
+									"disabled": true
+								},
+								{
+									"key": "players_id",
+									"value": "qwe",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET Campaign by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{server}}/playbypost-dnd/v1/campaign?channel_id=C013RE6DMML&master_id=UMNL1CU1M",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"playbypost-dnd",
+								"v1",
+								"campaign"
+							],
+							"query": [
+								{
+									"key": "channel_id",
+									"value": "C013RE6DMML"
+								},
+								{
+									"key": "team_id",
+									"value": "T947BLKCG",
+									"disabled": true
+								},
+								{
+									"key": "master_id",
+									"value": "UMNL1CU1M"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET player allowed",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{server}}/playbypost-dnd/v1/campaign/5ebae0ad2464ff56e4733bd9/UMNL1CU1M",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"playbypost-dnd",
+								"v1",
+								"campaign",
+								"5ebae0ad2464ff56e4733bd9",
+								"UMNL1CU1M"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST Campaign",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"content-type": true
+						}
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"title\": \"Last Dragon\",\n\t\"channel_id\": \"C013RE6DMML\",\n\t\"channel_name\": \"dndmission\",\n\t\"master_id\": \"UMNL1CU1M\" ,\n\t\"master_name\": \"beto.rvs.de\",\n\t\"description\": \"save the queen\",\n\t\"status\": \"onhold\"\n}"
+						},
+						"url": {
+							"raw": "{{server}}/playbypost-dnd/v1/campaign",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"playbypost-dnd",
+								"v1",
+								"campaign"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PUT Campaign",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"content-type": true
+						}
+					},
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\t\n\t\"id\": \"5fedee8cc33ee700336a0170\",\n\t\"title\": \"Dragons\",\n\t\"channel_id\": \"asd\",\n\t\"channel_name\": \"asd\",\n\t\"team_domain\": \"asd\",\n\t\"team_id\": \"asd\",\n\t\"master_id\": \"asd\",\n\t\"master_name\": \"asd\",\n\t\"description\": \"awesome dragons 2\",\n\t\"players_id\": [\n\t\t\"qwe\"\n\t],\n\t\"players_username\": [\n\t\t\"qwe\"\n\t],\n\t\"start_level\": 1,\n\t\"status\": \"onhold\"\n}"
+						},
+						"url": {
+							"raw": "{{server}}/playbypost-dnd/v1/campaign",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"playbypost-dnd",
+								"v1",
+								"campaign"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST Add Player",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"player_id\": \"UMNL1CU1M\",\n\t\"player_username\": \"beto.rvs.de\"\n}"
+						},
+						"url": {
+							"raw": "{{server}}/playbypost-dnd/v1/campaign/5ebbc76033b6a12bb07305cd/player",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"playbypost-dnd",
+								"v1",
+								"campaign",
+								"5ebbc76033b6a12bb07305cd",
+								"player"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE Campaign by ID",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{server}}/playbypost-dnd/v1/campaign/5ec634d3d026380ec98c0f81",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"playbypost-dnd",
+								"v1",
+								"campaign",
+								"5ec634d3d026380ec98c0f81"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "adventure",
+			"item": [
+				{
+					"name": "GET adventure",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{server}}/playbypost-dnd/v1/adventure",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"playbypost-dnd",
+								"v1",
+								"adventure"
+							],
+							"query": [
+								{
+									"key": "campaign_id",
+									"value": "5ec637806ee86028edc74ad1",
+									"disabled": true
+								},
+								{
+									"key": "id",
+									"value": "",
+									"disabled": true
+								},
+								{
+									"key": "title",
+									"value": "second day",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET One adventure",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{server}}/playbypost-dnd/v1/adventure/5ec7dd56ca65e63cdf8e1666",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"playbypost-dnd",
+								"v1",
+								"adventure",
+								"5ec7dd56ca65e63cdf8e1666"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST Adventure",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"content-type": true
+						}
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"title\": \"First Chapter\",\n\t\"campaign_id\": \"5ec637806ee86028edc74ad1\",\n\t\"description\": \"After the hills, far away, there are one city with high walls\",\n\t\"status\": \"onhold\"\n}"
+						},
+						"url": {
+							"raw": "{{server}}/playbypost-dnd/v1/adventure",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"playbypost-dnd",
+								"v1",
+								"adventure"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PUT adventure",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"content-type": true
+						}
+					},
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n        \"id\": \"5fee1eabc25952322f4cf71d\",\n        \"campaign_id\": \"5fedf869d92635a8fb9ab17a\",\n        \"title\": \"orcs\",\n        \"description\": \"too many orcs 2\",\n        \"channel_id\": \"qwe\",\n        \"status\": \"onhold\"\n}"
+						},
+						"url": {
+							"raw": "{{server}}/playbypost-dnd/v1/adventure",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"playbypost-dnd",
+								"v1",
+								"adventure"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST Add Encounter in Adventure",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"encounter\": \"many orcs\",\n\t\"adventure_id\": \"5ec7d708fb28ea7d3b92cd20\"\n}"
+						},
+						"url": {
+							"raw": "{{server}}/playbypost-dnd/v1/adventure/5ec7d708fb28ea7d3b92cd20/encounter",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"playbypost-dnd",
+								"v1",
+								"adventure",
+								"5ec7d708fb28ea7d3b92cd20",
+								"encounter"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PUT Adventure Status",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"content-type": true
+						}
+					},
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"players_id\": [\"UMNL1CU1M\"]\n}"
+						},
+						"url": {
+							"raw": "{{server}}/playbypost-dnd/v1/adventure/5ec7dd56ca65e63cdf8e1666/living",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"playbypost-dnd",
+								"v1",
+								"adventure",
+								"5ec7dd56ca65e63cdf8e1666",
+								"living"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE Adventure by ID",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{server}}/playbypost-dnd/v1/adventure/5ebbcd8de8db2ec66354924e",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"playbypost-dnd",
+								"v1",
+								"adventure",
+								"5ebbcd8de8db2ec66354924e"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "encounter",
+			"item": [
+				{
+					"name": "GET encounter",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{server}}/playbypost-dnd/v1/encounter?campaign_id=5fedf869d92635a8fb9ab17a",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"playbypost-dnd",
+								"v1",
+								"encounter"
+							],
+							"query": [
+								{
+									"key": "status",
+									"value": "living",
+									"disabled": true
+								},
+								{
+									"key": "npcs",
+									"value": "orc2",
+									"disabled": true
+								},
+								{
+									"key": "adventure_id",
+									"value": "5fee31fac099473ecf1978a5",
+									"disabled": true
+								},
+								{
+									"key": "campaign_id",
+									"value": "5fedf869d92635a8fb9ab17a"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET One encounter",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{server}}/playbypost-dnd/v1/encounter/5ec7dd56ca65e63cdf8e1666",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"playbypost-dnd",
+								"v1",
+								"encounter",
+								"5ec7dd56ca65e63cdf8e1666"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST encounter",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"content-type": true
+						}
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"4 Encounter\",\n\t\"adventure_id\": \"5fee31fac099473ecf1978a5\",\n\t\"description\": \"2 orcs jump in front of your guys\",\n\t\"events\": [{\n\t\t\"name\": \"initiative\",\n        \"check\": \"dexterity\",\n        \"difficult_class\": 10\n\t}],\n\t\"status\": \"onhold\"\n}"
+						},
+						"url": {
+							"raw": "{{server}}/playbypost-dnd/v1/encounter",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"playbypost-dnd",
+								"v1",
+								"encounter"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PUT encounter",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"content-type": true
+						}
+					},
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"4 Encounter\",\n\t\"adventure_id\": \"5fee31fac099473ecf1978a5\",\n\t\"description\": \"2 orcs jump in front of your guys\",\n\t\"events\": [{\n\t\t\"name\": \"initiative\",\n        \"check\": \"dexterity\",\n        \"difficult_class\": 10\n\t}],\n\t\"status\": \"onhold\"\n}"
+						},
+						"url": {
+							"raw": "{{server}}/playbypost-dnd/v1/encounter",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"playbypost-dnd",
+								"v1",
+								"encounter"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST add NPC to Encounter",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"content-type": true
+						}
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"npcs\": \"orc1\",\n\t\"encounter_id\": \"5fee31fac099473ecf1978a5\"\n}"
+						},
+						"url": {
+							"raw": "{{server}}/playbypost-dnd/v1/encounter/npc",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"playbypost-dnd",
+								"v1",
+								"encounter",
+								"npc"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PUT Encounter Status",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"content-type": true
+						}
+					},
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"players_id\": [\"UMNL1CU1M\"]\n}"
+						},
+						"url": {
+							"raw": "{{server}}/playbypost-dnd/v1/encounter/5ec7de78ca65e63cdf8e1668/living",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"playbypost-dnd",
+								"v1",
+								"encounter",
+								"5ec7de78ca65e63cdf8e1668",
+								"living"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE Encounter by ID",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{server}}/playbypost-dnd/v1/encounter/5ff34f2997c7bb034c824c8a",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"playbypost-dnd",
+								"v1",
+								"encounter",
+								"5ff34f2997c7bb034c824c8a"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "player",
+			"item": [
+				{
+					"name": "GET Players",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{server}}/playbypost-dnd/v1/player",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"playbypost-dnd",
+								"v1",
+								"player"
+							],
+							"query": [
+								{
+									"key": "slack_id",
+									"value": "asdqwe",
+									"disabled": true
+								},
+								{
+									"key": "game_id",
+									"value": "5ec7d1db5ecaebe5269df2c4",
+									"disabled": true
+								},
+								{
+									"key": "name",
+									"value": "Gimli",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET One Player",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{server}}/playbypost-dnd/v1/player/5fefb81dc79880a7c7c052ec",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"playbypost-dnd",
+								"v1",
+								"player",
+								"5fefb81dc79880a7c7c052ec"
+							],
+							"query": [
+								{
+									"key": "slack_id",
+									"value": "asdqwe",
+									"disabled": true
+								},
+								{
+									"key": "game_id",
+									"value": "5ec7d1db5ecaebe5269df2c4",
+									"disabled": true
+								},
+								{
+									"key": "name",
+									"value": "Gimli",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST Player",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Legolas\",\n    \"slack_id\": \"U947BLKME\",\n    \"slack_username\": \"beto.rvs\",\n    \"level\": 1,\n\t\"class\": \"ranger\",\n\t\"race\": \"elf\",\n    \"subrace\": \"high-elf\",\n\t\"background\": \"folk hero\",\n    \"alignment\": \"lawful-neutral\",\n    \"description\": {\n        \"age\": \"25\", \"height\": \"1,30m\", \"weight\": \"70kg\", \"eyes\": \"Brown\", \"skin\": \"White\", \"hair\": \"Brown\"\n    },\n\t\"ability\": {\n\t\t\"strength\": 16, \n\t\t\"dexterity\": 10, \n\t\t\"constitution\": 14, \n\t\t\"intelligence\": 10, \n\t\t\"wisdom\": 13, \n\t\t\"charisma\": 14 \n\t},\n\t\"chosen_languages\": [],\n\t\"chosen_skills\": [\"nature\", \"investigation\", \"insight\"],\n\t\"chosen_ability\": [],\n\t\"chosen_ability_level\": [],\n\t\"chosen_class_features\": [\"forest\", \"giants\"],\n\t\"chosen_skills_features\": [],\n\t\"chosen_languages_features\": [\"giant\"]\n}"
+						},
+						"url": {
+							"raw": "{{server}}/playbypost-dnd/v1/player",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"playbypost-dnd",
+								"v1",
+								"player"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PUT Update Player",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n        \"name\": \"Gorstag\",\n        \"slack_id\": \"\",\n        \"slack_username\": \"\",\n        \"description\": {\n            \"age\": \"20\",\n            \"height\": \"\",\n            \"weight\": \"\",\n            \"eyes\": \"\",\n            \"skin\": \"\",\n            \"hair\": \"\"\n        },\n        \"level\": 1,\n        \"class\": \"paladin\",\n        \"class_features\": [\n            \"Divine Sense\",\n            \"Lay on Hands\"\n        ],\n        \"race\": \"elf\",\n        \"subrace\": \"high-elf\",\n        \"race_features\": [\n            \"Darkvision\",\n            \"Fey Ancestry\",\n            \"Skill Versatility\",\n            \"two other ability increase by 1\",\n            \"one extra language\"\n        ],\n        \"alignment\": \"lawful-good\",\n        \"background\": \"noble\",\n        \"ability\": {\n            \"charisma\": 17,\n            \"constitution\": 16,\n            \"dexterity\": 12,\n            \"intelligence\": 12,\n            \"strength\": 14,\n            \"wisdom\": 14\n        },\n        \"ability_bonus\": null,\n        \"ability_modifier\": {\n            \"charisma\": 3,\n            \"constitution\": 3,\n            \"dexterity\": 1,\n            \"intelligence\": 1,\n            \"strength\": 2,\n            \"wisdom\": 2\n        },\n        \"proficiency\": 2,\n        \"hit_dice\": \"d10\",\n        \"size\": \"medium\",\n        \"speed\": \"30 feet\",\n        \"skills\": [\n            \"religion\",\n            \"insight\"\n        ],\n        \"language\": [\n            \"common\",\n            \"elvish\",\n            \"draconic\"\n        ],\n        \"savings\": [\n            \"strength\",\n            \"charisma\"\n        ],\n        \"armor_proficiency\": [\n            \"light armor\",\n            \"medium armor\",\n            \"heavy armor\",\n            \"shields\",\n            \"simple weapon\",\n            \"martial weapon\"\n        ],\n        \"armor_class\": 10,\n        \"armor_class_bonus\": 0,\n        \"armor_name\": \"aa\",\n        \"shield_name\": \"\",\n        \"weapon_name\": \"\",\n        \"weapon_bonus\": 0,\n        \"hp_max\": 13,\n        \"spell_list\": {\n            \"Spell Level 0 to 0\": [\n                0\n            ]\n        },\n        \"xp_next_level\": 300,\n        \"hp_temp\": 13,\n        \"xp\": 0,\n        \"treasure\": {},\n        \"spells_used\": {\n            \"level0\": 0,\n            \"level1\": 0,\n            \"level2\": 0,\n            \"level3\": 0,\n            \"level4\": 0,\n            \"level5\": 0,\n            \"level6\": 0,\n            \"level7\": 0,\n            \"level8\": 0,\n            \"level9\": 0\n        },\n        \"notes\": {}\n    }\n"
+						},
+						"url": {
+							"raw": "{{server}}/playbypost-dnd/v1/player",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"playbypost-dnd",
+								"v1",
+								"player"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST Campaign to Player",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"campaign_id\": \"5fedf869d92635a8fb9ab17a\",\n\t\"campaign_title\": \"Last Dragon\"\n}"
+						},
+						"url": {
+							"raw": "{{server}}/playbypost-dnd/v1/player/5ff19d877a978fc42d2b4049/campaign",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"playbypost-dnd",
+								"v1",
+								"player",
+								"5ff19d877a978fc42d2b4049",
+								"campaign"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PUT Add Remove HP",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{server}}/playbypost-dnd/v1/player/5ecc353b582089f1f330ac67/hp/add/6",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"playbypost-dnd",
+								"v1",
+								"player",
+								"5ecc353b582089f1f330ac67",
+								"hp",
+								"add",
+								"6"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PUT Add XP",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{server}}/playbypost-dnd/v1/player/5ebdbecf311ecb2965372704/xp/100",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"playbypost-dnd",
+								"v1",
+								"player",
+								"5ebdbecf311ecb2965372704",
+								"xp",
+								"100"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PUT Use Spell By Level",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{server}}/playbypost-dnd/v1/player/5ebdbecf311ecb2965372704/spell/0/1",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"playbypost-dnd",
+								"v1",
+								"player",
+								"5ebdbecf311ecb2965372704",
+								"spell",
+								"0",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST player Condition",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"conditions\": [],\n\t\"disvantages\": [\n\t\t\"strength\",\n        \"dexterity\",\n        \"stealth\"\n\t\t],\n\t\"advantages\": [],\n\t\"auto_fail\": [\n\t\t\"spellcast\"\n\t]\n}"
+						},
+						"url": {
+							"raw": "{{server}}/playbypost-dnd/v1/player/5ecc353b582089f1f330ac67/condition",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"playbypost-dnd",
+								"v1",
+								"player",
+								"5ecc353b582089f1f330ac67",
+								"condition"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PUT Full Rest player",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{server}}/playbypost-dnd/v1/player/5ebdbecf311ecb2965372704/fullrest",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"playbypost-dnd",
+								"v1",
+								"player",
+								"5ebdbecf311ecb2965372704",
+								"fullrest"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST Armor Weapon",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\"armor_name\": \"hide\",\n\"shield_name\": \"shield\",\n\"weapon_name\": \"longsword\"\n}"
+						},
+						"url": {
+							"raw": "{{server}}/playbypost-dnd/v1/player/60038745b38c3c9ce12da804/armory",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"playbypost-dnd",
+								"v1",
+								"player",
+								"60038745b38c3c9ce12da804",
+								"armory"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST Treasure",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"gold\": 100\n}"
+						},
+						"url": {
+							"raw": "{{server}}/playbypost-dnd/v1/player/6006082a608d6ab86405ea4e/treasure",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"playbypost-dnd",
+								"v1",
+								"player",
+								"6006082a608d6ab86405ea4e",
+								"treasure"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST Add or Remove Items",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"list\": [\"statue\", \"ruby\"]\n}"
+						},
+						"url": {
+							"raw": "{{server}}/playbypost-dnd/v1/player/600369c6b263fe35ad34bf3d/items/add",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"playbypost-dnd",
+								"v1",
+								"player",
+								"600369c6b263fe35ad34bf3d",
+								"items",
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST Add or Remove Magic Items",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"list\": [\"statue\", \"ruby\"]\n}"
+						},
+						"url": {
+							"raw": "{{server}}/playbypost-dnd/v1/player/600369c6b263fe35ad34bf3d/magicitems/add",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"playbypost-dnd",
+								"v1",
+								"player",
+								"600369c6b263fe35ad34bf3d",
+								"magicitems",
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE Player",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{server}}/playbypost-dnd/v1/player/60038745b38c3c9ce12da804",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"playbypost-dnd",
+								"v1",
+								"player",
+								"60038745b38c3c9ce12da804"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "npc",
+			"item": [
+				{
+					"name": "GET NPCS",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{server}}/playbypost-dnd/v1/npc",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"playbypost-dnd",
+								"v1",
+								"npc"
+							],
+							"query": [
+								{
+									"key": "fight_scene_id",
+									"value": "5ec7de78ca65e63cdf8e1668",
+									"disabled": true
+								},
+								{
+									"key": "name",
+									"value": "orc2",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST NPC Condition",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"conditions\": [],\n\t\"disvantages\": [\n\t\t\"strength\",\n        \"dexterity\",\n        \"stealth\"\n\t\t],\n\t\"advantages\": [],\n\t\"auto_fail\": [\n\t\t\"all\"\n\t\t]\n}"
+						},
+						"url": {
+							"raw": "{{server}}/playbypost-dnd/v1/npc/5ecc3fee582089f1f330ac68/condition",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"playbypost-dnd",
+								"v1",
+								"npc",
+								"5ecc3fee582089f1f330ac68",
+								"condition"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST NPC",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"encounter_id\": \"asdasdasd\",\n\t\"name\": \"orc1\",\n    \"monster\": \"orc\"\n}"
+						},
+						"url": {
+							"raw": "{{server}}/playbypost-dnd/v1/npc",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"playbypost-dnd",
+								"v1",
+								"npc"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PUT Remove HP NPC",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{server}}/playbypost-dnd/v1/npc/5ec7e360a4d889558794e662/hp/remove/3",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"playbypost-dnd",
+								"v1",
+								"npc",
+								"5ec7e360a4d889558794e662",
+								"hp",
+								"remove",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE NPC",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{server}}/playbypost-dnd/v1/npc/60038745b38c3c9ce12da804",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"playbypost-dnd",
+								"v1",
+								"npc",
+								"60038745b38c3c9ce12da804"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "character",
+			"item": [
+				{
+					"name": "POST Character",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"level\": 3,\n\t\"class\": \"paladin\",\n\t\"race\": \"human\",\n\t\"background\": \"soldier\",\n\t\"ability\": {\n\t\t\"strength\": 14, \n\t\t\"dexterity\": 10, \n\t\t\"constitution\": 14, \n\t\t\"intelligence\": 10, \n\t\t\"wisdom\": 16, \n\t\t\"charisma\": 14 \n\t},\n\t\"chosen_languages\": [\"celestial\"],\n\t\"chosen_skills\": [\"persuasion\", \"religion\"],\n\t\"chosen_ability\": [],\n\t\"chosen_ability_level\": [],\n\t\"chosen_class_features\": [\"devotion\"],\n\t\"chosen_skills_features\": [],\n\t\"chosen_languages_features\": []\n}"
+						},
+						"url": {
+							"raw": "{{server}}/playbypost-dnd/v1/roll/character",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"playbypost-dnd",
+								"v1",
+								"roll",
+								"character"
 							]
 						}
 					},

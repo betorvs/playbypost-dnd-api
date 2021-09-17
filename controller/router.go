@@ -28,7 +28,7 @@ func MapRoutes(e *echo.Echo) {
 	g.GET("/health", CheckHealth)
 	g.GET("/ready", CheckReady)
 	g.GET("/info", GetInfo)
-	// roll dice
+	// to roll a dice
 	g.PUT("/roll/:dice", RunDiceRoll)
 
 	// rule controller
@@ -110,4 +110,22 @@ func MapRoutes(e *echo.Echo) {
 	g.POST("/npc/:id/condition", playernpc.ChangeNPCCondition)
 	g.DELETE("/npc/:id", playernpc.DeleteNPC)
 
+	// to roll controllers for rules
+	g.POST("/roll/character", rule.Character)
+	g.POST("/roll/player/attack", rule.CheckFullAttack)
+	g.POST("/roll/player/spellcast", rule.CheckSpellAttack)
+	g.POST("/roll/player/check", rule.CheckSkillOrAbility)
+	g.POST("/roll/player/savings", rule.CheckSavingsAbility)
+	g.POST("/roll/player/armorclass", rule.CalcArmorClass)
+	g.POST("/roll/player/potion", rule.UsePotionPlayer)
+	g.POST("/roll/player/classfeature", rule.UseClassFeature)
+	g.POST("/roll/player/racefeature", rule.UseRaceFeature)
+	g.POST("/roll/player/preparedspells", rule.CheckPreparedSpellList)
+	g.POST("/roll/player/knownspells", rule.CheckKnownSpellList)
+	g.POST("/roll/player/cantrips", rule.CheckCantripList)
+	g.POST("/roll/npc/attack", rule.CheckMonsterAttack)
+	g.POST("/roll/npc/savings", rule.CheckMonsterSavings)
+	g.POST("/roll/npc/checks", rule.CheckMonsterChecks)
+	g.POST("/roll/npc/initiative", rule.CheckMonstersInitiative)
+	g.POST("/roll/npc/turnundead", rule.CheckMonsterTurn)
 }
