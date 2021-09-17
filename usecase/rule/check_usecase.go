@@ -94,6 +94,9 @@ func CheckArmorClass(ac *rule.ArmorClass) *rule.ReturnACMessage {
 	// armorType, _, armorClassInitial, dexterityMax, strengthMin, stealth, _ := ArmorByName(ac.Armor)
 	armor := ArmorByName(ac.Armor)
 	armorClassInitial := armor.ArmorClass
+	if armor.ArmorClass == 0 {
+		armorClassInitial = 10
+	}
 	if !utils.StringInSlice(armor.Kind, ac.ArmorProficiency) && ac.Armor != "" {
 		result.ArmorClassDisvantages = []string{"strength", "dexterity"}
 		result.ArmorClassAutomaticallyFails = []string{"spellcast"}
@@ -120,7 +123,7 @@ func CheckArmorClass(ac *rule.ArmorClass) *rule.ReturnACMessage {
 
 	abilityModifier := CalcAbilityModifier(ac.Ability["dexterity"])
 	dexterityModifier := abilityModifier
-	if abilityModifier > armor.DexterityModifier {
+	if ac.Armor != "" && abilityModifier > armor.DexterityModifier {
 		dexterityModifier = armor.DexterityModifier
 	}
 	var shield int
@@ -136,9 +139,13 @@ func CheckArmorClass(ac *rule.ArmorClass) *rule.ReturnACMessage {
 		}
 	}
 	armorClass := armorClassInitial + dexterityModifier + shield + magic + unarmoredDefense + fightingStyle
-	if utils.StringInSlice("unarmored-defense-monk", ac.ClassFeatures) {
-		armorClass = armorClassInitial + dexterityModifier + magic + unarmoredDefense + fightingStyle
-	}
+	fmt.Println(armorClassInitial, dexterityModifier, shield, magic, unarmoredDefense, fightingStyle)
+	// if utils.StringInSlice("unarmored-defense-monk", ac.ClassFeatures) {
+	// 	armorClass = armorClassInitial + dexterityModifier + magic + unarmoredDefense + fightingStyle
+	// }
+	// if utils.StringInSlice("unarmored-defense-barbarian", ac.ClassFeatures) {
+	// 	armorClass = armorClassInitial + dexterityModifier + magic + unarmoredDefense + fightingStyle
+	// }
 	if armor.Stealth {
 		result.ArmorClassDisvantages = append(result.ArmorClassDisvantages, "stealth")
 		result.ArmorClassStealthDisvantage = true
