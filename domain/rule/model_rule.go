@@ -330,6 +330,7 @@ type KnownCantripList struct {
 type Potion struct {
 	Name                  string         `json:"name"`
 	Ability               map[string]int `json:"ability"`
+	NewAbility            map[string]int `json:"new_ability"`
 	Message               string         `json:"message"`
 	HealingValue          int            `json:"healing_value,omitempty"`
 	DamageValue           int            `json:"damage_value,omitempty"`

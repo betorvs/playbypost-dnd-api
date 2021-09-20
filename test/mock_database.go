@@ -583,6 +583,19 @@ var (
                 "athletics"
             ]
         }
+    },
+    {
+        "name": "potion-of-water-breathing",
+        "title": "Potion of Water Breathing",
+        "content": "You can breathe underwater for 1 hour after drinking this potion. Its cloudy green fluid smells of the sea and has a jellyfish-like bubble floating in it.",
+        "category": "potions",
+        "rarity": "uncommon",
+        "hoard_table": [
+            "B"
+        ],
+        "required_attunement": false,
+        "roleplay": true,
+        "forbidden": false
     }]`)
 	MockArmorDatabase = []byte(`[{
         "name": "padded",

@@ -38,6 +38,7 @@ type CoreFeatures struct {
 
 // CorePowers struct
 // this kind of magic should be trigger or used
+// purposes: poison, spell, heal, potion, spell-attack
 type CorePowers struct {
 	Purpose                   string   `json:"purpose,omitempty"`                     // in CoreDnDSystem which rule should be used
 	Dice                      string   `json:"dice,omitempty"`                        // Dice to roll
