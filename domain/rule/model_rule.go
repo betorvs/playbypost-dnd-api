@@ -66,7 +66,7 @@ type MonsterRoll struct {
 	Name                       string   `json:"name"`
 	Check                      string   `json:"check"`
 	Weapon                     string   `json:"weapon"`
-	DifficultyClass            int      `json:"difficult_class"`
+	DifficultClass             int      `json:"difficult_class"`
 	Disvantages                []string `json:"disvantages"`
 	Advantages                 []string `json:"advantages"`
 	AutoFail                   []string `json:"auto_fail"`
@@ -176,7 +176,7 @@ type Attack struct {
 	UsingFeature     string         `json:"using_feature"`
 	UsingFeatureType string         `json:"using_feature_type"`
 	UsingFeatureSlot int            `json:"using_feature_slot"`
-	DifficultyClass  int            `json:"difficult_class"`
+	DifficultClass   int            `json:"difficult_class"`
 	Monster          string         `json:"monster"`
 	Disvantages      []string       `json:"disvantages"`
 	Advantages       []string       `json:"advantages"`
@@ -195,7 +195,7 @@ type SpellcastAbility struct {
 	Ability         map[string]int `json:"ability"`
 	ClassFeatures   []string       `json:"class_features"`
 	MagicBonus      int            `json:"magic_bonus"`
-	DifficultyClass int            `json:"difficult_class"`
+	DifficultClass  int            `json:"difficult_class"`
 	SpellName       string         `json:"spell_name"`
 	SpellDamage     string         `json:"spell_damage"`
 	SpellDamageType string         `json:"spell_damage_type"`
@@ -223,7 +223,7 @@ type SkillOrAbilityCheck struct {
 	MagicBonus        int            `json:"magic_bonus"`
 	DoubleProficiency bool           `json:"double_proficiency"`
 	Rage              bool           `json:"rage"`
-	DifficultyClass   int            `json:"difficult_class"`
+	DifficultClass    int            `json:"difficult_class"`
 	Disvantages       []string       `json:"disvantages"`
 	Advantages        []string       `json:"advantages"`
 	AutoFail          []string       `json:"auto_fail"`
@@ -233,22 +233,22 @@ type SkillOrAbilityCheck struct {
 //SavingsCheck struct
 // used by a player to calculate a saving
 type SavingsCheck struct {
-	Level           int            `json:"level"`
-	Race            string         `json:"race,omitempty"`
-	Subrace         string         `json:"subrace,omitempty"`
-	Ability         map[string]int `json:"ability"`
-	ClassFeatures   []string       `json:"class_features"`
-	Check           string         `json:"check"`
-	Saving          string         `json:"saving"`
-	Savings         []string       `json:"savings"`
-	MagicBonus      int            `json:"magic_bonus"`
-	TemporaryBonus  int            `json:"temporary_bonus,omitempty"`
-	Rage            bool           `json:"rage"`
-	DifficultyClass int            `json:"difficult_class"`
-	Disvantages     []string       `json:"disvantages"`
-	Advantages      []string       `json:"advantages"`
-	AutoFail        []string       `json:"auto_fail"`
-	Externald20     int            `json:"external_d20"`
+	Level          int            `json:"level"`
+	Race           string         `json:"race,omitempty"`
+	Subrace        string         `json:"subrace,omitempty"`
+	Ability        map[string]int `json:"ability"`
+	ClassFeatures  []string       `json:"class_features"`
+	Check          string         `json:"check"`
+	Saving         string         `json:"saving"`
+	Savings        []string       `json:"savings"`
+	MagicBonus     int            `json:"magic_bonus"`
+	TemporaryBonus int            `json:"temporary_bonus,omitempty"`
+	Rage           bool           `json:"rage"`
+	DifficultClass int            `json:"difficult_class"`
+	Disvantages    []string       `json:"disvantages"`
+	Advantages     []string       `json:"advantages"`
+	AutoFail       []string       `json:"auto_fail"`
+	Externald20    int            `json:"external_d20"`
 }
 
 //ArmorClass struct
@@ -266,24 +266,24 @@ type ArmorClass struct {
 //SpecialRaceFeature struct
 //  used by a player to calculate a spell
 type SpecialRaceFeature struct {
-	Name            string         `json:"name"`
-	Level           int            `json:"level"`
-	Class           string         `json:"class"`
-	Race            string         `json:"race,omitempty"`
-	Subrace         string         `json:"subrace,omitempty"`
-	Ability         map[string]int `json:"ability"`
-	ClassFeatures   []string       `json:"class_features"`
-	MagicBonus      int            `json:"magic_bonus"`
-	DifficultyClass int            `json:"difficult_class"`
-	Damage          string         `json:"damage"`
-	DamageType      string         `json:"damage_type"`
-	Saving          string         `json:"saving"`
-	Rage            bool           `json:"rage"`
-	Monster         []string       `json:"monster"`
-	Disvantages     []string       `json:"disvantages"`
-	Advantages      []string       `json:"advantages"`
-	AutoFail        []string       `json:"auto_fail"`
-	Externald20     int            `json:"external_d20"`
+	Name           string         `json:"name"`
+	Level          int            `json:"level"`
+	Class          string         `json:"class"`
+	Race           string         `json:"race,omitempty"`
+	Subrace        string         `json:"subrace,omitempty"`
+	Ability        map[string]int `json:"ability"`
+	ClassFeatures  []string       `json:"class_features"`
+	MagicBonus     int            `json:"magic_bonus"`
+	DifficultClass int            `json:"difficult_class"`
+	Damage         string         `json:"damage"`
+	DamageType     string         `json:"damage_type"`
+	Saving         string         `json:"saving"`
+	Rage           bool           `json:"rage"`
+	Monster        []string       `json:"monster"`
+	Disvantages    []string       `json:"disvantages"`
+	Advantages     []string       `json:"advantages"`
+	AutoFail       []string       `json:"auto_fail"`
+	Externald20    int            `json:"external_d20"`
 }
 
 //Feature struct
@@ -330,6 +330,7 @@ type KnownCantripList struct {
 type Potion struct {
 	Name                  string         `json:"name"`
 	Ability               map[string]int `json:"ability"`
+	NewAbility            map[string]int `json:"new_ability"`
 	Message               string         `json:"message"`
 	HealingValue          int            `json:"healing_value,omitempty"`
 	DamageValue           int            `json:"damage_value,omitempty"`
@@ -343,6 +344,9 @@ type Potion struct {
 	DamageImmunities      []string       `json:"damage_immunities"`
 	ConditionImmunities   []string       `json:"condition_immunities"`
 	MagicalEffect         []string       `json:"magical_effect"`
+	DifficultClass        int            `json:"difficult_class"`
+	Conditions            []string       `json:"conditions"`
+	SavingThrow           string         `json:"saving_throw,omitempty"`
 }
 
 // ShoppingCart struct

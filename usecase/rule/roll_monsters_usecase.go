@@ -75,7 +75,7 @@ func CalcFullMonsterAttackwithWeapon(check *rule.MonsterRoll) *rule.ReturnCalcMe
 	message := fmt.Sprintf("Attack Total: %v and Damage: %v using weapon %s", result, totalDamage, check.Weapon)
 	rolledMessage = text + damageText
 	returnResult.Success = false
-	if check.DifficultyClass != 0 && result >= check.DifficultyClass {
+	if check.DifficultClass != 0 && result >= check.DifficultClass {
 		successMessage = fmt.Sprintf("Bad news! Monster %s hits you! %s", monster.Name, criticalHit)
 		returnResult.Success = true
 	}
@@ -121,7 +121,7 @@ func CalcMonsterSavingsAbility(check *rule.MonsterRoll) *rule.ReturnCalcMessage 
 
 	result := res + saving
 	message := fmt.Sprintf("Saving Check Total: %v ( %s ) using %s", result, text, check.Check)
-	if check.DifficultyClass != 0 && result >= check.DifficultyClass {
+	if check.DifficultClass != 0 && result >= check.DifficultClass {
 		successMessage = fmt.Sprintf(" Hey. Monster %s avoid your attack!", monster.Name)
 		returnResult.Success = true
 	}
@@ -172,7 +172,7 @@ func CalcMonsterChecks(check *rule.MonsterRoll) *rule.ReturnCalcMessage {
 
 	result := res + checkLocalValue
 	message := fmt.Sprintf("Check Total: %v ( %s ) using %s.", result, text, check.Check)
-	if check.DifficultyClass != 0 && result >= check.DifficultyClass {
+	if check.DifficultClass != 0 && result >= check.DifficultClass {
 		successMessage = fmt.Sprintf(" Hey. Monster %s check was successfully!", monster.Name)
 		returnResult.Success = true
 	}

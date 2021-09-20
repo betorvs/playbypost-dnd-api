@@ -18,4 +18,8 @@ func TestUsePotion(t *testing.T) {
 	assert.NotEmpty(t, res2)
 	assert.NoError(t, err2)
 	// test1 := UsePotion("amazing-pills")
+	test1.Name = "potion-of-water-breathing"
+	res3, err3 := UsePotion(test1)
+	assert.NotEmpty(t, res3)
+	assert.NoError(t, err3)
 }

@@ -54,7 +54,7 @@ func CalcSavingsAbility(saving *rule.SavingsCheck) *rule.ReturnCalcMessage {
 	result := res + rollDice + magic + saving.TemporaryBonus
 	message := fmt.Sprintf("Saving Check Total: %v using %s", result, saving.Saving)
 	rolledMessage = text
-	if saving.DifficultyClass != 0 && result >= saving.DifficultyClass {
+	if saving.DifficultClass != 0 && result >= saving.DifficultClass {
 		message += " Hey. You got over it!"
 		returnResult.Success = true
 	}
