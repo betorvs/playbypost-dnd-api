@@ -35,7 +35,36 @@
 </nav>
 </div>
 <div class=content-container>
-<main><h1>Masters</h1><div class=edit-meta>
+<main><h1>Masters</h1><p>It was designed to match with Dungeons and Dragons 5th edition terminology that means to start your campaign you need to:</p>
+<ul>
+<li>Create a campaign</li>
+<li>Add an adventure on it</li>
+<li>Add many encounters as you wanted on it</li>
+<li>Add players to your new campaign</li>
+</ul>
+<h2 id=dependencies>Dependencies</h2>
+<p>MongoDB - Recommended use an external service like <a href=https://www.mongodb.com/cloud>Mongo Atlas DB</a></p>
+<p>NGROK - Public endpoint for your bots. It&rsquo;s easy and have a free plan. Check it <a href=https://ngrok.com/>here</a>.</p>
+<h2 id=how-to-run>How to run</h2>
+<p>Download Play by Post DnD package from <a href=https://github.com/betorvs/playbypost-dnd/releases>releases page</a> and uncompact it.</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>./playbypost-dnd
+<span style=color:#f92672>{</span><span style=color:#e6db74>&#34;level&#34;</span>:<span style=color:#e6db74>&#34;info&#34;</span>,<span style=color:#e6db74>&#34;timestamp&#34;</span>:<span style=color:#e6db74>&#34;2021-09-17T10:36:56.720+0200&#34;</span>,<span style=color:#e6db74>&#34;caller&#34;</span>:<span style=color:#e6db74>&#34;customlog/logger.go:25&#34;</span>,<span style=color:#e6db74>&#34;msg&#34;</span>:<span style=color:#e6db74>&#34;JSONs Database ready&#34;</span><span style=color:#f92672>}</span>
+<span style=color:#f92672>{</span><span style=color:#e6db74>&#34;level&#34;</span>:<span style=color:#e6db74>&#34;info&#34;</span>,<span style=color:#e6db74>&#34;timestamp&#34;</span>:<span style=color:#e6db74>&#34;2021-09-17T10:36:56.721+0200&#34;</span>,<span style=color:#e6db74>&#34;caller&#34;</span>:<span style=color:#e6db74>&#34;customlog/logger.go:25&#34;</span>,<span style=color:#e6db74>&#34;msg&#34;</span>:<span style=color:#e6db74>&#34;D20 are ready&#34;</span><span style=color:#f92672>}</span>
+<span style=color:#f92672>{</span><span style=color:#e6db74>&#34;level&#34;</span>:<span style=color:#e6db74>&#34;info&#34;</span>,<span style=color:#e6db74>&#34;timestamp&#34;</span>:<span style=color:#e6db74>&#34;2021-09-17T10:36:56.722+0200&#34;</span>,<span style=color:#e6db74>&#34;caller&#34;</span>:<span style=color:#e6db74>&#34;customlog/logger.go:25&#34;</span>,<span style=color:#e6db74>&#34;msg&#34;</span>:<span style=color:#e6db74>&#34;MongoDB ready&#34;</span><span style=color:#f92672>}</span>
+
+   ____    __
+  / __/___/ /  ___
+ / _// __/ _ <span style=color:#ae81ff>\/</span> _ <span style=color:#ae81ff>\
+</span><span style=color:#ae81ff></span>/___/<span style=color:#ae81ff>\_</span>_/_//_/<span style=color:#ae81ff>\_</span>__/ v4.5.0
+High performance, minimalist Go web framework
+https://echo.labstack.com
+____________________________________O/_______
+                                    O<span style=color:#ae81ff>\
+</span><span style=color:#ae81ff></span>⇨ http server started on <span style=color:#f92672>[</span>::<span style=color:#f92672>]</span>:8080
+</code></pre></div><p>Then redirect your ngrok to use that port:</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>./ngrok http <span style=color:#ae81ff>8080</span>
+</code></pre></div><p>Use https endpoint from ngrok command to connect with Slack.</p>
+<div class=edit-meta>
 Last updated on 25 Aug 2021
 <br>
 Published on 25 Aug 2021
@@ -59,6 +88,7 @@ Published on 25 Aug 2021
 <li><a href=https://betorvs.github.io/playbypost-dnd/development/directories-and-files/>Directories and Files</a></li>
 <li><a href=https://betorvs.github.io/playbypost-dnd/development/local-environment/>Local Environment</a></li>
 <li><a href=https://betorvs.github.io/playbypost-dnd/development/update-documentation/>Update Documentation</a></li>
+<li><a href=https://betorvs.github.io/playbypost-dnd/development/content_testing/>How to help to test Dungeons and Dragons rules</a></li>
 </ul>
 </li>
 </ul>
