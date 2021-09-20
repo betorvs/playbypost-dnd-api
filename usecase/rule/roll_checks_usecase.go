@@ -72,7 +72,7 @@ func CalcSkillOrAbility(check *rule.SkillOrAbilityCheck) *rule.ReturnCalcMessage
 
 	message := fmt.Sprintf("Skill %s Check Total: %v using %s.", check.Check, result, ability)
 	rolledMessage = text
-	if check.DifficultyClass != 0 && result >= check.DifficultyClass {
+	if check.DifficultClass != 0 && result >= check.DifficultClass {
 		message += " Great! You did it!"
 	}
 	if res == 1 && check.Race == "halfling" {

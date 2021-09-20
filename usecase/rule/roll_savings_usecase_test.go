@@ -19,14 +19,14 @@ func TestCalcSavingsAbility(t *testing.T) {
 	test1.Ability = ability
 	test1.AutoFail = []string{"constitution"}
 	test1.Saving = "constitution"
-	test1.DifficultyClass = 10
+	test1.DifficultClass = 10
 	test.DiceResult = 10
 	res1 := CalcSavingsAbility(test1)
 	assert.NotEmpty(t, res1)
 	test2 := new(rule.SavingsCheck)
 	test2.Ability = ability
 	test2.Saving = "constitution"
-	test2.DifficultyClass = 10
+	test2.DifficultClass = 10
 	test2.Savings = []string{"strength", "constitution"}
 	test2.Level = 6
 	test2.MagicBonus = 1
@@ -43,7 +43,7 @@ func TestCalcSavingsAbility(t *testing.T) {
 	test3 := new(rule.SavingsCheck)
 	test3.Ability = ability
 	test3.Saving = "intelligence"
-	test3.DifficultyClass = 10
+	test3.DifficultClass = 10
 	test3.Savings = []string{"strength", "constitution"}
 	test3.Level = 6
 	test3.Check = "spell"

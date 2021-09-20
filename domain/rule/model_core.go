@@ -22,7 +22,7 @@ type CoreFeatures struct {
 	Disvantages           []string       `json:"disvantages,omitempty"`            // list of Disvantages to add
 	Advantages            []string       `json:"advantages,omitempty"`             // list of Disvantages to add
 	AutoFail              []string       `json:"auto_fail,omitempty"`              // autoFail in something, like ability, skill, attack, anything, add to your list
-	DamageResistance      []string       `json:"damage_resistance,omitempty"`      // damageResistance to add from allDamageType list one or more
+	DamageResistence      []string       `json:"damage_resistence,omitempty"`      // damageResistance to add from allDamageType list one or more
 	DamageVulnerabilities []string       `json:"damage_vulnerabilities,omitempty"` // DamageVulnerabilities to add from allDamageType list one or more
 	DamageImmunities      []string       `json:"damage_immunities,omitempty"`      // DamageImmunities to add from allDamageType list one or more
 	ConditionImmunities   []string       `json:"condition_immunities,omitempty"`   // ConditionImmunities to add from allDamageType list one or more

@@ -20,14 +20,14 @@ func TestCalcSkillOrAbility(t *testing.T) {
 	test1.Race = "human"
 	test1.Check = "dexterity"
 	test1.Level = 6
-	test1.DifficultyClass = 10
+	test1.DifficultClass = 10
 	test1.MagicBonus = 1
 	test.DiceResult = 2
 	res1 := CalcSkillOrAbility(test1)
 	assert.NotEmpty(t, res1)
 	test1.Skills = []string{"acrobatics"}
 	test1.Check = "acrobatics"
-	test1.DifficultyClass = 14
+	test1.DifficultClass = 14
 	test.DiceResult = 10
 	res2 := CalcSkillOrAbility(test1)
 	assert.NotEmpty(t, res2)
@@ -36,7 +36,7 @@ func TestCalcSkillOrAbility(t *testing.T) {
 	test2.Race = "halfling"
 	test2.Check = "dexterity"
 	test2.Level = 10
-	test2.DifficultyClass = 10
+	test2.DifficultClass = 10
 	test.DiceResult = 1
 	res3 := CalcSkillOrAbility(test2)
 	assert.NotEmpty(t, res3)
@@ -48,7 +48,7 @@ func TestCalcSkillOrAbility(t *testing.T) {
 	test3.Race = "human"
 	test3.Check = "dexterity"
 	test3.Level = 10
-	test3.DifficultyClass = 10
+	test3.DifficultClass = 10
 	test3.AutoFail = []string{"dexterity"}
 	test.DiceResult = 10
 	res5 := CalcSkillOrAbility(test3)

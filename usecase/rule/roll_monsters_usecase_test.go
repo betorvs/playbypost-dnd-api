@@ -14,7 +14,7 @@ func TestCalcFullMonsterAttackwithWeapon(t *testing.T) {
 	appcontext.Current.Add(appcontext.Database, test.InitDatabaseMock)
 	test1 := new(rule.MonsterRoll)
 	test1.Name = "orc"
-	test1.DifficultyClass = 10
+	test1.DifficultClass = 10
 	test1.Weapon = "greataxe"
 	test.DiceResult = 20
 	res1 := CalcFullMonsterAttackwithWeapon(test1)
@@ -36,7 +36,7 @@ func TestCalcMonsterSavingsAbility(t *testing.T) {
 	appcontext.Current.Add(appcontext.Database, test.InitDatabaseMock)
 	test1 := new(rule.MonsterRoll)
 	test1.Name = "orc"
-	test1.DifficultyClass = 10
+	test1.DifficultClass = 10
 	test1.Check = "constitution"
 	test.DiceResult = 8
 	res1 := CalcMonsterSavingsAbility(test1)
@@ -59,7 +59,7 @@ func TestCalcMonsterChecks(t *testing.T) {
 	test2 := new(rule.MonsterRoll)
 	test2.Check = "intelligence"
 	test2.Name = "kobold"
-	test2.DifficultyClass = 10
+	test2.DifficultClass = 10
 	test.DiceResult = 8
 	res2 := CalcMonsterChecks(test2)
 	assert.NotEmpty(t, res2)
