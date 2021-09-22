@@ -43,6 +43,7 @@ func MapRoutes(e *echo.Echo) {
 	g.GET("/rule/tools", rule.GetAllTools)
 	g.GET("/rule/mounts", rule.GetAllMounts)
 	g.GET("/rule/services", rule.GetAllServices)
+	g.GET("/rule/:kind", rule.GetJSON)
 	g.POST("/rule/shops", rule.CalcShop)
 	// spell list
 	g.GET("/rule/spelllist/:class/:level", rule.ListSpellByClass)

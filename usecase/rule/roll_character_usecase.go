@@ -22,8 +22,7 @@ func CalculateCharacter(purpose *rule.NewCharacter) (*rule.Character, error) {
 	characterFinal.ChosenLanguages = purpose.ChosenLanguages
 	characterFinal.ChosenSkills = purpose.ChosenSkills
 	characterFinal.ChosenAbility = purpose.ChosenAbility
-	// background
-	characterFinal.Background = purpose.Background
+	// add empty slices
 	characterFinal.Language = []string{}
 	characterFinal.DamageResistence = []string{}
 	characterFinal.DamageImmunities = []string{}
@@ -31,55 +30,64 @@ func CalculateCharacter(purpose *rule.NewCharacter) (*rule.Character, error) {
 	characterFinal.ConditionImmunities = []string{}
 	characterFinal.Disvantages = []string{}
 	characterFinal.MagicalEffect = []string{}
-	size, speedmeasure, speed, ability, special, language, skills, resistance, advantage, condition, disvantages := RaceStatistics(purpose.Race, subrace)
-	characterFinal.RaceFeatures = special
-	characterFinal.Size = size
-	characterFinal.Speed = speed
-	characterFinal.SpeedMeasure = speedmeasure
-	characterFinal.Ability = ability
-	if len(language) != 0 {
-		characterFinal.Language = language
+	// size, speedmeasure, speed, ability, special, language, skills, resistance, advantage, condition, disvantages := RaceStatistics(purpose.Race, subrace)
+	raceStats := RaceStatistics(purpose.Race, subrace)
+	characterFinal.RaceFeatures = raceStats.Special
+	characterFinal.Size = raceStats.Size
+	characterFinal.Speed = raceStats.Speed
+	characterFinal.SpeedMeasure = raceStats.Speedmeasure
+	characterFinal.Ability = raceStats.Ability
+	if len(raceStats.Language) != 0 {
+		characterFinal.Language = raceStats.Language
 	}
-	characterFinal.Skills = skills
+	characterFinal.Skills = raceStats.Skills
 	// check advantage, disvantage, resistances
-	if len(resistance) != 0 {
-		characterFinal.DamageResistence = resistance
+	if len(raceStats.Resistance) != 0 {
+		characterFinal.DamageResistence = raceStats.Resistance
 	}
-	characterFinal.Advantages = advantage
-	if len(condition) != 0 {
-		characterFinal.ConditionImmunities = condition
+	characterFinal.Advantages = raceStats.Advantages
+	if len(raceStats.Conditions) != 0 {
+		characterFinal.ConditionImmunities = raceStats.Conditions
 	}
-	if len(disvantages) != 0 {
-		characterFinal.Disvantages = disvantages
+	if len(raceStats.Disvantages) != 0 {
+		characterFinal.Disvantages = raceStats.Disvantages
+	}
+	if len(raceStats.ArmorProficiency) != 0 {
+		characterFinal.ArmorProficiency = raceStats.ArmorProficiency
 	}
 	characterFinal.Ability = purpose.Ability
 	characterFinal.AbilityModifier = make(map[string]int)
 	for k := range purpose.Ability {
 		if purpose.Race == "half-elf" && utils.StringInSlice(k, purpose.ChosenAbility) {
-			ability[k]++
+			raceStats.Ability[k]++
 		}
-		if ability[k] != 0 {
-			characterFinal.Ability[k] += ability[k]
+		if raceStats.Ability[k] != 0 {
+			characterFinal.Ability[k] += raceStats.Ability[k]
 		}
 	}
-
 	// class options
-	characterFinal.Class = purpose.Class
-	hitDice, savings, armorProficiency, skillNumber := ClassStatistics(purpose.Class)
-	characterFinal.HitDice = fmt.Sprintf("d%v", hitDice)
-	characterFinal.Savings = savings
+	class := ClassStatistics(purpose.Class, purpose.Level)
+	characterFinal.Class = class.Name
+	// hitDice, savings, armorProficiency, skillNumber := ClassDetails(purpose.Class)
+
+	characterFinal.HitDice = fmt.Sprintf("d%v", class.HitDice)
+	characterFinal.Savings = class.Savings
 	// add more armor and weapon proficiency
-	for _, s := range characterFinal.RaceFeatures {
-		// fmt.Println(s)
-		newList := RaceArmorProficiencyExtra(s)
-		if len(newList) != 0 {
-			armorProficiency = append(armorProficiency, newList...)
-		}
-		// armorAndWeaponProficiency = RaceArmorProficiencyExtra(s, armorProficiency)
-	}
-	characterFinal.ArmorProficiency = armorProficiency
+	characterFinal.ArmorProficiency = append(characterFinal.ArmorProficiency, class.ArmorProficiency...)
+	// if len(armorProficiency) != 0 {
+	// 	characterFinal.ArmorProficiency = armorProficiency
+	// }
+	// for _, s := range characterFinal.RaceFeatures {
+	// 	// fmt.Println(s)
+	// 	newList := RaceArmorProficiencyExtra(s)
+	// 	if len(newList) != 0 {
+	// 		armorProficiency = append(armorProficiency, newList...)
+	// 	}
+	// 	// armorAndWeaponProficiency = RaceArmorProficiencyExtra(s, armorProficiency)
+	// }
+	// characterFinal.ArmorProficiency = armorProficiency
 	// class features options
-	characterFinal.ClassFeatures = CalculateClassFeatureList(purpose.Class, purpose.Level, purpose.ChosenClassFeatures)
+	characterFinal.ClassFeatures = CalculateClassFeatureList(class.Features, purpose.Level, purpose.ChosenClassFeatures)
 	// ability by level adjustment
 	var abilityIncrementByLevel int
 	for _, v := range characterFinal.ClassFeatures {
@@ -107,15 +115,19 @@ func CalculateCharacter(purpose *rule.NewCharacter) (*rule.Character, error) {
 	if purpose.Subrace == "hill-dwarf" {
 		hpModifier = characterFinal.AbilityModifier["constitution"] + 1
 	}
-	characterFinal.HPMax = CalcMaxHP(purpose.Level, hitDice, hpModifier)
+	characterFinal.HPMax = CalcMaxHP(purpose.Level, class.HitDice, hpModifier)
 
+	background := BackgroundStatistics(purpose.Background)
+	characterFinal.Background = background.Name
 	// languages chosen
 	var numberOfLanguages int
-	if purpose.Background == "acolyte" || purpose.Background == "sage" {
+	// if purpose.Background == "acolyte" || purpose.Background == "sage" {
+	if background.AdditionalLanguages != 0 {
 		numberOfLanguages = 2
 	}
-	if purpose.Race == "human" || purpose.Race == "half-elf" {
-		numberOfLanguages++
+	// if purpose.Race == "human" || purpose.Race == "half-elf" {
+	if raceStats.AdditionalLanguages != 0 {
+		numberOfLanguages = numberOfLanguages + raceStats.AdditionalLanguages
 	}
 	var extraLanguageMessage string
 	verified, err := languagesAdded(purpose.ChosenLanguages, characterFinal.Language, numberOfLanguages)
@@ -124,12 +136,11 @@ func CalculateCharacter(purpose *rule.NewCharacter) (*rule.Character, error) {
 	}
 	characterFinal.Language = append(characterFinal.Language, verified...)
 	// skills list
-	_, skillsBackground := BackgroundStatistics(purpose.Background)
-	characterFinal.Skills = append(characterFinal.Skills, skillsBackground...)
+	characterFinal.Skills = append(characterFinal.Skills, background.Skills...)
 
 	// Spells List
 	if utils.StringInSlice(purpose.Class, ClassWithSpell()) {
-		spellListLevel, spellMaxLevel := CalculateSpellList(purpose.Class, purpose.Level)
+		spellListLevel, spellMaxLevel := CalculateSpellList(class.Name, purpose.Level)
 
 		if len(spellListLevel) != 0 && purpose.Class != "warlock" {
 			characterFinal.SpellListLevel = spellListLevel
@@ -138,11 +149,13 @@ func CalculateCharacter(purpose *rule.NewCharacter) (*rule.Character, error) {
 	}
 	// Spells Cantrips
 	if utils.StringInSlice(purpose.Class, ClassWithCantrips()) {
-		characterFinal.CantripsKnown = CantripsKnown(purpose.Class, purpose.Level)
+		// characterFinal.CantripsKnown = CantripsKnown(purpose.Class, purpose.Level)
+		characterFinal.CantripsKnown = class.CantripsKnown[purpose.Level]
 	}
 	// Spells Known
 	if utils.StringInSlice(purpose.Class, ClassWithSpellKnown()) {
-		characterFinal.SpellKnown = SpellKnown(purpose.Class, purpose.Level)
+		// characterFinal.SpellKnown = SpellKnown(purpose.Class, purpose.Level)
+		characterFinal.SpellKnown = class.SpellKnown[purpose.Level]
 	}
 	// ranger options to check if was completed or not
 	var favoredEnemy string
@@ -156,16 +169,32 @@ func CalculateCharacter(purpose *rule.NewCharacter) (*rule.Character, error) {
 	// extra languages
 	var extraLanguageByFeatureMessage string
 
+	// Skills
+	verified, err = skillsAdded(purpose.ChosenSkills, characterFinal.Skills, skillListByClass(class.Name), class.SkillNumber)
+	if err != nil {
+		extraSkillsMessage = fmt.Sprintf(" %v", err)
+	}
+	characterFinal.Skills = append(characterFinal.Skills, verified...)
+
 	// var archetypeMessage string
 	var archetypeMessage string
+
+	// Warlock Special Features
+	if class.WarlockSpellSlots != nil {
+		characterFinal.WarlockSpellSlots = class.WarlockSpellSlots[purpose.Level]
+	}
+	if class.WarlockSlotLevel != nil {
+		characterFinal.WarlockSlotLevel = class.WarlockSlotLevel[purpose.Level]
+	}
+
+	if class.WarlockInvocationsKnown != nil {
+		characterFinal.WarlockInvocationsKnown = class.WarlockInvocationsKnown[purpose.Level]
+	}
+
 	// class features
 	switch purpose.Class {
 	case "barbarian":
-		verified, err = skillsAdded(purpose.ChosenSkills, characterFinal.Skills, barbarianSkillList(), skillNumber)
-		if err != nil {
-			extraSkillsMessage = fmt.Sprintf(" %v", err)
-		}
-		characterFinal.Skills = append(characterFinal.Skills, verified...)
+
 		rage, damage := BarbarianClass(purpose.Level)
 		characterFinal.BarbarianRage = rage
 		characterFinal.BarbarianDamage = damage
@@ -181,11 +210,6 @@ func CalculateCharacter(purpose *rule.NewCharacter) (*rule.Character, error) {
 		characterFinal.ClassFeatures = utils.RemoveItemSlice(characterFinal.ClassFeatures, "primal-path")
 
 	case "bard":
-		verified, err = skillsAdded(purpose.ChosenSkills, characterFinal.Skills, bardSkillList(), skillNumber)
-		if err != nil {
-			extraSkillsMessage = fmt.Sprintf(" %v", err)
-		}
-		characterFinal.Skills = append(characterFinal.Skills, verified...)
 		var bard string
 		for _, f := range purpose.ChosenClassFeatures {
 			if utils.StringInSlice(f, bardCollege()) {
@@ -214,11 +238,6 @@ func CalculateCharacter(purpose *rule.NewCharacter) (*rule.Character, error) {
 		characterFinal.ClassFeatures = utils.RemoveItemSlice(characterFinal.ClassFeatures, "bard-college")
 
 	case "cleric":
-		verified, err = skillsAdded(purpose.ChosenSkills, characterFinal.Skills, clericSkillList(), skillNumber)
-		if err != nil {
-			extraSkillsMessage = fmt.Sprintf(" %v", err)
-		}
-		characterFinal.Skills = append(characterFinal.Skills, verified...)
 		var cleric string
 		for _, f := range purpose.ChosenClassFeatures {
 			if utils.StringInSlice(f, clericDivineDomainList()) {
@@ -293,11 +312,6 @@ func CalculateCharacter(purpose *rule.NewCharacter) (*rule.Character, error) {
 		characterFinal.ClassFeatures = utils.RemoveItemSlice(characterFinal.ClassFeatures, "divine-domain-feature")
 
 	case "druid":
-		verified, err = skillsAdded(purpose.ChosenSkills, characterFinal.Skills, druidSkillList(), skillNumber)
-		if err != nil {
-			extraSkillsMessage = fmt.Sprintf(" %v", err)
-		}
-		characterFinal.Skills = append(characterFinal.Skills, verified...)
 		var druid string
 		for _, f := range purpose.ChosenClassFeatures {
 			if utils.StringInSlice(f, druidCircleList()) {
@@ -308,19 +322,6 @@ func CalculateCharacter(purpose *rule.NewCharacter) (*rule.Character, error) {
 			archetypeMessage = fmt.Sprintf("druid-circle choose %v. if land choose one terrain %v", druidCircleList(), terrainList())
 		}
 		characterFinal.ClassFeatures = utils.RemoveItemSlice(characterFinal.ClassFeatures, "druid-circle")
-		// if utils.StringInSlice("circle-of-the-land-circle-spells", characterFinal.ClassFeatures) {
-		// 	var landList string
-		// 	for _, f := range purpose.ChosenClassFeatures {
-		// 		if utils.StringInSlice(f, terrainList()) {
-		// 			landList = f
-		// 		}
-		// 	}
-		// 	if landList == "" {
-		// 		archetypeMessage = fmt.Sprintf("you need to choose one of %v", terrainList())
-		// 	}
-		// 	feature := choosenClassFeatures("druid-circle", landList, 2)
-		// 	characterFinal.ClassFeatures = append(characterFinal.ClassFeatures, feature...)
-		// }
 		characterFinal.ClassFeatures = utils.RemoveItemSlice(characterFinal.ClassFeatures, "circle-of-the-land-circle-spells")
 		// "circle-of-the-land-bonus-cantrip-and-natural-recovery-and-circle-spells-%s" terrainList()
 		// druid feature bonus cantrip
@@ -329,11 +330,6 @@ func CalculateCharacter(purpose *rule.NewCharacter) (*rule.Character, error) {
 		}
 
 	case "fighter":
-		verified, err = skillsAdded(purpose.ChosenSkills, characterFinal.Skills, fighterSkillList(), skillNumber)
-		if err != nil {
-			extraSkillsMessage = fmt.Sprintf(" %v", err)
-		}
-		characterFinal.Skills = append(characterFinal.Skills, verified...)
 		var fighter string
 		for _, f := range purpose.ChosenClassFeatures {
 			if utils.StringInSlice(f, fighterArchetypeList()) {
@@ -376,11 +372,6 @@ func CalculateCharacter(purpose *rule.NewCharacter) (*rule.Character, error) {
 		characterFinal.ClassFeatures = utils.RemoveItemSlice(characterFinal.ClassFeatures, "martial-archetype-feature")
 
 	case "monk":
-		verified, err = skillsAdded(purpose.ChosenSkills, characterFinal.Skills, monkSkillList(), skillNumber)
-		if err != nil {
-			extraSkillsMessage = fmt.Sprintf(" %v", err)
-		}
-		characterFinal.Skills = append(characterFinal.Skills, verified...)
 		martial, ki, movement := MonkClass(purpose.Level)
 		characterFinal.MonkMartial = martial
 		characterFinal.MonkKi = ki
@@ -398,11 +389,6 @@ func CalculateCharacter(purpose *rule.NewCharacter) (*rule.Character, error) {
 		characterFinal.ClassFeatures = utils.RemoveItemSlice(characterFinal.ClassFeatures, "monastic-tradition-feature")
 
 	case "ranger":
-		verified, err = skillsAdded(purpose.ChosenSkills, characterFinal.Skills, rangerSkillList(), skillNumber)
-		if err != nil {
-			extraSkillsMessage = fmt.Sprintf(" %v", err)
-		}
-		characterFinal.Skills = append(characterFinal.Skills, verified...)
 		var enemyTypeList []string
 		var enemyHumanoidList []string
 		var terrainChoosen []string
@@ -574,11 +560,6 @@ func CalculateCharacter(purpose *rule.NewCharacter) (*rule.Character, error) {
 		}
 
 	case "rogue":
-		verified, err = skillsAdded(purpose.ChosenSkills, characterFinal.Skills, rogueSkillList(), skillNumber)
-		if err != nil {
-			extraSkillsMessage = fmt.Sprintf(" %v", err)
-		}
-		characterFinal.Skills = append(characterFinal.Skills, verified...)
 		characterFinal.RogueSneak = RogueClass(purpose.Level)
 		//"archetype-arcane-trickster-spellcasting-and-mage-hand-legerdemain"
 		var rogue string
@@ -601,11 +582,6 @@ func CalculateCharacter(purpose *rule.NewCharacter) (*rule.Character, error) {
 		characterFinal.ClassFeatures = utils.RemoveItemSlice(characterFinal.ClassFeatures, "roguish-archetype-feature")
 
 	case "paladin":
-		verified, err = skillsAdded(purpose.ChosenSkills, characterFinal.Skills, paladinSkillList(), skillNumber)
-		if err != nil {
-			extraSkillsMessage = fmt.Sprintf(" %v", err)
-		}
-		characterFinal.Skills = append(characterFinal.Skills, verified...)
 		var paladin string
 		for _, f := range purpose.ChosenClassFeatures {
 			if utils.StringInSlice(f, paladinSacredOaths()) {
@@ -620,11 +596,6 @@ func CalculateCharacter(purpose *rule.NewCharacter) (*rule.Character, error) {
 		characterFinal.ClassFeatures = utils.RemoveItemSlice(characterFinal.ClassFeatures, "fighting-style")
 
 	case "sorcerer":
-		verified, err = skillsAdded(purpose.ChosenSkills, characterFinal.Skills, sorcererSkillList(), skillNumber)
-		if err != nil {
-			extraSkillsMessage = fmt.Sprintf(" %v", err)
-		}
-		characterFinal.Skills = append(characterFinal.Skills, verified...)
 		if purpose.Level != 1 {
 			characterFinal.SorceryPoints = characterFinal.Level
 		}
@@ -661,15 +632,7 @@ func CalculateCharacter(purpose *rule.NewCharacter) (*rule.Character, error) {
 		characterFinal.ClassFeatures = utils.RemoveItemSlice(characterFinal.ClassFeatures, "sorcerous-origin-feature")
 
 	case "warlock":
-		verified, err = skillsAdded(purpose.ChosenSkills, characterFinal.Skills, warlockSkillList(), skillNumber)
-		if err != nil {
-			extraSkillsMessage = fmt.Sprintf(" %v", err)
-		}
-		characterFinal.Skills = append(characterFinal.Skills, verified...)
-		spellSlots, slotLevel, invocationsKnown := WarlockClass(purpose.Level)
-		characterFinal.WarlockSpellSlots = spellSlots
-		characterFinal.WarlockSlotLevel = slotLevel
-		characterFinal.WarlockInvocationsKnown = invocationsKnown
+
 		var warlock string
 		for _, f := range purpose.ChosenClassFeatures {
 			if utils.StringInSlice(f, warlockOtherworldlyPatronList()) {
@@ -685,11 +648,6 @@ func CalculateCharacter(purpose *rule.NewCharacter) (*rule.Character, error) {
 		characterFinal.ClassFeatures = utils.RemoveItemSlice(characterFinal.ClassFeatures, "pact-boon")
 
 	case "wizard":
-		verified, err = skillsAdded(purpose.ChosenSkills, characterFinal.Skills, wizardSkillList(), skillNumber)
-		if err != nil {
-			extraSkillsMessage = fmt.Sprintf(" %v", err)
-		}
-		characterFinal.Skills = append(characterFinal.Skills, verified...)
 		var wizard string
 		for _, f := range purpose.ChosenClassFeatures {
 			if utils.StringInSlice(f, wizardArcaneTraditionList()) {
