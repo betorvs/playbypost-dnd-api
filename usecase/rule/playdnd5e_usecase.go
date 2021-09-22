@@ -3,7 +3,9 @@ package rule
 import (
 	"fmt"
 	"math"
+	"strings"
 
+	"github.com/betorvs/playbypost-dnd/domain/rule"
 	"github.com/betorvs/playbypost-dnd/utils"
 )
 
@@ -38,6 +40,384 @@ func XPNeeded(level int) int {
 	return xp[level]
 }
 
+func SkillStatistics(name string) rule.Skill {
+	var skill rule.Skill
+	skill.Name = name
+	skill.Description = fmt.Sprintf("https://www.dndbeyond.com/sources/basic-rules/using-ability-scores#%s", strings.ReplaceAll(strings.Title(name), "-", ""))
+	skill.Ability = AbilitySkill(name)
+	skill.Title = fmt.Sprintf("%s (%s)", strings.Title(name), AbilitySkill(name))
+	return skill
+}
+
+//RaceStatistics func
+func RaceStatistics(race, subrace string) *rule.Race {
+	ability := make(map[string]int)
+	output := new(rule.Race)
+	output.Speedmeasure = "ft"
+	output.ArmorProficiency = []string{}
+	output.Subrace = ""
+	switch race {
+	case "Dwarf", "dwarf":
+		output.Name = "dwarf"
+		output.Size = "medium"
+		output.Speed = 25
+		output.Special = []string{"Darkvision", "Dwarven Resilience", "Dwarven Combat Training", "Tool Proficiency", "Stonecunning"}
+		ability["constitution"] = 2
+		output.Language = []string{"common", "dwarvish"}
+		output.Resistance = []string{"poison"}
+		output.Advantages = []string{"poison"}
+		dwarvenCombatTraining := []string{"battleaxe", "handaxe", "light hammer", "warhammer"}
+		output.ArmorProficiency = dwarvenCombatTraining
+		switch subrace {
+		case "Hill Dwarf", "hill-dwarf", "hill", "dwarf-hill":
+			output.Subrace = "hill-dwarf"
+			output.Special = append(output.Special, "Dwarven Toughness")
+			ability["wisdom"] = 1
+
+		case "Mountain Dwarf", "mountain-dwarf", "mountain", "dwarf-mountain":
+			output.Subrace = "mountain-dwarf"
+			output.Special = append(output.Special, "Dwarven Armor Training")
+			dwarvenArmorTraining := []string{"light-armor", "medium-armor"}
+			output.ArmorProficiency = append(output.ArmorProficiency, dwarvenArmorTraining...)
+			ability["strength"] = 2
+
+		}
+
+	case "Elf", "elf":
+		output.Name = "elf"
+		output.Size = "medium"
+		output.Speed = 30
+		output.Special = []string{"Darkvision", "Keen Senses", "Fey Ancestry", "Trance"}
+		ability["dexterity"] = 2
+		output.Language = []string{"common", "elvish"}
+		output.Skills = []string{"perception"}
+		output.Advantages = []string{"charmed"}
+		output.Conditions = []string{"sleep"}
+		elfWeaponTraining := []string{"longsword", "shortsword", "shortbow", "longbow"}
+
+		switch subrace {
+		case "High Elf", "high-elf", "high", "highelf":
+			output.Subrace = "high-elf"
+			output.Special = append(output.Special, "Elf Weapon Training")
+			output.Special = append(output.Special, "Cantrip")
+			output.Special = append(output.Special, "Extra Language")
+			ability["intelligence"] = 1
+			output.AdditionalLanguages = 1
+			output.ArmorProficiency = elfWeaponTraining
+
+		case "Wood Elf", "wood-elf", "woodelf", "wood":
+			output.Subrace = "wood-elf"
+			output.Special = append(output.Special, "Elf Weapon Training")
+			output.Special = append(output.Special, "Fleet of Foot")
+			output.Special = append(output.Special, "Mask of the Wild")
+			ability["wisdom"] = 1
+			output.ArmorProficiency = elfWeaponTraining
+
+		case "drow":
+			output.Subrace = "drow"
+			ability["charisma"] = 1
+			output.Special = append(output.Special, "Darkvision")
+			output.Disvantages = append(output.Disvantages, "sunlight-sensitivity")
+			output.Special = append(output.Special, "Drow Weapon Training")
+			drowWeaponTraining := []string{"rapier", "shortsword", "crossbow-hand", "crossbow-light", "crossbow-heavy"}
+			output.ArmorProficiency = drowWeaponTraining
+		}
+
+	case "Halfling", "halfling":
+		output.Name = "halfling"
+		output.Size = "small"
+		output.Speed = 25
+		output.Special = []string{"Lucky", "Brave", "Halfling Nimbleness"}
+		ability["dexterity"] = 2
+		output.Language = []string{"common", "halfling"}
+		output.Advantages = []string{"frightened"}
+		switch subrace {
+		case "Lightfoot", "lightfoot", "foot", "light":
+			output.Subrace = "lightfoot"
+			output.Special = append(output.Special, "Naturally Stealthy")
+			ability["charisma"] = 1
+
+		case "Stout", "stout":
+			output.Subrace = "stout"
+			output.Special = append(output.Special, "Stout Resilience")
+			ability["constitution"] = 1
+			output.Advantages = append(output.Advantages, "poison")
+			output.Resistance = []string{"poison"}
+		}
+
+	case "Human", "human":
+		output.Name = "human"
+		output.Size = "medium"
+		output.Speed = 30
+		output.Special = []string{"one extra language"}
+		ability["strength"] = 1
+		ability["dexterity"] = 1
+		ability["constitution"] = 1
+		ability["intelligence"] = 1
+		ability["wisdom"] = 1
+		ability["charisma"] = 1
+		output.Language = []string{"common"}
+		output.AdditionalLanguages = 1
+
+	case "Dragonborn", "dragonborn":
+		output.Name = "dragonborn"
+		output.Size = "medium"
+		output.Speed = 30
+		var breathWeapon string
+		ability["strength"] = 2
+		ability["charisma"] = 1
+		output.Language = []string{"common", "draconic"}
+		output.Subrace = subrace
+		switch subrace {
+		case "black":
+			output.Resistance = []string{"acid"}
+			breathWeapon = "acid 5 by 30 ft. line (Dex. save)"
+		case "blue":
+			output.Resistance = []string{"cold"}
+			breathWeapon = "cold 5 by 30 ft. line (Dex. save)"
+		case "brass":
+			output.Resistance = []string{"fire"}
+			breathWeapon = "fire 5 by 30 ft. line (Dex. save)"
+		case "bronze":
+			output.Resistance = []string{"lightning"}
+			breathWeapon = "lightning 5 by 30 ft. line (Dex. save)"
+		case "copper":
+			output.Resistance = []string{"acid"}
+			breathWeapon = "acid 5 by 30 ft. line (Dex. save)"
+		case "gold":
+			output.Resistance = []string{"fire"}
+			breathWeapon = "fire 1 5 ft. cone (Dex. save)"
+		case "green":
+			output.Resistance = []string{"poison"}
+			breathWeapon = "poison 15 ft. cone (Con. save)"
+		case "red":
+			output.Resistance = []string{"fire"}
+			breathWeapon = "fire 15 ft. cone ( Dex. save)"
+		case "silver":
+			output.Resistance = []string{"cold"}
+			breathWeapon = "cold 15 ft. cone (Con. save)"
+		case "white":
+			output.Resistance = []string{"cold"}
+			breathWeapon = "cold 15 ft. cone (Con. save)"
+		}
+		output.Special = []string{"Draconic Ancestry", breathWeapon, "Damage Resistance"}
+
+	case "Gnome", "gnome":
+		output.Name = "gnome"
+		output.Size = "small"
+		output.Speed = 25
+		output.Special = []string{"Darkvision", "Gnome Cunning"}
+		ability["intelligence"] = 2
+		output.Advantages = []string{"spell"}
+		output.Language = []string{"common", "gnomish"}
+
+		switch subrace {
+		case "Rock Gnomes", "rock-gnomes", "rock-gnome", "rock", "rockgnome":
+			output.Subrace = "rock-gnome"
+			output.Special = append(output.Special, "Artificer’s Lore")
+			output.Special = append(output.Special, "Tinker")
+			ability["constitution"] = 1
+
+		case "Forest Gnome", "forest-gnome", "forest":
+			output.Subrace = "forest-gnome"
+			output.Special = append(output.Special, "Natural Illusionist")
+			output.Special = append(output.Special, "Speak with Small Beasts")
+			ability["dexterity"] = 1
+
+		}
+
+	case "Half-Elf", "half elf", "half-elf":
+		output.Name = "half-elf"
+		output.Size = "medium"
+		output.Speed = 30
+		output.Special = []string{"Darkvision", "Fey Ancestry", "Skill Versatility", "two other ability increase by 1", "one extra language"}
+		ability["charisma"] = 2
+		output.Language = []string{"common", "elvish"}
+		output.Advantages = []string{"charmed"}
+		output.Conditions = []string{"sleep"}
+		output.AdditionalLanguages = 1
+
+	case "Half-Orc", "half orc", "half-orc":
+		output.Name = "half-orc"
+		output.Size = "medium"
+		output.Speed = 30
+		output.Special = []string{"Darkvision", "Menacing", "Relentless Endurance", "Savage Attacks"}
+		ability["strength"] = 2
+		ability["constitution"] = 1
+		output.Language = []string{"common", "orc"}
+		output.Skills = []string{"intimidation"}
+
+	case "Tiefling", "tiefling":
+		output.Name = "tiefling"
+		output.Size = "medium"
+		output.Speed = 30
+		output.Special = []string{"Darkvision", "Hellish Resistance", "Infernal Legacy"}
+		ability["intelligence"] = 1
+		ability["charisma"] = 2
+		output.Language = []string{"common", "infernal"}
+		output.Resistance = []string{"fire"}
+	}
+	output.Ability = ability
+	description := RaceTraits(output.Name, output.Subrace)
+	output.Description = description["link"]
+	return output
+}
+
+//RaceSpecialTrait func
+func RaceSpecialTrait(race, subrace string, level int, ability map[string]int) (name string, spellList []string, spellcastAbility, damageDice, damageType, savingThrow, description string, difficultClass int) {
+	switch race {
+	case "dragonborn":
+		damageDice = "2d6"
+		if level > 5 {
+			damageDice = "3d6"
+		}
+		if level > 10 {
+			damageDice = "4d6"
+		}
+		if level > 15 {
+			damageDice = "5d6"
+		}
+		var breathWeapon string
+		prof := CalcProficiency(level)
+		modifier := CalcAbilityModifier(ability["constitution"])
+		difficultClass = 8 + prof + modifier
+		switch subrace {
+		case "black":
+			damageType = "acid"
+			breathWeapon = "acid 5 by 30 ft. line (Dex. save)"
+			savingThrow = "dexterity"
+		case "blue":
+			damageType = "cold"
+			breathWeapon = "cold 5 by 30 ft. line (Dex. save)"
+			savingThrow = "dexterity"
+		case "brass":
+			damageType = "fire"
+			breathWeapon = "fire 5 by 30 ft. line (Dex. save)"
+			savingThrow = "dexterity"
+		case "bronze":
+			damageType = "lightning"
+			breathWeapon = "lightning 5 by 30 ft. line (Dex. save)"
+			savingThrow = "dexterity"
+		case "copper":
+			damageType = "acid"
+			breathWeapon = "acid 5 by 30 ft. line (Dex. save)"
+			savingThrow = "dexterity"
+		case "gold":
+			damageType = "fire"
+			breathWeapon = "fire 1 5 ft. cone (Dex. save)"
+			savingThrow = "dexterity"
+		case "green":
+			damageType = "poison"
+			breathWeapon = "poison 15 ft. cone (Con. save)"
+			savingThrow = "constitution"
+		case "red":
+			damageType = "fire"
+			breathWeapon = "fire 15 ft. cone (Dex. save)"
+			savingThrow = "dexterity"
+		case "silver":
+			damageType = "cold"
+			breathWeapon = "cold 15 ft. cone (Con. save)"
+			savingThrow = "constitution"
+		case "white":
+			damageType = "cold"
+			breathWeapon = "cold 15 ft. cone (Con. save)"
+			savingThrow = "constitution"
+		}
+		description = breathWeapon
+		name = "breath-weapon"
+
+	case "tiefling":
+		spellList = []string{"thaumaturgy"}
+		if level > 2 {
+			spellList = []string{"thaumaturgy", "hellish-rebuke"}
+		}
+		if level > 4 {
+			spellList = []string{"thaumaturgy", "hellish-rebuke", "darkness"}
+		}
+		description = `You know the thaumaturgy cantrip. When you reach 3rd level, you can cast the hellish rebuke spell as a 2nd-level spell once with this trait and regain the ability to do so when you finish a long rest. When you reach 5th level, you can cast the darkness spell once with this trait and regain the ability to
+		do so when you finish a long rest. Charisma is your spellcasting ability for these spells.`
+		spellcastAbility = "charisma"
+		prof := CalcProficiency(level)
+		modifier := CalcAbilityModifier(ability["charisma"])
+		difficultClass = 8 + prof + modifier
+		name = "infernal-legacy"
+
+	case "gnome":
+		if subrace == "forest-gnome" {
+			spellList = []string{"minor-illusion"}
+			description = "You know the minor illusion cantrip. Intelligence is your spellcasting ability for it."
+			spellcastAbility = "intelligence"
+			prof := CalcProficiency(level)
+			modifier := CalcAbilityModifier(ability["intelligence"])
+			difficultClass = 8 + prof + modifier
+			name = "natural-illusionist"
+		}
+
+	case "elf":
+		if subrace == "drow" {
+			spellList = []string{"dancing-lights"}
+			if level > 2 {
+				spellList = []string{"dancing-lights", "faerie-fire"}
+			}
+			if level > 4 {
+				spellList = []string{"dancing-lights", "faerie-fire", "darkness"}
+			}
+			description = "You know the dancing lights cantrip. When you reach 3rd level, you can cast the faerie fire spell once with this trait and regain the ability to do so when you finish a long rest. When you reach 5th level, you can cast the darkness spell once with this trait and regain the ability to do so when you finish a long rest. Charisma is your spellcasting ability for these spells."
+			spellcastAbility = "charisma"
+			prof := CalcProficiency(level)
+			modifier := CalcAbilityModifier(ability["charisma"])
+			difficultClass = 8 + prof + modifier
+			name = "drow-magic"
+		}
+	}
+
+	return name, spellList, spellcastAbility, damageDice, damageType, savingThrow, description, difficultClass
+}
+
+//BackgroundStatistics func
+func BackgroundStatistics(name string) *rule.Background {
+	back := new(rule.Background)
+	switch name {
+	case "Acolyte", "acolyte":
+		back.Name = "acolyte"
+		back.Title = "Acolyte"
+		back.Skills = []string{"insight", "religion"}
+		back.AdditionalLanguages = 2
+		back.Description = "https://www.dndbeyond.com/sources/basic-rules/personality-and-background#Acolyte"
+	case "Criminal", "criminal":
+		back.Name = "criminal"
+		back.Title = "Criminal"
+		back.Skills = []string{"deception", "stealth"}
+		back.Extra = "One type of gaming set, thieves’ tools"
+		back.Description = "https://www.dndbeyond.com/sources/basic-rules/personality-and-background#Criminal"
+	case "Folk Hero", "folk hero", "folk-hero":
+		back.Name = "folk-hero"
+		back.Title = "Folk Hero"
+		back.Extra = "One type of artisan’s tools, vehicles (land)"
+		back.Skills = []string{"animal handling", "survival"}
+		back.Description = "https://www.dndbeyond.com/sources/basic-rules/personality-and-background#FolkHero"
+	case "Noble", "noble":
+		back.Name = "noble"
+		back.Title = "Noble"
+		back.Skills = []string{"history", "persuasion"}
+		back.Extra = "One type of gaming set"
+		back.Description = "https://www.dndbeyond.com/sources/basic-rules/personality-and-background#Noble"
+	case "Sage", "sage":
+		back.Name = "sage"
+		back.Title = "Sage"
+		back.Skills = []string{"arcana", "history"}
+		back.AdditionalLanguages = 2
+		back.Description = "https://www.dndbeyond.com/sources/basic-rules/personality-and-background#Sage"
+	case "Soldier", "soldier":
+		back.Name = "soldier"
+		back.Title = "Soldier"
+		back.Extra = "One type of gaming set, vehicles (land)"
+		back.Skills = []string{"athletics", "intimidation"}
+		back.Description = "https://www.dndbeyond.com/sources/basic-rules/personality-and-background#Soldier"
+	}
+	return back
+}
+
 //CalculateSpellList func
 func CalculateSpellList(class string, level int) (map[string][]int, int) {
 	spellList := make(map[string][]int)
@@ -52,9 +432,9 @@ func CalculateSpellList(class string, level int) (map[string][]int, int) {
 }
 
 //CalculateClassFeatureList func
-func CalculateClassFeatureList(class string, level int, choosen []string) (features []string) {
+func CalculateClassFeatureList(classFeatures map[int][]string, level int, choosen []string) (features []string) {
 	for i := level; i > 0; i-- {
-		for _, v := range ClassFeatures(class, i) {
+		for _, v := range classFeatures[i] {
 			if v != "" {
 				value := v
 				var values []string
@@ -102,6 +482,61 @@ func SpellSlotsMultiClass(class string, level int) int {
 	default:
 		return 0
 	}
+}
+
+// ClassStatistics func
+func ClassStatistics(name string, level int) rule.Class {
+	var class rule.Class
+	class.Name = name
+	class.Title = strings.Title(name)
+	class.HitDice, class.Savings, class.ArmorProficiency, class.SkillNumber = ClassDetails(name)
+	class.SkillList = skillListByClass(name)
+
+	class.Features = make(map[int][]string)
+	class.SpellKnown = make(map[int]int)
+	class.CantripsKnown = make(map[int]int)
+	class.SpellsPerLevel = make(map[int][]int)
+	class.BarbarianRage = make(map[int]int)
+	class.BarbarianRageDamage = make(map[int]int)
+	class.MonkMartial = make(map[int]string)
+	class.MonkKi = make(map[int]int)
+	class.MonkMovement = make(map[int]string)
+	class.RogueSneakAttack = make(map[int]string)
+	class.WarlockSpellSlots = make(map[int]int)
+	class.WarlockSlotLevel = make(map[int]string)
+	class.WarlockInvocationsKnown = make(map[int]int)
+	for i := 1; i <= level; i++ {
+
+		class.Features[i] = ClassFeatures(name, i)
+		if utils.StringInSlice(name, ClassWithCantrips()) {
+			class.CantripsKnown[i] = CantripsKnown(name, i)
+		}
+		if utils.StringInSlice(name, ClassWithSpellKnown()) {
+			class.SpellKnown[i] = SpellKnown(name, i)
+		}
+		if utils.StringInSlice(name, ClassWithSpell()) {
+			if class.Name != "warlock" {
+				class.SpellsPerLevel[i] = SpellsPerLevel(name, i)
+			}
+			class.AbilityForSpell = AbilityForSpell(name)
+		}
+		if name == "barbarian" {
+			class.BarbarianRage[i], class.BarbarianRageDamage[i] = BarbarianClass(i)
+		}
+		if name == "monk" {
+			class.MonkMartial[i], class.MonkKi[i], class.MonkMovement[i] = MonkClass(i)
+		}
+		if name == "rogue" {
+			class.RogueSneakAttack[i] = RogueClass(i)
+		}
+		if name == "warlock" {
+			class.WarlockSpellSlots[i], class.WarlockSlotLevel[i], class.WarlockInvocationsKnown[i] = WarlockClass(i)
+		}
+	}
+	description := ClassInfo(name)
+	class.Description = description["link"]
+
+	return class
 }
 
 // SpellsPerLevel func
@@ -413,255 +848,8 @@ func SpellsPerLevel(class string, level int) []int {
 	return value
 }
 
-//RaceStatistics func
-func RaceStatistics(race, subrace string) (size, speedmeasure string, speed int, ability map[string]int, special, language []string, skills []string, resistance []string, advantage []string, condition []string, disvantages []string) {
-	ability = make(map[string]int)
-	switch race {
-	case "Dwarf", "dwarf":
-		size = "medium"
-		speed = 25
-		speedmeasure = "ft"
-		//
-		special = []string{"Darkvision", "Dwarven Resilience", "Dwarven Combat Training", "Tool Proficiency", "Stonecunning"}
-		ability["constitution"] = 2
-		language = []string{"common", "dwarvish"}
-		resistance = []string{"poison"}
-		advantage = []string{"poison"}
-		switch subrace {
-		case "Hill Dwarf", "hill-dwarf", "hill", "dwarf-hill":
-			special = append(special, "Dwarven Toughness")
-			ability["wisdom"] = 1
-
-		case "Mountain Dwarf", "mountain-dwarf", "mountain", "dwarf-mountain":
-			special = append(special, "Dwarven Armor Training")
-			ability["strength"] = 2
-
-		}
-
-	case "Elf", "elf":
-		size = "medium"
-		speed = 30
-		speedmeasure = "ft"
-		special = []string{"Darkvision", "Keen Senses", "Fey Ancestry", "Trance"}
-		ability["dexterity"] = 2
-		language = []string{"common", "elvish"}
-		skills = []string{"perception"}
-		advantage = []string{"charmed"}
-		condition = []string{"sleep"}
-		switch subrace {
-		case "High Elf", "high-elf", "high", "highelf":
-			special = append(special, "Elf Weapon Training")
-			special = append(special, "Cantrip")
-			special = append(special, "Extra Language")
-			ability["intelligence"] = 1
-
-		case "Wood Elf", "wood-elf", "woodelf", "wood":
-			special = append(special, "Elf Weapon Training")
-			special = append(special, "Fleet of Foot")
-			special = append(special, "Mask of the Wild")
-			ability["wisdom"] = 1
-
-		case "drow":
-			ability["charisma"] = 1
-			special = append(special, "Darkvision")
-			disvantages = append(disvantages, "sunlight-sensitivity")
-			special = append(special, "Drow Weapon Training")
-		}
-
-	case "Halfling", "halfling":
-		size = "small"
-		speed = 25
-		speedmeasure = "ft"
-		special = []string{"Lucky", "Brave", "Halfling Nimbleness"}
-		ability["dexterity"] = 2
-		language = []string{"common", "halfling"}
-		advantage = []string{"frightened"}
-		switch subrace {
-		case "Lightfoot", "lightfoot", "foot", "light":
-			special = append(special, "Naturally Stealthy")
-			ability["charisma"] = 1
-
-		case "Stout", "stout":
-			special = append(special, "Stout Resilience")
-			ability["constitution"] = 1
-			advantage = append(advantage, "poison")
-			resistance = []string{"poison"}
-		}
-
-	case "Human", "human":
-		size = "medium"
-		speed = 30
-		speedmeasure = "ft"
-		special = []string{"one extra language"}
-		ability["strength"] = 1
-		ability["dexterity"] = 1
-		ability["constitution"] = 1
-		ability["intelligence"] = 1
-		ability["wisdom"] = 1
-		ability["charisma"] = 1
-		language = []string{"common"}
-
-	case "Dragonborn", "dragonborn":
-		size = "medium"
-		speed = 30
-		speedmeasure = "ft"
-		var breathWeapon string
-		ability["strength"] = 2
-		ability["charisma"] = 1
-		language = []string{"common", "draconic"}
-		switch subrace {
-		case "black":
-			resistance = []string{"acid"}
-			breathWeapon = "acid 5 by 30 ft. line (Dex. save)"
-		case "blue":
-			resistance = []string{"cold"}
-			breathWeapon = "cold 5 by 30 ft. line (Dex. save)"
-		case "brass":
-			resistance = []string{"fire"}
-			breathWeapon = "fire 5 by 30 ft. line (Dex. save)"
-		case "bronze":
-			resistance = []string{"lightning"}
-			breathWeapon = "lightning 5 by 30 ft. line (Dex. save)"
-		case "copper":
-			resistance = []string{"acid"}
-			breathWeapon = "acid 5 by 30 ft. line (Dex. save)"
-		case "gold":
-			resistance = []string{"fire"}
-			breathWeapon = "fire 1 5 ft. cone (Dex. save)"
-		case "green":
-			resistance = []string{"poison"}
-			breathWeapon = "poison 15 ft. cone (Con. save)"
-		case "red":
-			resistance = []string{"fire"}
-			breathWeapon = "fire 15 ft. cone ( Dex. save)"
-		case "silver":
-			resistance = []string{"cold"}
-			breathWeapon = "cold 15 ft. cone (Con. save)"
-		case "white":
-			resistance = []string{"cold"}
-			breathWeapon = "cold 15 ft. cone (Con. save)"
-		}
-		special = []string{"Draconic Ancestry", breathWeapon, "Damage Resistance"}
-
-	case "Gnome", "gnome":
-		size = "small"
-		speed = 25
-		speedmeasure = "ft"
-		special = []string{"Darkvision", "Gnome Cunning"}
-		ability["intelligence"] = 2
-		advantage = []string{"spell"}
-		language = []string{"common", "gnomish"}
-
-		switch subrace {
-		case "Rock Gnomes", "rock-gnomes", "rock-gnome", "rock", "rockgnome":
-			special = append(special, "Artificer’s Lore")
-			special = append(special, "Tinker")
-			ability["constitution"] = 1
-
-		case "Forest Gnome", "forest-gnome", "forest":
-			special = append(special, "Natural Illusionist")
-			special = append(special, "Speak with Small Beasts")
-			ability["dexterity"] = 1
-
-		}
-
-	case "Half-Elf", "half elf", "half-elf":
-		size = "medium"
-		speed = 30
-		speedmeasure = "ft"
-		special = []string{"Darkvision", "Fey Ancestry", "Skill Versatility", "two other ability increase by 1", "one extra language"}
-		ability["charisma"] = 2
-		language = []string{"common", "elvish"}
-		advantage = []string{"charmed"}
-		condition = []string{"sleep"}
-
-	case "Half-Orc", "half orc", "half-orc":
-		size = "medium"
-		speed = 30
-		speedmeasure = "ft"
-		special = []string{"Darkvision", "Menacing", "Relentless Endurance", "Savage Attacks"}
-		ability["strength"] = 2
-		ability["constitution"] = 1
-		language = []string{"common", "orc"}
-		skills = []string{"intimidation"}
-
-	case "Tiefling", "tiefling":
-		size = "medium"
-		speed = 30
-		speedmeasure = "ft"
-		special = []string{"Darkvision", "Hellish Resistance", "Infernal Legacy"}
-		ability["intelligence"] = 1
-		ability["charisma"] = 2
-		language = []string{"common", "infernal"}
-		resistance = []string{"fire"}
-	}
-	return size, speedmeasure, speed, ability, special, language, skills, resistance, advantage, condition, disvantages
-}
-
-//RaceArmorProficiencyExtra func
-func RaceArmorProficiencyExtra(raceSpecial string) (armorProficiency []string) {
-	switch raceSpecial {
-	case "Elf Weapon Training":
-		elf := []string{"longsword", "shortsword", "shortbow", "longbow"}
-		return elf
-		// armorProficiency = append(armorInitial, elf...)
-		//longsword, shortsword, shortbow, and longbow
-
-	case "Dwarven Combat Training":
-		dwarf := []string{"battleaxe", "handaxe", "light hammer", "warhammer"}
-		return dwarf
-		// armorProficiency = append(armorInitial, dwarf...)
-		//battleaxe, handaxe, light hammer, and warhammer
-
-	case "Dwarven Armor Training":
-		dwarf := []string{"light-armor", "medium-armor"}
-		return dwarf
-		// armorProficiency = append(armorInitial, dwarf...)
-		// light and medium-armor "Dwarven Armor Training"
-
-	default:
-		return armorProficiency
-	}
-	// fmt.Println(armorProficiency)
-	// return armorProficiency
-}
-
-//BackgroundStatistics func
-func BackgroundStatistics(name string) (map[string]string, []string) {
-	var skills []string
-	mapString := make(map[string]string)
-	switch name {
-	case "acolyte":
-		skills = []string{"insight", "religion"}
-		mapString["language"] = "Two of your choice"
-		mapString["skills"] = "insight, religion"
-	case "criminal":
-		skills = []string{"deception", "stealth"}
-		mapString["extra"] = "One type of gaming set, thieves’ tools"
-		mapString["skills"] = "deception, stealth"
-	case "folk hero":
-		mapString["extra"] = "One type of artisan’s tools, vehicles (land)"
-		skills = []string{"animal handling", "survival"}
-		mapString["skills"] = "animal handling, survival"
-	case "noble":
-		mapString["language"] = "One of your choice"
-		skills = []string{"history", "persuasion"}
-		mapString["extra"] = "One type of gaming set"
-		mapString["skills"] = "history, persuasion"
-	case "sage":
-		mapString["language"] = "Two of your choice"
-		skills = []string{"arcana", "history"}
-		mapString["skills"] = "arcana, history"
-	case "soldier":
-		mapString["extra"] = "One type of gaming set, vehicles (land)"
-		skills = []string{"athletics", "intimidation"}
-		mapString["skills"] = "athletics, intimidation"
-	}
-	return mapString, skills
-}
-
-// ClassStatistics func
-func ClassStatistics(class string) (hitDice int, savings []string, armorProficiency []string, skillNumber int) {
+// ClassDetails func
+func ClassDetails(class string) (hitDice int, savings []string, armorProficiency []string, skillNumber int) {
 	switch class {
 	case "barbarian":
 		hitDice = 12
@@ -1575,234 +1763,6 @@ func WarlockClass(level int) (int, string, int) {
 		return 0, "", 0
 	}
 	return spellSlots[level-1], slotLevel[level-1], invocationsKnown[level-1]
-}
-
-//WeaponsByName func
-// func WeaponsByName(weapon string) (kind, cost, damage, damageType, weight, properties string) {
-// 	switch weapon {
-// 	case "club":
-// 		return "simple-weapon", "1 sp", "1d4", "bludgeoning", "2 lb.", "Light"
-// 	case "dagger":
-// 		return "simple-weapon", "2 gp", "1d4", "piercing", "1 lb.", "Finesse, Light, Thrown (range 20/60)"
-// 	case "greatclub":
-// 		return "simple-weapon", "2 sp", "1d8", "bludgeoning", "10 lb.", "Two-handed"
-// 	case "handaxe":
-// 		return "simple-weapon", "5 gp", "1d6", "slashing", "2 lb.", "Light, Thrown (range 20/60)"
-// 	case "javelin":
-// 		return "simple-weapon", "5 sp", "1d6", "piercing", "2 lb.", "Thrown (range 30/120)"
-// 	case "light hammer":
-// 		return "simple-weapon", "2 gp", "1d4", "bludgeoning", "2 lb.", "Light, Thrown (range 20/60)"
-// 	case "mace":
-// 		return "simple-weapon", "5 gp", "1d6", "bludgeoning", "4 lb.", "-"
-// 	case "quarterstaff":
-// 		return "simple-weapon", "2 sp", "1d6", "bludgeoning", "4 lb.", "Versatile: 1d8"
-// 	case "sickle":
-// 		return "simple-weapon", "1 gp", "1d4", "slashing", "2 lb.", "Light"
-// 	case "spear":
-// 		return "simple-weapon", "1 gp", "1d6", "piercing", "3 lb.", "Thrown (range 20/60), Versatile (1d8)"
-// 	case "light crossbow":
-// 		return "simple-weapon", "25 gp", "1d8", "piercing", "5 lb.", "Ammunition (range 80/320), loading, Two-handed"
-// 	case "dart":
-// 		return "simple-weapon", "5 cp", "1d4", "piercing", "1/4 lb.", "Finesse, Thrown (range 20/60)"
-// 	case "shortbow":
-// 		return "simple-weapon", "25 gp", "1d6", "piercing", "2 lb.", "Ammunition (range 80/320), Two-handed"
-// 	case "sling":
-// 		return "simple-weapon", "1 sp", "1d4", "bludgeoning", "-", "Ammunition (range 30/120)"
-// 	case "battleaxe":
-// 		return "martial-weapon", "10 gp", "1d8", "slashing", "4 lb.", "Versatile: 1d10"
-// 	case "flail":
-// 		return "martial-weapon", "10 gp", "1d8", "bludgeoning", "2 lb.", "-"
-// 	case "glaive":
-// 		return "martial-weapon", "20 gp", "1d10", "slashing", "6 lb.", "Heavy, reach, Two-handed"
-// 	case "greataxe":
-// 		return "martial-weapon", "30 gp", "1d12", "slashing", "7 lb.", "Heavy, Two-handed"
-// 	case "greatsword":
-// 		return "martial-weapon", "50 gp", "2d6", "slashing", "6 lb.", "Heavy, Two-handed"
-// 	case "halberd":
-// 		return "martial-weapon", "20 gp", "1d10", "slashing", "6 lb.", "Heavy, reach, Two-handed"
-// 	case "lance":
-// 		return "martial-weapon", "10 gp", "1d12", "piercing", "6 lb.", "Reach, special"
-// 	case "longsword":
-// 		return "martial-weapon", "15 gp", "1d8", "slashing", "3 lb.", "Versatile: 1d10"
-// 	case "maul":
-// 		return "martial-weapon", "10 gp", "2d6", "bludgeoning", "10 lb.", "Heavy, Two-handed"
-// 	case "morningstar":
-// 		return "martial-weapon", "15 gp", "1d8", "piercing", "4 lb.", "-"
-// 	case "pike":
-// 		return "martial-weapon", "5 gp", "1d10", "piercing", "18 lb.", "Heavy, reach, Two-handed"
-// 	case "rapier":
-// 		return "martial-weapon", "25 gp", "1d8", "piercing", "2 lb.", "Finesse"
-// 	case "scimitar":
-// 		return "martial-weapon", "25 gp", "1d6", "slashing", "3 lb.", "Finesse, Light"
-// 	case "shortsword":
-// 		return "martial-weapon", "10 gp", "1d6", "piercing", "2 lb.", "Finesse, Light"
-// 	case "trident":
-// 		return "martial-weapon", "5 gp", "1d6", "piercing", "4 lb.", "Thrown (range 20/60), Versatile: 1d8"
-// 	case "war pick":
-// 		return "martial-weapon", "5 gp", "1d8", "piercing", "2 lb.", "-"
-// 	case "warhammer":
-// 		return "martial-weapon", "15 gp", "1d8", "bludgeoning", "2 lb.", "Versatile: 1d10"
-// 	case "whip":
-// 		return "martial-weapon", "2 gp", "1d4", "slashing", "3 lb.", "Finesse, reach"
-// 	case "blowgun":
-// 		return "martial-weapon", "10 gp", "1", "piercing", "1 lb.", "Ammunition (range 25/100), loading"
-// 	case "hand-crossbow":
-// 		return "martial-weapon", "75 gp", "1d6", "piercing", "3 lb.", "Ammunition (range 30/120), Light, loading"
-// 	case "heavy crossbow":
-// 		return "martial-weapon", "50 gp", "1d10", "piercing", "18 lb.", "Ammunition (range 100/400), heavy, loading, Two-handed"
-// 	case "longbow":
-// 		return "martial-weapon", "50 gp", "1d8", "piercing", "2 lb.", "Ammunition (range 150/600), heavy, Two-handed"
-// 	case "net":
-// 		return "martial-weapon", "1 gp", "-", "-", "3 lb.", "Special, Thrown (range 5/15)"
-// 	case "unarmed", "unarmed strike", "unarmed-strike":
-// 		return "", "", "1", "bludgeoning", "", ""
-
-// 	default:
-// 		return "improvised weapon", "", "", "", "", ""
-// 	}
-// }
-
-// //ArmorByName func
-// func ArmorByName(armor string) (armorType, cost string, armorClass int, dexterityModifier int, strengthMin int, stealth bool, weight string) {
-// 	switch armor {
-// 	case "padded":
-// 		return "light-armor", "5 gp", 11, 21, 3, true, "8 lb."
-// 	case "leather":
-// 		return "light-armor", "10 gp", 11, 21, 3, false, "10 lb."
-// 	case "studded leather":
-// 		return "light-armor", "45 gp", 12, 21, 3, false, "13 lb."
-// 	case "hide":
-// 		return "medium-armor", "10 gp", 12, 2, 3, false, "12 lb."
-// 	case "chain shirt":
-// 		return "medium-armor", "50 gp", 13, 2, 3, false, "20 lb."
-// 	case "scale mail":
-// 		return "medium-armor", "50 gp", 14, 2, 3, true, "45 lb."
-// 	case "breastplate":
-// 		return "medium-armor", "400 gp", 14, 2, 3, false, "20 lb."
-// 	case "half plate":
-// 		return "medium-armor", "750 gp", 15, 2, 3, true, "40 lb."
-// 	case "ring mail":
-// 		return "heavy-armor", "30 gp", 14, 0, 3, true, "40 lb."
-// 	case "chain mail":
-// 		return "heavy-armor", "75 gp", 16, 0, 13, true, "55 lb."
-// 	case "splint":
-// 		return "heavy-armor", "200 gp", 17, 0, 15, true, "60 lb."
-// 	case "plate":
-// 		return "heavy-armor", "1,500 gp", 18, 0, 15, true, "65 lb."
-// 	default:
-// 		return "", "", 10, 21, 3, false, ""
-// 	}
-// }
-
-//RaceSpecialTrait func
-func RaceSpecialTrait(race, subrace string, level int, ability map[string]int) (name string, spellList []string, spellcastAbility, damageDice, damageType, savingThrow, description string, difficultClass int) {
-	switch race {
-	case "dragonborn":
-		damageDice = "2d6"
-		if level > 5 {
-			damageDice = "3d6"
-		}
-		if level > 10 {
-			damageDice = "4d6"
-		}
-		if level > 15 {
-			damageDice = "5d6"
-		}
-		var breathWeapon string
-		prof := CalcProficiency(level)
-		modifier := CalcAbilityModifier(ability["constitution"])
-		difficultClass = 8 + prof + modifier
-		switch subrace {
-		case "black":
-			damageType = "acid"
-			breathWeapon = "acid 5 by 30 ft. line (Dex. save)"
-			savingThrow = "dexterity"
-		case "blue":
-			damageType = "cold"
-			breathWeapon = "cold 5 by 30 ft. line (Dex. save)"
-			savingThrow = "dexterity"
-		case "brass":
-			damageType = "fire"
-			breathWeapon = "fire 5 by 30 ft. line (Dex. save)"
-			savingThrow = "dexterity"
-		case "bronze":
-			damageType = "lightning"
-			breathWeapon = "lightning 5 by 30 ft. line (Dex. save)"
-			savingThrow = "dexterity"
-		case "copper":
-			damageType = "acid"
-			breathWeapon = "acid 5 by 30 ft. line (Dex. save)"
-			savingThrow = "dexterity"
-		case "gold":
-			damageType = "fire"
-			breathWeapon = "fire 1 5 ft. cone (Dex. save)"
-			savingThrow = "dexterity"
-		case "green":
-			damageType = "poison"
-			breathWeapon = "poison 15 ft. cone (Con. save)"
-			savingThrow = "constitution"
-		case "red":
-			damageType = "fire"
-			breathWeapon = "fire 15 ft. cone (Dex. save)"
-			savingThrow = "dexterity"
-		case "silver":
-			damageType = "cold"
-			breathWeapon = "cold 15 ft. cone (Con. save)"
-			savingThrow = "constitution"
-		case "white":
-			damageType = "cold"
-			breathWeapon = "cold 15 ft. cone (Con. save)"
-			savingThrow = "constitution"
-		}
-		description = breathWeapon
-		name = "breath-weapon"
-
-	case "tiefling":
-		spellList = []string{"thaumaturgy"}
-		if level > 2 {
-			spellList = []string{"thaumaturgy", "hellish-rebuke"}
-		}
-		if level > 4 {
-			spellList = []string{"thaumaturgy", "hellish-rebuke", "darkness"}
-		}
-		description = `You know the thaumaturgy cantrip. When you reach 3rd level, you can cast the hellish rebuke spell as a 2nd-level spell once with this trait and regain the ability to do so when you finish a long rest. When you reach 5th level, you can cast the darkness spell once with this trait and regain the ability to
-		do so when you finish a long rest. Charisma is your spellcasting ability for these spells.`
-		spellcastAbility = "charisma"
-		prof := CalcProficiency(level)
-		modifier := CalcAbilityModifier(ability["charisma"])
-		difficultClass = 8 + prof + modifier
-		name = "infernal-legacy"
-
-	case "gnome":
-		if subrace == "forest-gnome" {
-			spellList = []string{"minor-illusion"}
-			description = "You know the minor illusion cantrip. Intelligence is your spellcasting ability for it."
-			spellcastAbility = "intelligence"
-			prof := CalcProficiency(level)
-			modifier := CalcAbilityModifier(ability["intelligence"])
-			difficultClass = 8 + prof + modifier
-			name = "natural-illusionist"
-		}
-
-	case "elf":
-		if subrace == "drow" {
-			spellList = []string{"dancing-lights"}
-			if level > 2 {
-				spellList = []string{"dancing-lights", "faerie-fire"}
-			}
-			if level > 4 {
-				spellList = []string{"dancing-lights", "faerie-fire", "darkness"}
-			}
-			description = "You know the dancing lights cantrip. When you reach 3rd level, you can cast the faerie fire spell once with this trait and regain the ability to do so when you finish a long rest. When you reach 5th level, you can cast the darkness spell once with this trait and regain the ability to do so when you finish a long rest. Charisma is your spellcasting ability for these spells."
-			spellcastAbility = "charisma"
-			prof := CalcProficiency(level)
-			modifier := CalcAbilityModifier(ability["charisma"])
-			difficultClass = 8 + prof + modifier
-			name = "drow-magic"
-		}
-	}
-
-	return name, spellList, spellcastAbility, damageDice, damageType, savingThrow, description, difficultClass
 }
 
 // CoinList return a list of coins in []string

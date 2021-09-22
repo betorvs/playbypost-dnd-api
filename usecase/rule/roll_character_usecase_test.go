@@ -1,6 +1,7 @@
 package rule
 
 import (
+	"fmt"
 	"testing"
 
 	"github.com/betorvs/playbypost-dnd/appcontext"
@@ -42,6 +43,7 @@ func TestCalculateCharacter(t *testing.T) {
 
 					case "elf":
 						subrace = "high-elf"
+						languages = append(languages, "celestial")
 
 					case "hafling":
 						subrace = "lightfoot"
@@ -62,8 +64,8 @@ func TestCalculateCharacter(t *testing.T) {
 					case "sage":
 						languages = append(languages, "deep-speech", "abyssal")
 					}
-					_, backgroundSkills := BackgroundStatistics(background)
-					_, _, _, skillNumber := ClassStatistics(class)
+					back := BackgroundStatistics(background)
+					_, _, _, skillNumber := ClassDetails(class)
 					tmpSkills := []string{}
 					for _, v := range skillListByClass(class) {
 						if len(tmpSkills) >= skillNumber {
@@ -72,7 +74,7 @@ func TestCalculateCharacter(t *testing.T) {
 						if race == "half-orc" && v == "intimidation" {
 							continue
 						}
-						if !utils.StringInSlice(v, backgroundSkills) {
+						if !utils.StringInSlice(v, back.Skills) {
 							tmpSkills = append(tmpSkills, v)
 						}
 					}
@@ -82,6 +84,13 @@ func TestCalculateCharacter(t *testing.T) {
 					switch class {
 					case "barbarian":
 						classFeatures = append(classFeatures, "berseker")
+						test1.ChosenClassFeatures = classFeatures
+						fmt.Println(race, class, background, tmpSkills, classFeatures)
+						res1, err1 := CalculateCharacter(test1)
+						assert.NotEmpty(t, res1.BarbarianRage)
+						assert.NotEmpty(t, res1.BarbarianDamage)
+						assert.NotEmpty(t, res1)
+						assert.NoError(t, err1)
 					case "bard":
 						classFeatures = append(classFeatures, "lore")
 						if level >= 3 {
@@ -93,7 +102,7 @@ func TestCalculateCharacter(t *testing.T) {
 								if race == "half-orc" && v == "intimidation" {
 									continue
 								}
-								if !utils.StringInSlice(v, tmpSkills) && !utils.StringInSlice(v, backgroundSkills) {
+								if !utils.StringInSlice(v, tmpSkills) && !utils.StringInSlice(v, back.Skills) {
 									test1.ChosenSkillsByFeatures = append(test1.ChosenSkillsByFeatures, v)
 									countLore++
 								}
@@ -109,6 +118,11 @@ func TestCalculateCharacter(t *testing.T) {
 								}
 							}
 						}
+						test1.ChosenClassFeatures = classFeatures
+						fmt.Println(race, class, background, tmpSkills, classFeatures)
+						res1, err1 := CalculateCharacter(test1)
+						assert.NotEmpty(t, res1)
+						assert.NoError(t, err1)
 					case "cleric":
 						classFeatures = append(classFeatures, "knowledge")
 						test1.ChosenLanguagesByFeatures = append(test1.ChosenLanguagesByFeatures, "primordial", "sylvan")
@@ -117,23 +131,53 @@ func TestCalculateCharacter(t *testing.T) {
 							if count >= 2 {
 								break
 							}
-							if !utils.StringInSlice(v, tmpSkills) && !utils.StringInSlice(v, backgroundSkills) {
+							if !utils.StringInSlice(v, tmpSkills) && !utils.StringInSlice(v, back.Skills) {
 								test1.ChosenSkillsByFeatures = append(test1.ChosenSkillsByFeatures, v)
 								count++
 							}
 						}
+						test1.ChosenClassFeatures = classFeatures
+						fmt.Println(race, class, background, tmpSkills, classFeatures)
+						res1, err1 := CalculateCharacter(test1)
+						assert.NotEmpty(t, res1)
+						assert.NoError(t, err1)
 					case "druid":
 						classFeatures = append(classFeatures, "land")
+						test1.ChosenClassFeatures = classFeatures
+						fmt.Println(race, class, background, tmpSkills, classFeatures)
+						res1, err1 := CalculateCharacter(test1)
+						assert.NotEmpty(t, res1)
+						assert.NoError(t, err1)
 					case "fighter":
 						classFeatures = append(classFeatures, "champion")
+						test1.ChosenClassFeatures = classFeatures
+						fmt.Println(race, class, background, tmpSkills, classFeatures)
+						res1, err1 := CalculateCharacter(test1)
+						assert.NotEmpty(t, res1)
+						assert.NoError(t, err1)
 					case "monk":
 						classFeatures = append(classFeatures, "open-hand")
+						test1.ChosenClassFeatures = classFeatures
+						fmt.Println(race, class, background, tmpSkills, classFeatures)
+						res1, err1 := CalculateCharacter(test1)
+						assert.NotEmpty(t, res1)
+						assert.NoError(t, err1)
+						assert.NotEmpty(t, res1.MonkMartial)
+						if level != 1 {
+							assert.NotEmpty(t, res1.MonkKi)
+						}
+						assert.NotEmpty(t, res1.MonkMovement)
 					case "ranger":
 						classFeatures = append(classFeatures, "hunter", "forest", "giants")
 						test1.ChosenLanguagesByFeatures = []string{"giant"}
 						if level >= 3 {
 							classFeatures = append(classFeatures, "colossus-slayer")
 						}
+						test1.ChosenClassFeatures = classFeatures
+						fmt.Println(race, class, background, tmpSkills, classFeatures)
+						res1, err1 := CalculateCharacter(test1)
+						assert.NotEmpty(t, res1)
+						assert.NoError(t, err1)
 					case "rogue":
 						classFeatures = append(classFeatures, "thief")
 						count := 0
@@ -146,23 +190,50 @@ func TestCalculateCharacter(t *testing.T) {
 								count++
 							}
 						}
+						test1.ChosenClassFeatures = classFeatures
+						fmt.Println(race, class, background, tmpSkills, classFeatures)
+						res1, err1 := CalculateCharacter(test1)
+						assert.NotEmpty(t, res1)
+						assert.NoError(t, err1)
+						assert.NotEmpty(t, res1.RogueSneak)
 					case "paladin":
 						classFeatures = append(classFeatures, "devotion")
+						test1.ChosenClassFeatures = classFeatures
+						fmt.Println(race, class, background, tmpSkills, classFeatures)
+						res1, err1 := CalculateCharacter(test1)
+						assert.NotEmpty(t, res1)
+						assert.NoError(t, err1)
 					case "sorcerer":
 						classFeatures = append(classFeatures, "draconic-bloodline", "black")
+						test1.ChosenClassFeatures = classFeatures
+						fmt.Println(race, class, background, tmpSkills, classFeatures)
+						res1, err1 := CalculateCharacter(test1)
+						assert.NotEmpty(t, res1)
+						assert.NoError(t, err1)
 					case "warlock":
 						classFeatures = append(classFeatures, "archfey")
 						if level >= 3 {
 							classFeatures = append(classFeatures, "chain")
 						}
+						test1.ChosenClassFeatures = classFeatures
+						fmt.Println(race, class, background, tmpSkills, classFeatures)
+						res1, err1 := CalculateCharacter(test1)
+						assert.NotEmpty(t, res1)
+						assert.NoError(t, err1)
+						assert.NotEmpty(t, res1.WarlockSlotLevel)
+						assert.NotEmpty(t, res1.WarlockSpellSlots)
+						if level != 1 {
+							assert.NotEmpty(t, res1.WarlockInvocationsKnown)
+						}
+
 					case "wizard":
 						classFeatures = append(classFeatures, "abjuration")
+						test1.ChosenClassFeatures = classFeatures
+						fmt.Println(race, class, background, tmpSkills, classFeatures)
+						res1, err1 := CalculateCharacter(test1)
+						assert.NotEmpty(t, res1)
+						assert.NoError(t, err1)
 					}
-					test1.ChosenClassFeatures = classFeatures
-					// fmt.Println(race, class, background, tmpSkills, classFeatures)
-					res1, err1 := CalculateCharacter(test1)
-					assert.NotEmpty(t, res1)
-					assert.NoError(t, err1)
 				}
 			}
 		}

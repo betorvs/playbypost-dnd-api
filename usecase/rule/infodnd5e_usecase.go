@@ -1,6 +1,11 @@
 package rule
 
-import "github.com/betorvs/playbypost-dnd/domain/rule"
+import (
+	"fmt"
+
+	"github.com/betorvs/playbypost-dnd/domain/rule"
+	"github.com/betorvs/playbypost-dnd/utils"
+)
 
 //AbilityList func
 func AbilityList() []string {
@@ -516,7 +521,7 @@ func ListInformation(name, value string) (*rule.SimpleList, error) {
 	return list, nil
 }
 
-//FullDescription func
+//FullDescription func returns a json content
 func FullDescription(kind, name, subname string) (*rule.FullDescription, error) {
 	fullDescription := new(rule.FullDescription)
 	switch kind {
@@ -526,8 +531,12 @@ func FullDescription(kind, name, subname string) (*rule.FullDescription, error) 
 		fullDescription.Description = ClassInfo(name)
 
 	case "background":
-		m, _ := BackgroundStatistics(name)
-		fullDescription.Description = m
+		back := BackgroundStatistics(name)
+		desc := make(map[string]string)
+		desc["language"] = fmt.Sprintf("%v", back.Language)
+		desc["extra"] = fmt.Sprintf("%v", back.Extra)
+		desc["link"] = back.Description
+		fullDescription.Description = desc
 
 	case "condition", "conditions":
 		d := conditionsMap(name)
@@ -539,4 +548,52 @@ func FullDescription(kind, name, subname string) (*rule.FullDescription, error) 
 	}
 
 	return fullDescription, nil
+}
+
+func SkillsJson() []rule.Skill {
+	var list []rule.Skill
+	for _, v := range SkillList() {
+		skill := SkillStatistics(v)
+		list = append(list, skill)
+	}
+	return list
+}
+
+func BackgroundJson() []*rule.Background {
+	var list []*rule.Background
+	for _, v := range BackgroundList() {
+		back := BackgroundStatistics(v)
+		list = append(list, back)
+	}
+	return list
+}
+
+func RaceJson() []*rule.Race {
+	var list []*rule.Race
+	for _, v := range RaceList() {
+		if utils.StringInSlice(v, RaceListWithSubrace()) {
+			for _, value := range SubraceList(v) {
+				race := RaceStatistics(v, value)
+				list = append(list, race)
+			}
+		} else if v == "dragonborn" {
+			for _, value := range dragonKinds() {
+				race := RaceStatistics(v, value)
+				list = append(list, race)
+			}
+		} else {
+			race := RaceStatistics(v, "")
+			list = append(list, race)
+		}
+	}
+	return list
+}
+
+func ClassJson() []rule.Class {
+	var list []rule.Class
+	for _, v := range ClassList() {
+		class := ClassStatistics(v, 20)
+		list = append(list, class)
+	}
+	return list
 }

@@ -1088,6 +1088,86 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "GET rule skills",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{server}}/playbypost-dnd/v1/rule/skills",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"playbypost-dnd",
+								"v1",
+								"rule",
+								"skills"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET rule backgrounds",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{server}}/playbypost-dnd/v1/rule/backgrounds",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"playbypost-dnd",
+								"v1",
+								"rule",
+								"backgrounds"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET rule races",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{server}}/playbypost-dnd/v1/rule/races",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"playbypost-dnd",
+								"v1",
+								"rule",
+								"races"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET rule classes",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{server}}/playbypost-dnd/v1/rule/classes",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"playbypost-dnd",
+								"v1",
+								"rule",
+								"classes"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},

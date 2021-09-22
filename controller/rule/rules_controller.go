@@ -48,6 +48,31 @@ func GetDescription(c echo.Context) (err error) {
 	return c.JSON(http.StatusOK, result)
 }
 
+// GetJSON controller
+func GetJSON(c echo.Context) (err error) {
+	kind := c.Param("kind")
+	switch kind {
+	case "class", "classes":
+		result := usecase.ClassJson()
+		return c.JSON(http.StatusOK, result)
+
+	case "race", "races":
+		result := usecase.RaceJson()
+		return c.JSON(http.StatusOK, result)
+
+	case "background", "backgrounds":
+		result := usecase.BackgroundJson()
+		return c.JSON(http.StatusOK, result)
+
+	case "skill", "skills":
+		result := usecase.SkillsJson()
+		return c.JSON(http.StatusOK, result)
+
+	}
+	errString := "Kind not implemented"
+	return c.JSON(http.StatusNotImplemented, utils.FormatMessage(errString))
+}
+
 // CheckRoll controller - not in use!
 // func CheckRoll(c echo.Context) (err error) {
 // 	kind := c.Param("kind")
@@ -109,10 +134,13 @@ func validateNames(req *rule.NewCharacter) (string, bool) {
 		}
 	}
 	// languages check
-	_, _, _, _, _, languages, _, _, _, _, _ := usecase.RaceStatistics(req.Race, "")
+	// _, _, _, _, _, languages, _, _, _, _, _ := usecase.RaceStatistics(req.Race, "")
+	raceStats := usecase.RaceStatistics(req.Race, "")
+	back := usecase.BackgroundStatistics(req.Background)
 	var numberOfLanguages int
-	if req.Background == "acolyte" || req.Background == "sage" {
-		numberOfLanguages = 2
+	// if req.Background == "acolyte" || req.Background == "sage" {
+	if back.AdditionalLanguages != 0 {
+		numberOfLanguages = back.AdditionalLanguages
 	}
 	if req.Race == "human" || req.Race == "half-elf" {
 		numberOfLanguages++
@@ -124,14 +152,15 @@ func validateNames(req *rule.NewCharacter) (string, bool) {
 		return fmt.Sprintf("Number of Languages wrongly %v must be %v", len(req.ChosenLanguages), numberOfLanguages), false
 	}
 	for _, v := range req.ChosenLanguages {
-		if utils.StringInSlice(v, languages) {
+		if utils.StringInSlice(v, raceStats.Language) {
 			return fmt.Sprintf("Language %s already present in your Race", v), false
 		}
 	}
 	// skills check
-	_, skills := usecase.BackgroundStatistics(req.Background)
+	// _, skills := usecase.BackgroundStatistics(req.Background)
+
 	for _, v := range req.ChosenSkills {
-		if utils.StringInSlice(v, skills) {
+		if utils.StringInSlice(v, back.Skills) {
 			return fmt.Sprintf("Skill %s already present in your Background", v), false
 		}
 	}

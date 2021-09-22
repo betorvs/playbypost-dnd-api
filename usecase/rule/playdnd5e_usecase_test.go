@@ -47,15 +47,15 @@ func TestCalculateSpellList(t *testing.T) {
 }
 
 func TestCalculateClassFeatureList(t *testing.T) {
-	test1 := "ranger"
+	test1 := ClassStatistics("ranger", 1)
 	level1 := 1
 	chosen1 := []string{"forest", "giants"}
-	res1 := CalculateClassFeatureList(test1, level1, chosen1)
+	res1 := CalculateClassFeatureList(test1.Features, level1, chosen1)
 	assert.GreaterOrEqual(t, len(res1), 2)
-	test2 := "ranger"
+	test2 := ClassStatistics("ranger", 2)
 	level2 := 2
 	chosen2 := []string{"dueling", "fighting-style"}
-	res2 := CalculateClassFeatureList(test2, level2, chosen2)
+	res2 := CalculateClassFeatureList(test2.Features, level2, chosen2)
 	assert.GreaterOrEqual(t, len(res2), 2)
 }
 
@@ -102,40 +102,42 @@ func TestRaceStatistics(t *testing.T) {
 		}
 
 		for _, v := range subrace {
-			size, speedMeasure, speed, ability, _, language, _, _, _, _, _ := RaceStatistics(value, v)
-			assert.NotEmpty(t, size)
-			assert.NotEmpty(t, speedMeasure)
-			assert.NotEmpty(t, speed)
-			assert.NotEmpty(t, ability)
-			assert.NotEmpty(t, language)
+			//size, speedMeasure, speed, ability, _, language, _, _, _, _, _ := RaceStatistics(value, v)
+			res := RaceStatistics(value, v)
+			assert.NotEmpty(t, res.Size)
+			assert.NotEmpty(t, res.Speedmeasure)
+			assert.NotEmpty(t, res.Speed)
+			assert.NotEmpty(t, res.Ability)
+			assert.NotEmpty(t, res.Language)
 		}
 
 	}
 }
 
 func TestRaceArmorProficiencyExtra(t *testing.T) {
-	test1 := []string{"Elf Weapon Training", "Dwarven Combat Training", "Dwarven Armor Training"}
-	for _, v := range test1 {
-		res1 := RaceArmorProficiencyExtra(v)
-		assert.GreaterOrEqual(t, len(res1), 2)
-		assert.NotEmpty(t, res1)
-	}
-	test2 := RaceArmorProficiencyExtra("human")
-	assert.Empty(t, test2)
+	// test1 := []string{"Elf Weapon Training", "Dwarven Combat Training", "Dwarven Armor Training"}
+	// for _, v := range test1 {
+	res1 := RaceStatistics("elf", "high-elf")
+	assert.GreaterOrEqual(t, len(res1.ArmorProficiency), 2)
+	assert.NotEmpty(t, res1)
+	res2 := RaceStatistics("dwarf", "mountain-dwarf")
+	assert.GreaterOrEqual(t, len(res2.ArmorProficiency), 2)
+	assert.NotEmpty(t, res2)
+	// }
+	test2 := RaceStatistics("human", "")
+	assert.Empty(t, test2.ArmorProficiency)
 }
 
 func TestBackgroundStatistics(t *testing.T) {
 	for _, v := range BackgroundList() {
-		res1, res2 := BackgroundStatistics(v)
+		res1 := BackgroundStatistics(v)
 		assert.NotEmpty(t, res1)
-		assert.NotEmpty(t, res2)
-		assert.GreaterOrEqual(t, len(res2), 2)
 	}
 }
 
-func TestClassStatistics(t *testing.T) {
+func TestClassDetails(t *testing.T) {
 	for _, v := range ClassList() {
-		hitDice, savings, armor, skill := ClassStatistics(v)
+		hitDice, savings, armor, skill := ClassDetails(v)
 		assert.NotEmpty(t, hitDice)
 		assert.NotEmpty(t, savings)
 		assert.NotEmpty(t, armor)
